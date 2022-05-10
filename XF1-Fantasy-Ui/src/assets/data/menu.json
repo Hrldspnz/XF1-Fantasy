@@ -1,0 +1,12 @@
+[
+  {"nombre": "Campeonato",
+   "redirect": "/main/championship"
+  },
+  { "nombre": "Reporte",
+    "redirect": "/main/report"
+  },
+  {
+    "nombre": "Escuderias",
+    "redirect": "/main/teams"
+  }
+]
