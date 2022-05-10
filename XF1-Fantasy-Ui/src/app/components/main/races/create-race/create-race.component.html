@@ -1,7 +1,86 @@
 <div class="container">
-    <mat-toolbar class="tolbar">
-      <span>Campeonatos</span>
-      <div class="example-spacer"></div>
-      <button routerLink="/main/create-championship" mat-stroked-button>Crear Campeonato</button>
-    </mat-toolbar>
-  </div>
+  <mat-toolbar class="tolbar">
+    <span>Crear Carrera</span>
+  </mat-toolbar>
+
+  <mat-card style="margin-top: 10px;">
+    <form [formGroup]="formRaces">
+      <mat-grid-list cols="3" rowHeight="140px">
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput formControlName="name" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>País</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let pais of paises" [value]="pais.value">
+                {{pais.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>País</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let pais of paises" [value]="pais.value">
+                {{pais.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Fecha de Inicio</mat-label>
+            <input type="date" matInput formControlName="startDate" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Fecha de Fin</mat-label>
+            <input type="date" matInput formControlName="endDate" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Hora de Inicio</mat-label>
+            <input type="time" matInput formControlName="startTime" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Hora de Fin</mat-label>
+            <input type="time" matInput formControlName="endTime" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          
+        </mat-grid-tile>
+
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
+          <button class="myButton" mat-raised-button>Guardar</button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </form>
+  </mat-card>
+</div>
