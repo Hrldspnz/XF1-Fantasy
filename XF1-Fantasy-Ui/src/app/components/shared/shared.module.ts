@@ -11,6 +11,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatCardModule} from '@angular/material/card';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSliderModule,
     MatIconModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule
   ],
   exports:[
     CommonModule,
@@ -44,7 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSliderModule,
     MatIconModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule
   ]
 })
 export class SharedModule { }

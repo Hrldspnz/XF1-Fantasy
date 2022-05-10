@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-championship',
@@ -6,13 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-championship.component.css']
 })
 export class CreateChampionshipComponent implements OnInit {
-  tiles: any[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-  ];
-  constructor() { }
+
+  formChampionship: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.formChampionship = this.fb.group ({
+      name: ['', Validators.required],
+      rules: ['', Validators.required],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      budget: ['', Validators.required]
+      })
+   }
 
   ngOnInit(): void {
   }

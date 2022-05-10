@@ -4,29 +4,62 @@
   </mat-toolbar>
 
   <mat-card style="margin-top: 10px;">
-    <form >
+    <form [formGroup]="formChampionship">
       <mat-grid-list cols="4" rowHeight="70px">
-        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          Nombre
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput formControlName="name" autocomplete="off">
+          </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          Fecha de Inicio
+
+        <mat-grid-tile [colspan]="3" [rowspan]="5">
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Reglas</mat-label>
+            <textarea  matInput formControlName="rules" ></textarea>
+          </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          Fecha de Fin
+
+        <mat-grid-tile [colspan]="1" [rowspan]="2">
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Fecha de Inicio</mat-label>
+            <input type="date" matInput formControlName="startDate" autocomplete="off">
+          </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          Hora de Inicio
+
+        <mat-grid-tile [colspan]="1" [rowspan]="2">
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Fecha de Fin</mat-label>
+            <input type="date" matInput formControlName="endDate" autocomplete="off">
+          </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          Hora de Fin
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Hora de Inicio</mat-label>
+            <input type="time" matInput formControlName="startTime" autocomplete="off">
+          </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          Presupuesto
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Hora de Fin</mat-label>
+            <input type="time" matInput formControlName="endTime" autocomplete="off">
+          </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          Reglas
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Presupuesto</mat-label>
+            <input type="text" matInput formControlName="budget"autocomplete="off">
+          </mat-form-field>
         </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
+          <button class="myButton" mat-raised-button>Guardar</button>
+        </mat-grid-tile>
+
       </mat-grid-list>
     </form>
   </mat-card>
