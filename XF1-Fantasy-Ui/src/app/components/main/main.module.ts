@@ -9,6 +9,7 @@ import { ChampionshipComponent } from './championship/championship.component';
 import { SharedModule } from '../shared/shared.module';
 import { CreateChampionshipComponent } from './championship/create-championship/create-championship.component';
 import { RacesComponent } from './races/races.component';
+import { CreateRaceComponent } from './races/create-race/create-race.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RacesComponent } from './races/races.component';
     NavbarComponent,
     ChampionshipComponent,
     CreateChampionshipComponent,
-    RacesComponent
+    RacesComponent,
+    CreateRaceComponent
   ],
   imports: [
     CommonModule,

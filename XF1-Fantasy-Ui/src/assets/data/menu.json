@@ -8,5 +8,8 @@
   {
     "nombre": "Escuderias",
     "redirect": "/main/teams"
-  }
+  },
+  {"nombre": "Carreras",
+    "redirect": "/main/races"
+   }
 ]
