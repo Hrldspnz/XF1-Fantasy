@@ -7,6 +7,7 @@ import { StartComponent } from './start/start.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ChampionshipComponent } from './championship/championship.component';
 import { SharedModule } from '../shared/shared.module';
+import { CreateChampionshipComponent } from './championship/create-championship/create-championship.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { SharedModule } from '../shared/shared.module';
     MainComponent,
     StartComponent,
     NavbarComponent,
-    ChampionshipComponent
+    ChampionshipComponent,
+    CreateChampionshipComponent
   ],
   imports: [
     CommonModule,
