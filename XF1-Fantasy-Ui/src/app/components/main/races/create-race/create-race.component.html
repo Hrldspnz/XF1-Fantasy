@@ -5,39 +5,18 @@
 
   <mat-card style="margin-top: 10px;">
     <form [formGroup]="formRaces">
-      <mat-grid-list cols="3" rowHeight="140px">
+      <mat-grid-list cols="4" rowHeight="100px">
 
         <mat-grid-tile [colspan]="1" [rowspan]="1" >
           <mat-form-field class="ancho" appearance="fill">
-            <mat-label>Nombre</mat-label>
+            <mat-label>Nombre Carrera</mat-label>
             <input type="text" matInput formControlName="name" autocomplete="off">
           </mat-form-field>
         </mat-grid-tile>
 
-
-        <mat-grid-tile [colspan]="1" [rowspan]="1" >
-          <mat-form-field class="ancho" appearance="fill">
-            <mat-label>País</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let pais of paises" [value]="pais.value">
-                {{pais.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          
         </mat-grid-tile>
-
-
-        <mat-grid-tile [colspan]="1" [rowspan]="1" >
-          <mat-form-field class="ancho" appearance="fill">
-            <mat-label>País</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let pais of paises" [value]="pais.value">
-                {{pais.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-grid-tile>
-        
 
         <mat-grid-tile [colspan]="1" [rowspan]="1">
           <mat-form-field class="ancho" appearance="fill">
@@ -50,6 +29,15 @@
           <mat-form-field class="ancho" appearance="fill">
             <mat-label>Fecha de Fin</mat-label>
             <input type="date" matInput formControlName="endDate" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <!-- Segunda fila -->
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Nombre Pista</mat-label>
+            <input type="text" matInput formControlName="name" autocomplete="off">
           </mat-form-field>
         </mat-grid-tile>
 
@@ -71,9 +59,42 @@
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <!-- Tercera columna -->
+
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>País</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let pais of paises" [value]="pais.value">
+                {{pais.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
           
         </mat-grid-tile>
+
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Campeonatos</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let campeonato of campeonatos" [value]="campeonato.value">
+                {{campeonato.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
+          
+        </mat-grid-tile>
+
+      
+
 
 
         <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
