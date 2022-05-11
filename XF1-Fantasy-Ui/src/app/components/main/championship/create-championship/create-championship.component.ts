@@ -13,6 +13,11 @@ export class CreateChampionshipComponent implements OnInit {
   listIDs: string[] = [];
   listStartDates: string[] = [];
 
+  /**
+   * Método constructor
+   * @param fb Contructor de formulario
+   * @param _championshipService Servicio para el campeonato
+   */
   constructor(private fb: FormBuilder,
               private _championshipService: ChampionshipService) {
     this.formChampionship = this.fb.group ({
@@ -26,11 +31,17 @@ export class CreateChampionshipComponent implements OnInit {
       })
    }
 
+   /**
+    * Método que ejecuta otros métodos al iniciar el componente
+    */
   ngOnInit(): void {
     this.getIDs();
 
   }
 
+  /**
+   * Este metodo obtiene todos los ID de los campeonatos existentes
+   */
   getIDs(){
     console.log("deaaaay")
    this._championshipService.getChampionships().subscribe(
@@ -49,6 +60,10 @@ export class CreateChampionshipComponent implements OnInit {
      });
   }
 
+  /**
+   * Metodo que genera y valida el ID para un nuevo campeonatp
+   * @returns string con el un ID de 6 unico de cartacteres
+   */
   generateID() {
     let result = '';
     let resultAux = '';
@@ -67,7 +82,11 @@ export class CreateChampionshipComponent implements OnInit {
     return result;
   }
 
-   textValidation(): boolean{
+  /**
+   * Metodo que valida si las reglas y nombre del campeonato cumplen el tamaño requerido
+   * @returns boolean, true si el Nombre y reglas del campeonato cumplen con el tamaño
+   */
+  textValidation(): boolean{
     let valiFlag = false;
     const lengthName = this.formChampionship.value.name.length;
     const lengthRule = this.formChampionship.value.rules.length;
@@ -81,6 +100,10 @@ export class CreateChampionshipComponent implements OnInit {
     return valiFlag;
    }
 
+  /**
+   * Metodo que valida si la fechas de inicio o pasado son anteriores al día de hoy
+   * @returns boolean, false si el campeonato esta siendo creado en el pasado
+   */
   dateValidation(): boolean {
     var isValid:boolean;
     var today = new Date();
@@ -94,6 +117,10 @@ export class CreateChampionshipComponent implements OnInit {
     return isValid
   }
 
+
+  /**
+ * Método que crea el nuevo campeonato si las validaciones son correctas
+ */
   addChampionship(){
     let nameValid = this.textValidation();
     let dateValid = this.dateValidation();
