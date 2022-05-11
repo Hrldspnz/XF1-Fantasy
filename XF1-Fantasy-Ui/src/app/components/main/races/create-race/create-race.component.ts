@@ -26,7 +26,11 @@ export class CreateRaceComponent implements OnInit {
   ];
 
   champions: Datos[] = [];
-
+  /**
+   * It's the constructor of the class
+   * @param fb is a builder for a user form
+   * @param _racesService is the service to connnect to the api
+   */
   constructor(
     private fb: FormBuilder,
     private _racesService: RacesService
@@ -66,7 +70,9 @@ export class CreateRaceComponent implements OnInit {
       }
     )
   }
-
+  /**
+   * Saves the race created by the user
+   */
   public SaveRace() {
     console.log("Save Values");
     console.log(this.formRaces.value);
@@ -83,7 +89,7 @@ export class CreateRaceComponent implements OnInit {
         race_state: 'Pendiente',
         tournament_id: this.formRaces.value.champion
       }
-      //this._racesService.createRace(newRace);
+      this._racesService.createRace(newRace);
     }
     if(this.racesDates()) {
 
@@ -111,8 +117,8 @@ export class CreateRaceComponent implements OnInit {
   }
 
   /**
-   * 
-   * @returns 
+   * Does a validation of the date
+   * @returns true if the validation is correct
    */
   public racesDates(): boolean{
     this._racesService.getRaces().subscribe(
@@ -148,12 +154,15 @@ export class CreateRaceComponent implements OnInit {
     )
     return true
   }
-
+  /**
+   * Does a validation for the text
+   * @returns a flag with the result of validation
+   */
   textValidation(): boolean{
     let valiFlag = false;
     const lengthName = this.formRaces.value.name.length;
-    const lengthRule = this.formRaces.value.rules.length;
-    if (lengthName > 4 && lengthName < 30 && lengthRule < 1000){
+    const lengthRule = this.formRaces.value.track.length;
+    if (lengthName > 4 && lengthName < 30 && lengthRule < 30 &&lengthRule > 4){
 
       valiFlag = true;
     }else{
