@@ -4,7 +4,7 @@
   </mat-toolbar>
 
   <mat-card style="margin-top: 10px;">
-    <form [formGroup]="formChampionship">
+    <form [formGroup]="formChampionship" (ngSubmit)="addChampionship()">
       <mat-grid-list cols="4" rowHeight="70px">
 
         <mat-grid-tile [colspan]="1" [rowspan]="1" >
@@ -52,12 +52,13 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1">
           <mat-form-field class="ancho" appearance="fill">
             <mat-label>Presupuesto</mat-label>
-            <input type="text" matInput formControlName="budget"autocomplete="off">
+            <input type="text" matInput formControlName="budget" autocomplete="off">
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          <button class="myButton" mat-raised-button>Guardar</button>
+          <button type="submit" [disabled]="formChampionship.invalid" class="myButton" mat-raised-button>Guardar</button>
+          <button class="myButton" routerLink="/main/championship" mat-raised-button>VOLVER</button>
         </mat-grid-tile>
 
       </mat-grid-list>

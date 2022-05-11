@@ -12,6 +12,14 @@ export class ChampionshipService {
   constructor(
     public _http: HttpClient
   ) {
-      this.url =  "https://nutritecapi.azurewebsites.net/";
+      this.url =  "https://apixfia.azurewebsites.net/";
     }
+
+addChampionship(championship: Object){
+  console.log(this.url+'api/tournament/newtnmt');
+  this._http.post(this.url+'api/tournament/newtnmt', championship).subscribe(data => {
+  console.log(Object);
+  });
+}
+
 }
