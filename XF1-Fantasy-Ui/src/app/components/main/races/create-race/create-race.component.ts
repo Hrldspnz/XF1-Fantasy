@@ -109,26 +109,35 @@ export class CreateRaceComponent implements OnInit {
     }
     return isValid
   }
+
+  /**
+   * 
+   * @returns 
+   */
   public racesDates(): boolean{
     this._racesService.getRaces().subscribe(
       result=> {
         let counter=0;
-        var today = new Date();
-        var date = today.getFullYear()+'-0'+(today.getMonth()+1)+'-'+today.getDate();
+        var dateBegin = this.formRaces.value.startDate;
+        var dateEnd = this.formRaces.value.endDate;
+
         while(result[counter]!=undefined){
           console.log(result[counter].date_begin)
           console.log(result[counter].date_end)
           
-          let raceDate=this.DateSplit(result[counter].date_begin);
+          let raceDateBegin=this.DateSplit(result[counter].date_begin);
+          let raceDateEnd=this.DateSplit(result[counter].date_end);
 
           //-------------------------------------------------------------
-          console.log(date)
-          console.log(raceDate)
-          if (raceDate < date) {
+          console.log(dateBegin)
+          console.log(raceDateBegin)
+          if ((dateBegin> raceDateBegin && dateBegin <raceDateEnd) || 
+          (dateEnd> raceDateBegin && dateEnd <raceDateEnd) ) {
             console.log("Selected date is after another race");
+            alert("Ya existe una carrera en esta fecha\nSeleccione otra fecha")
           } else {
             console.log("Selected date is before another race");
-            alert("Esta se necesita si")
+            
           }
           counter++; 
         }
@@ -140,6 +149,24 @@ export class CreateRaceComponent implements OnInit {
     return true
   }
 
+  textValidation(): boolean{
+    let valiFlag = false;
+    const lengthName = this.formRaces.value.name.length;
+    const lengthRule = this.formRaces.value.rules.length;
+    if (lengthName > 4 && lengthName < 30 && lengthRule < 1000){
+
+      valiFlag = true;
+    }else{
+      alert("El nombre o las reglas no cumplen con la cantidad de caracteres requeridos")
+      valiFlag = false;
+    }
+    return valiFlag;
+   }
+  /**
+   * Makes a split 
+   * @param word 
+   * @returns 
+   */
   public DateSplit(word:string):string{
     let dateSplit= word.split(" ");
     let firstPosSplit= dateSplit[0];
