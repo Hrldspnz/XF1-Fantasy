@@ -37,7 +37,7 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1" >
           <mat-form-field class="ancho" appearance="fill">
             <mat-label>Nombre Pista</mat-label>
-            <input type="text" matInput formControlName="name" autocomplete="off">
+            <input type="text" matInput formControlName="track" autocomplete="off">
           </mat-form-field>
         </mat-grid-tile>
 
@@ -65,9 +65,9 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1" >
           <mat-form-field class="ancho" appearance="fill">
             <mat-label>País</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let pais of paises" [value]="pais.value">
-                {{pais.viewValue}}
+            <mat-select matInput formControlName="country">
+              <mat-option *ngFor="let country of countries" [value]="country.value">
+                {{country.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -81,9 +81,9 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1" >
           <mat-form-field class="ancho" appearance="fill">
             <mat-label>Campeonatos</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let campeonato of campeonatos" [value]="campeonato.value">
-                {{campeonato.viewValue}}
+            <mat-select matInput formControlName="champion">
+              <mat-option *ngFor="let champion of champions" [value]="champion.value">
+                {{champion.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -98,7 +98,7 @@
 
 
         <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          <button class="myButton" mat-raised-button>Guardar</button>
+          <button class="myButton" mat-raised-button (click)="SaveRace()">Guardar</button>
         </mat-grid-tile>
 
       </mat-grid-list>
