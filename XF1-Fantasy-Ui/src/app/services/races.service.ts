@@ -21,8 +21,13 @@ export class RacesService {
 
   public createRace(raceData:Object) {
     console.log(this.url+'api/race/newrace');
+    console.log(raceData)
       this._http.post(this.url+'api/race/newrace', raceData).subscribe(data => {
       console.log(data);
     });
+  }
+
+  public getRaces(): Observable<any>{
+    return this._http.get(this.url + 'api/race');
   }
 }
