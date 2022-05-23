@@ -98,7 +98,7 @@
 
 
         <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-          <button class="myButton" mat-raised-button (click)="SaveRace()">Guardar</button>
+          <button class="myButton" mat-raised-button (click)="SaveRace()" [disabled]="formRaces.invalid">Guardar</button>
         </mat-grid-tile>
 
       </mat-grid-list>
