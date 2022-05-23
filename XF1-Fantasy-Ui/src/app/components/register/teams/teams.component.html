@@ -1,0 +1,76 @@
+<div>
+  <mat-toolbar class="mainTolbar">
+    <span>Creación Escudería</span>
+  </mat-toolbar>
+  <mat-grid-list  cols="2" rowHeight="510px">
+
+    <mat-grid-tile [colspan]="1">
+      <mat-card class="teamCard">
+        <mat-toolbar>
+          <span>Equipo 1</span>
+          <span class="example-spacer"></span>
+          <button mat-raised-button>Editar</button>
+        </mat-toolbar>
+        <table mat-table [dataSource]="dataSource" class="teamTable">
+
+          <!-- Rol Column -->
+          <ng-container matColumnDef="rol">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Precio</th>
+            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1">
+      <mat-card class="teamCard">
+        <mat-toolbar>
+          <span>Equipo 2</span>
+          <span class="example-spacer"></span>
+          <button mat-raised-button>Editar</button>
+        </mat-toolbar>
+        <table mat-table [dataSource]="dataSource" class="teamTable">
+
+          <!-- Rol Column -->
+          <ng-container matColumnDef="rol">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Price Column -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Precio</th>
+            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</div>
