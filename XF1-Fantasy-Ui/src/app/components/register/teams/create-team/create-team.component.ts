@@ -4,29 +4,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export interface Driver {
   name: string;
   price: number;
+  state: string;
 }
 
 export interface Constructor {
   name: string;
   price: number;
+  state: string;
 }
 
 const dataDrivers: Driver[] = [
-  {name: 'Lewis Hamilton', price: 20},
-  {name: 'Charles Leclerc', price: 14},
-  {name: 'Valtteri Bottas', price: 6},
-  {name: 'Sergio Perez', price: 9},
-  { name: 'Fernando Alonso', price: 10},
-  {name: 'Ferrari', price: 12},
+  {name: 'Lewis Hamilton', price: 20, state: "notChoosed"},
+  {name: 'Charles Leclerc', price: 14, state: "notChoosed"},
+  {name: 'Valtteri Bottas', price: 6, state: "notChoosed"},
+  {name: 'Sergio Perez', price: 9, state: "notChoosed"},
+  {name: 'Fernando Alonso', price: 10, state: "notChoosed"},
+  {name: 'Ferrari', price: 12, state: "notChoosed"}
 ];
 
 const dataConstructors: Constructor[] = [
-  {name: 'Mercedes', price: 30},
-  {name: 'RedBull', price: 27},
-  {name: 'Mclaren', price: 22},
-  {name: 'Ferrari', price: 25},
-  {name: 'Haas', price: 15},
-  {name: 'Alfa Romeo', price: 12},
+  {name: 'Mercedes', price: 30, state: "notChoosed"},
+  {name: 'RedBull', price: 27, state: "notChoosed"},
+  {name: 'Mclaren', price: 22, state: "notChoosed"},
+  {name: 'Ferrari', price: 25, state: "notChoosed"},
+  {name: 'Haas', price: 15, state: "notChoosed"},
+  {name: 'Alfa Romeo', price: 12, state: "notChoosed"}
 ];
 
 @Component({
@@ -36,8 +38,8 @@ const dataConstructors: Constructor[] = [
 })
 export class CreateTeamComponent implements OnInit {
 
-  displayedColumnsDrivers: string[] = ['name', 'price'];
-  displayedColumnsConstructors: string[] = ['name', 'price'];
+  displayedColumnsDrivers: string[] = ['name', 'price', 'actions'];
+  displayedColumnsConstructors: string[] = ['name', 'price', 'actions'];
   dataSourceDrivers= dataDrivers;
   dataSourceConstructors = dataConstructors;
   stepTeam = 0;
@@ -60,6 +62,10 @@ export class CreateTeamComponent implements OnInit {
 
   createTeam(){
     console.log("CREANDO EQUIPO")
+  }
+
+  changeStateDriver(index: number) {
+    console.log(index)
   }
 
   setStep(index: number) {
