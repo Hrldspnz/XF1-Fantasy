@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -41,7 +42,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatStepperModule,
     MatTableModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatPaginatorModule,
   ],
   exports:[
     CommonModule,
@@ -62,7 +64,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatStepperModule,
     MatTableModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatPaginatorModule,
   ]
 })
 export class SharedModule { }

@@ -3,7 +3,7 @@
     <span>Creación Escudería</span>
   </mat-toolbar>
 
-  <mat-grid-list  cols="2" rowHeight="610px">
+  <mat-grid-list  cols="2" rowHeight="820px">
 
 <!-- -----------------------------------------------Tile para seleccionar equipo--------------------------------------------------- -->
 <mat-grid-tile [colspan]="1">
@@ -43,15 +43,14 @@
             <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;">
               <a *ngIf="element.state == 'notChoosed'"
                     class="pointer"  style="color:
-                   green;" matTooltip="Editar Empleado">
-                  <button class="esperaButton" (click)="changeStateDriver(1)"
-                  mat-button>APROBAR</button>
+                   green;" >
+                  <button class="esperaButton" (click)="addDriver(element.name, element.price)"
+                  mat-button>Agregar</button>
               </a>
               <a *ngIf="element.state == 'choosed'" class="pointer"
-                    style="color: indianred;"
-                    matTooltip="Eliminar Empleado">
-                    <button class="esperaButton" (click)="changeStateDriver(1)"
-                     mat-button>ESPERA</button>
+                    style="color: indianred;">
+                    <button class="esperaButton" (click)="deleteDriver(element.name, element.price)"
+                     mat-button>Eliminar</button>
               </a>
             </td>
           </ng-container>
@@ -59,6 +58,7 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumnsDrivers"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumnsDrivers;"></tr>
         </table>
+        <mat-paginator [pageSize]="5"></mat-paginator>
 
         <mat-action-row>
           <button mat-button color="primary" (click)="nextStep()">Constructor</button>
@@ -100,14 +100,14 @@
               <a *ngIf="element.state == 'notChoosed'"
                     class="pointer"  style="color:
                    green;" matTooltip="Editar Empleado">
-                  <button class="esperaButton" (click)="changeStateDriver(1)"
-                  mat-button>APROBAR</button>
+                  <button class="esperaButton" (click)="addDeleteConstructor(element.name, element.price, 'add')"
+                  mat-button>Agregar</button>
               </a>
               <a *ngIf="element.state == 'choosed'" class="pointer"
                     style="color: indianred;"
                     matTooltip="Eliminar Empleado">
-                    <button class="esperaButton" (click)="changeStateDriver(1)"
-                     mat-button>ESPERA</button>
+                    <button class="esperaButton" (click)="addDeleteConstructor(element.name, element.price, 'delete')"
+                     mat-button>Eliminar</button>
               </a>
           </td>
           </ng-container>
@@ -134,51 +134,73 @@
       <form [formGroup]="formTeam1" (ngSubmit)="createTeam()">
         <mat-grid-list cols="2" rowHeight="70px">
 
+
+          <mat-grid-tile [colspan]="2" [rowspan]="1" >
+            <mat-form-field class="ancho" appearance="fill">
+              <mat-label>Nombre del Equipo</mat-label>
+              <input type="text" matInput formControlName="teamName" autocomplete="off">
+            </mat-form-field>
+          </mat-grid-tile>
+
           <mat-grid-tile [colspan]="1" [rowspan]="1" >
+            <mat-form-field class="ancho" appearance="fill">
+              <mat-label>Presupuesto Gastado</mat-label>
+              <input type="text" matInput formControlName="spentBudget" autocomplete="off" readonly>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="1" [rowspan]="1" >
+            <mat-form-field class="ancho" appearance="fill">
+              <mat-label>Presupuesto Disponible</mat-label>
+              <input type="text" matInput formControlName="remainingBudget" autocomplete="off" readonly>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="2" [rowspan]="1" >
             <mat-form-field class="ancho" appearance="fill">
               <mat-label>Plioto 1</mat-label>
               <input type="text" matInput formControlName="driver1" autocomplete="off" readonly>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="ancho" appearance="fill">
               <mat-label>Plioto 2</mat-label>
-              <input type="text" matInput formControlName="driver1" autocomplete="off" readonly>
+              <input type="text" matInput formControlName="driver2" autocomplete="off" readonly>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="1" [rowspan]="2">
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="ancho" appearance="fill">
               <mat-label>Plioto 3</mat-label>
-              <input type="text" matInput formControlName="driver1" autocomplete="off" readonly>
+              <input type="text" matInput formControlName="driver3" autocomplete="off" readonly>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="1" [rowspan]="2">
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="ancho" appearance="fill">
               <mat-label>Plioto 4</mat-label>
-              <input type="text" matInput formControlName="driver1" autocomplete="off" readonly>
+              <input type="text" matInput formControlName="driver4" autocomplete="off" readonly>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
             <mat-form-field class="ancho" appearance="fill">
               <mat-label>Plioto 5</mat-label>
-              <input type="text" matInput formControlName="driver1" autocomplete="off" readonly>
+              <input type="text" matInput formControlName="driver5" autocomplete="off" readonly>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-grid-tile [colspan]="2" [rowspan]="1" >
             <mat-form-field class="ancho" appearance="fill">
               <mat-label>Constructor</mat-label>
-              <input type="text" matInput formControlName="driver1" autocomplete="off" readonly>
+              <input type="text" matInput formControlName="constructor" autocomplete="off" readonly>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
+          <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'ligthblue'">
             <button type="submit" [disabled]="formTeam1.invalid" class="myButton" mat-raised-button>Guardar</button>
-            <button class="myButton" routerLink="/register" mat-raised-button>VOLVER</button>
+            <button class="myButton" routerLink="/register" mat-raised-button>Siguiente</button>
           </mat-grid-tile>
 
         </mat-grid-list>

@@ -42,8 +42,8 @@
       </mat-grid-tile>
 
       <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-        <button type="submit" [disabled]="formDataUser.invalid" class="myButton" mat-raised-button>Guardar</button>
-        <button class="myButton" routerLink="/register/teams" mat-raised-button>VOLVER</button>
+        <button type="submit" onclick="addUser()" [disabled]="formDataUser.invalid" class="myButton" mat-raised-button>Guardar</button>
+        <button *ngIf="flagNext" class="myButton" routerLink="/register/create-team" mat-raised-button> Siguiente </button>
       </mat-grid-tile>
 
     </mat-grid-list>
