@@ -18,7 +18,8 @@ export class PlayersService {
     return this._http.post(this.url+'api/player/createAcc', dataUser);
   }
 
-
-
+  activeUserAcc(dataUser: Object): Observable<any>{
+    return this._http.put(this.url+'api/player/userstate', dataUser);
+  }
 
 }

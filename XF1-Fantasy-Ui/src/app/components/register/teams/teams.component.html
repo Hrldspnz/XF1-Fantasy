@@ -6,17 +6,6 @@
   <mat-card class="teamCard">
   <mat-grid-list  cols="2" rowHeight="100px">
 
-
-    <form [formGroup]="formScuderia" (ngSubmit)="createScuderia()">
-      <mat-grid-tile *ngIf="flagScuderia" [colspan]="2">
-        <mat-form-field class="ancho" appearance="fill">
-          <mat-label>Nombre de Escudería</mat-label>
-          <input matInput autocomplete="off" formControlName="nameScuderia">
-        </mat-form-field>
-        <button type="submit" [disabled]="formScuderia.invalid" mat-raised-button>Guardar</button>
-      </mat-grid-tile>
-    </form>
-
     <mat-grid-tile *ngIf="flagTeam1" [colspan]="2">
         <mat-toolbar>
           <span>Equipo 1</span>

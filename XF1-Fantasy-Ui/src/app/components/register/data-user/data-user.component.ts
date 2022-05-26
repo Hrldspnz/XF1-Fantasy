@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PlayersService } from 'src/app/services/players.service';
+import { TeamsService } from 'src/app/services/teams.service';
+import { TeamsComponent } from '../teams/teams.component';
 
 @Component({
   selector: 'app-data-user',
@@ -11,18 +13,24 @@ import { PlayersService } from 'src/app/services/players.service';
 export class DataUserComponent implements OnInit {
 
   formDataUser: FormGroup;
-  flagNext = false;
+  formScuderia: FormGroup;
+  flagScuderia = false;
+  flagData = true;
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private _userService: PlayersService)
+              private _userService: PlayersService,
+              private _teamsService: TeamsService)
   {
     this.formDataUser = this.fb.group ({
       name: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
       passwordConfirm: ['', Validators.required],
-      country: ['', Validators.required]
+      country: ['', Validators.required],
+    })
+    this.formScuderia = this.fb.group ({
+      nameScuderia: ['', Validators.required]
     })
   }
 
@@ -33,7 +41,7 @@ export class DataUserComponent implements OnInit {
   addUser(){
     if (this.formDataUser.value.password != this.formDataUser.value.passwordConfirm){
       alert ("Las constraseñas no coinciden")
-    }else {
+    } else {
       alert("Se han guardado los datos correctamente")
       const newUser: Object =
       {
@@ -42,16 +50,34 @@ export class DataUserComponent implements OnInit {
         country: this.formDataUser.value.country,
         pass: this.formDataUser.value.password,
         statePlayer: "inactivo"
-      }
-      console.log(newUser)
-      /*this._userService.addNewUser(newUser).subscribe(data => {
+      };
+      this._userService.addNewUser(newUser).subscribe(data => {
         console.log(data);
+        this.flagData = false;
+        this.flagScuderia = true;
       }, error => {
         alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
       }
-      );*/
-      this.router.navigate(['/register/create-team/' + this.formDataUser.value.email]);
+      );
     }
   }
 
+
+  createScuderia(){
+    const scuderia: Object =
+      {
+        nameScuderia: this.formScuderia.value.nameScuderia,
+        email: this.formDataUser.value.email,
+      }
+      console.log(scuderia)
+      this._teamsService.addNewScuderia(scuderia).subscribe(data => {
+        console.log(data);
+        this.router.navigate(['/register/create-team/' + this.formDataUser.value.email]);
+      }, error => {
+        alert("Error al crear la escudería")
+      }
+      );
+    }
+
 }
+
