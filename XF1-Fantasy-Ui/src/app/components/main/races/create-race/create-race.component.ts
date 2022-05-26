@@ -42,7 +42,7 @@ export class CreateRaceComponent implements OnInit {
       endTime: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      country: ['', Validators.required],
+      thiscountry: ['', Validators.required],
       champion: ['', Validators.required]
       })
    }
@@ -77,22 +77,21 @@ export class CreateRaceComponent implements OnInit {
     console.log("Save Values");
     console.log(this.formRaces.value);
     if (this.dateValidation()) {
-      var newRace:Object= {
-        iD_Race: this.generateId(),
-        race_name: this.formRaces.value.name,
-        race_track: this.formRaces.value.track,
-        country: this.formRaces.value.country,
-        date_begin: this.formRaces.value.startDate,
-        hour_begin: this.formRaces.value.startTime,
-        date_end: this.formRaces.value.endDate,
-        hour_end: this.formRaces.value.endTime,
-        race_state: 'Pendiente',
-        tournament_id: this.formRaces.value.champion
+      if(this.racesDates()) {
+        var newRace:Object= {
+          iD_Race: this.generateId(),
+          race_name: this.formRaces.value.name,
+          race_track: this.formRaces.value.track,
+          country: this.formRaces.value.thiscountry,
+          date_begin: this.formRaces.value.startDate,
+          hour_begin: this.formRaces.value.startTime,
+          date_end: this.formRaces.value.endDate,
+          hour_end: this.formRaces.value.endTime,
+          race_state: 'Pendiente',
+          tournament_id: this.formRaces.value.champion
+        }
+        //this._racesService.createRace(newRace);
       }
-      this._racesService.createRace(newRace);
-    }
-    if(this.racesDates()) {
-
     }
 
   }
@@ -107,10 +106,8 @@ export class CreateRaceComponent implements OnInit {
 
     if (this.formRaces.value.startDate < date) {
       alert("No se pueden crear carreras en el pasado \nVuelva a ingresar la fecha")
-      console.log("Selected date is in the past");
       isValid=false;
     } else {
-      console.log("Selected date is NOT in the past");
       isValid=true;
     }
     return isValid
@@ -121,38 +118,40 @@ export class CreateRaceComponent implements OnInit {
    * @returns true if the validation is correct
    */
   public racesDates(): boolean{
+    var flag:boolean=true;
     this._racesService.getRaces().subscribe(
       result=> {
         let counter=0;
         var dateBegin = this.formRaces.value.startDate;
         var dateEnd = this.formRaces.value.endDate;
-
+        flag=true;
+        
         while(result[counter]!=undefined){
-          console.log(result[counter].date_begin)
-          console.log(result[counter].date_end)
           
           let raceDateBegin=this.DateSplit(result[counter].date_begin);
           let raceDateEnd=this.DateSplit(result[counter].date_end);
 
           //-------------------------------------------------------------
-          console.log(dateBegin)
-          console.log(raceDateBegin)
-          if ((dateBegin> raceDateBegin && dateBegin <raceDateEnd) || 
-          (dateEnd> raceDateBegin && dateEnd <raceDateEnd) ) {
-            console.log("Selected date is after another race");
-            alert("Ya existe una carrera en esta fecha\nSeleccione otra fecha")
+          if ((dateBegin>raceDateEnd&& dateEnd>raceDateEnd) ||
+           (dateBegin<raceDateBegin&& dateEnd<raceDateBegin)) {
+            flag=true;
+            console.log("se hace true si señor")
+            
           } else {
-            console.log("Selected date is before another race");
+            alert("Ya existe una carrera en esta fecha\nSeleccione otra fecha")
+            flag=false;
+            break
             
           }
           counter++; 
         }
       },
       error=>{
-
+        console.log("There's an error getting dates of races")
       }
+      
     )
-    return true
+    return flag
   }
   /**
    * Does a validation for the text

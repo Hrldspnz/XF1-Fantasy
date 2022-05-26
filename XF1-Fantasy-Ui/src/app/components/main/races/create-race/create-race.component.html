@@ -65,7 +65,7 @@
         <mat-grid-tile [colspan]="1" [rowspan]="1" >
           <mat-form-field class="ancho" appearance="fill">
             <mat-label>País</mat-label>
-            <mat-select matInput formControlName="country">
+            <mat-select matInput formControlName="thiscountry">
               <mat-option *ngFor="let country of countries" [value]="country.value">
                 {{country.viewValue}}
               </mat-option>
