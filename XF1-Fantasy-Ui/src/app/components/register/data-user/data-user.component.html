@@ -1,0 +1,52 @@
+<div>
+<mat-toolbar class="mainTolbar">
+  <span>Datos del Usuario</span>
+</mat-toolbar>
+<mat-card class="cardDataUser">
+  <form [formGroup]="formDataUser" (ngSubmit)="addUser()">
+    <mat-grid-list cols="2" rowHeight="70px">
+
+      <mat-grid-tile [colspan]="2" [rowspan]="1" >
+        <mat-form-field class="tile" appearance="fill">
+          <mat-label>Nombre Completo</mat-label>
+          <input type="text" matInput formControlName="name" autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2" [rowspan]="1">
+        <mat-form-field class="tile" appearance="fill">
+          <mat-label>Correo Electronico</mat-label>
+          <input type="email" matInput formControlName="email" autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1" >
+        <mat-form-field class="ancho" appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput formControlName="password" autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1" >
+        <mat-form-field class="ancho" appearance="fill">
+          <mat-label>Confrimar contraseña</mat-label>
+          <input type="password" matInput formControlName="passwordConfirm" autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-form-field class="ancho" appearance="fill">
+          <mat-label>País</mat-label>
+          <input type="text" matInput formControlName="country" autocomplete="off">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
+        <button type="submit" [disabled]="formDataUser.invalid" class="myButton" mat-raised-button>Guardar</button>
+        <button *ngIf="flagNext" class="myButton" [routerLink]="['/register/create-team', formDataUser.value.email]" mat-raised-button> Siguiente </button>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </form>
+</mat-card>
+</div>
