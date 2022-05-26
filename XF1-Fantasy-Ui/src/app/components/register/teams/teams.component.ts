@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PlayersService } from 'src/app/services/players.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -14,69 +15,62 @@ export class TeamsComponent implements OnInit {
 
   flagTeam1 = false;
   flagTeam2 = false;
-  flagScuderia = true;
   flagFinished = false;
   emailUser: string | null;
-  formScuderia: FormGroup;
-  //counterTeam: string | null;
+  counterTeam = "";
 
   constructor(
     private router: Router,
     private aRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private _teamService: TeamsService
+    private _teamService: TeamsService,
+    private _userService: PlayersService
   ) {
     this.emailUser = this.aRoute.snapshot.paramMap.get("email_user");
-    this.formScuderia = this.fb.group({
-      nameScuderia: ['', Validators.required]
-    })
    }
 
   ngOnInit(): void {
     this.getNumTeams();
   }
 
-  stateProcess () {
-
-  }
-
-
-  createScuderia(){
-    const scuderia: Object =
-    {
-      nameScuderia: this.formScuderia.value.nameScuderia,
-      email: this.emailUser,
-    }
-    console.log(scuderia)
-    /*this._teamService.addNewScuderia(scuderia).subscribe(data => {
-      console.log(data);
-    }, error => {
-      alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
-    }
-    );*/
-    this.flagScuderia = false;
-    this.flagTeam1 = true;
-  }
-
   getNumTeams(){
     const user: Object =
     {
         nameUser:"",
-        email:"marion@gmail.com",
+        email: this.emailUser,
         country:"",
         pass:"",
         statePlayer:""
     }
-    this._teamService.getnumTeamsByUser(user).subscribe(data => {
-      console.log(data);
-    }, error => {
-      alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
-    }
-    );
-    //this.flagScuderia = false;
-    //this.flagTeam1 = true;
+    console.log(this.emailUser)
+    this._teamService.getNumTeamsByUser(user).subscribe (
+      result => {
+        if ( result.count == "0" ) {
+        this.flagTeam1 = true;
+        this.flagTeam2 = false;
+        } if ( result.count == "1" ) {
+        this.flagTeam1 = false;
+        this.flagTeam2 = true;
+        } if ( result.count == "2" ) {
+        this.flagTeam1 = false;
+        this.flagTeam2 = false;
+        this.flagFinished = true;
+        this.activeUser();
+        }
+    });
   }
 
-
+  activeUser(){
+    const user: Object =
+    {
+        userName:this.emailUser,
+        statePlayer: "activo"
+    }
+    this._userService.activeUserAcc(user).subscribe(data => {
+      console.log(user);
+    }, error => {
+      alert("Error al finalizar sesión")
+    });
+  }
 
 }

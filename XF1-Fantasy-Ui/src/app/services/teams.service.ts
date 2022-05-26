@@ -30,8 +30,8 @@ export class TeamsService {
     return this._http.post(this.url+'api/team/newscuderia', dataScuderia);
   }
 
-  getnumTeamsByUser(emailUser: Object): Observable<any> {
-    return this._http.get(this.url + 'api/player/teamsxplayer ');
+  getNumTeamsByUser(user: Object): Observable<any>{
+    return this._http.post(this.url+'api/player/teamsxplayer', user);
   }
 
 }

@@ -4,6 +4,7 @@
   width: 86%;
   margin: auto;
   margin-top: 10px;
+  background-image: url('https://img.freepik.com/free-vector/abstract-banner-background-with-red-shapes_1361-3348.jpg?t=st=1653580018~exp=1653580618~hmac=10dd07c1099e121eef2f05e360a966ddefdae1f23b8a1f9e09ceee49b705786d&w=1380');
 }
 
 .minTolbar {
@@ -23,6 +24,7 @@
   width: 76%;
   margin-bottom: 20px;
 }
+
 
 
 .ancho{
@@ -56,5 +58,7 @@
   width: 60%;
   height: 90%;
   margin: auto;
+  background-color: azure;
+
 }
 
