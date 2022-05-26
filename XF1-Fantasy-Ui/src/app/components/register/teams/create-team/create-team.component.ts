@@ -28,6 +28,7 @@ export class CreateTeamComponent implements OnInit {
   counterDrivers = 0;
   flagConstructor = false;
   listDriverSelection: string[] = ['', '', '', '', ''];
+  driverCreated=false;
 
   //Indicators for budget
   budget = 100;
@@ -117,10 +118,12 @@ export class CreateTeamComponent implements OnInit {
    *
    */
   createTeam(){
+    console.log(this.remainingBudget)
     if ( this.remainingBudget < 0){
       alert("Se ha excedido el presupuesto disponible para crear el Equipo")
     } else {
       alert("Se han guardado los datos correctamente")
+      this.driverCreated=true;
       const team: Object =
       {
         nameTeam: this.formTeam1.value.teamName,
@@ -155,8 +158,10 @@ export class CreateTeamComponent implements OnInit {
       if (this.listDrivers[i].name == name){
         if (action == 'delete'){
           this.listDrivers[i].state = "notChoosed"
+          this.driverCreated=false;
         } else {
           this.listDrivers[i].state = "choosed"
+          this.driverCreated=true;
         }
       break;
       }
@@ -234,8 +239,10 @@ export class CreateTeamComponent implements OnInit {
       if (this.listCars[i].name == name){
         if (action == 'delete'){
           this.listCars[i].state = "notChoosed"
+          this.driverCreated=false
         } if ( action == 'add') {
           this.listCars[i].state = "choosed"
+          this.driverCreated=true
         }
       break;
       }

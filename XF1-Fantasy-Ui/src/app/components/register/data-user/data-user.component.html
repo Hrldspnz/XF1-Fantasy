@@ -34,10 +34,14 @@
         </mat-form-field>
       </mat-grid-tile>
 
-      <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-grid-tile [colspan]="1" [rowspan]="1" >
         <mat-form-field class="ancho" appearance="fill">
           <mat-label>País</mat-label>
-          <input type="text" matInput formControlName="country" autocomplete="off">
+          <mat-select matInput formControlName="country">
+            <mat-option *ngFor="let country of countries" [value]="country.value">
+              {{country.viewValue}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </mat-grid-tile>
 

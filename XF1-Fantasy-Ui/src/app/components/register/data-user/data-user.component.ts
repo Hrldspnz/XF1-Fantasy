@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PlayersService } from 'src/app/services/players.service';
 
+interface DataCountry {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-data-user',
   templateUrl: './data-user.component.html',
@@ -12,6 +17,14 @@ export class DataUserComponent implements OnInit {
 
   formDataUser: FormGroup;
   flagNext = false;
+  countries: DataCountry[] = [
+    {value: 'Costa Rica', viewValue: 'Costa Rica'},
+    {value: 'Panama', viewValue: 'Panama'},
+    {value: 'Colombia', viewValue: 'Colombia'},
+    {value: 'Argentina', viewValue: 'Argentina'},
+    {value: 'Bolivia', viewValue: 'Bolivia'},
+    {value: 'Peru', viewValue: 'Peru'}
+  ];
 
   constructor(private fb: FormBuilder,
               private router: Router,

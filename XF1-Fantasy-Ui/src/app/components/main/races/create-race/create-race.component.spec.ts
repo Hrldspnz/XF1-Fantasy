@@ -41,17 +41,25 @@ describe('CreateRaceComponent', () => {
     .compileComponents();
   });
 
+  /** 
+   * Is executed each time a test method is to be executed.
+   */
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateRaceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  /** It's a test to ensure that the component it's correctly created */
+
+  /** 
+   * It's a test to ensure that the component it's correctly created 
+   */
   it('should create component CreateRace', () => {
     expect(component).toBeTruthy();
   }); 
 
-  /** Validates that the function textValidation works correctly */
+  /** 
+   * Validates that the function textValidation works correctly 
+   */
   it('Text Validation is true', () => {
     fixture = TestBed.createComponent(CreateRaceComponent);
     component = fixture.componentInstance;
@@ -77,7 +85,10 @@ describe('CreateRaceComponent', () => {
 
     expect(component.textValidation()).toBeTruthy();
   }); 
- 
+
+  /**
+   * Validates that the date function works
+   */
   it('Date in the present Validation', () => {
     fixture = TestBed.createComponent(CreateRaceComponent);
     component = fixture.componentInstance;
@@ -88,7 +99,10 @@ describe('CreateRaceComponent', () => {
   
     expect(component.dateValidation()).toBeTruthy();
   }); 
-
+  
+  /**
+   * Validate that the overlap function is correct. 
+   */
   it('Validation to avoid date overlap', fakeAsync(() => {
     fixture = TestBed.createComponent(CreateRaceComponent);
     component = fixture.componentInstance;
@@ -111,6 +125,9 @@ describe('CreateRaceComponent', () => {
 
   })); 
 
+  /**
+   * Validates the function that changes the date format.
+   */
   it('Date split validation', () => {
     fixture = TestBed.createComponent(CreateRaceComponent);
     component = fixture.componentInstance;
@@ -121,6 +138,9 @@ describe('CreateRaceComponent', () => {
     expect(result).toEqual(finalDate);
   }); 
 
+  /**
+   * Validates the correct generation of an id
+   */
   it('generate ids succesfully with six characters', async() => {
     fixture = TestBed.createComponent(CreateRaceComponent);
     component = fixture.componentInstance;

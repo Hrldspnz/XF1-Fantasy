@@ -10,10 +10,16 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 
 import { CreateChampionshipComponent } from './create-championship.component';
 
+/**
+ * Unit testing for the CreateChampionshipComponent
+ */
 describe('CreateChampionshipComponent', () => {
   let component: CreateChampionshipComponent; 
   let fixture: ComponentFixture<CreateChampionshipComponent>;
 
+  /**
+   * Makes the neccesary imports and config for the test to work
+   */
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ CreateChampionshipComponent ],
@@ -34,20 +40,32 @@ describe('CreateChampionshipComponent', () => {
     .compileComponents();
   });
 
+  /** 
+   * Is executed each time a test method is to be executed.
+   */
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateChampionshipComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
   
+  /**
+   * Validates that the component is correctly created
+   */
   it('should create', () => {
     expect(component).toBeTruthy();
   }); 
   
+  /**
+   * Validates that the ids are obtained correctly
+   */
   it('run getIDs succesfully', () => {
     expect(component.getIDs).toBeDefined();
   }); 
 
+  /**
+   * Validates that the ids are generated correctly
+   */
   it('does de id generation', () => {
 
     const actualLen=6;
@@ -55,6 +73,9 @@ describe('CreateChampionshipComponent', () => {
     //expect(result.length).toEqual(actualLen);
   });
 
+  /**
+   * Validates that the function textValidation works correctly
+   */
   it('Text Validation is true', () => {
     fixture = TestBed.createComponent(CreateChampionshipComponent);
     component = fixture.componentInstance;
@@ -68,6 +89,9 @@ describe('CreateChampionshipComponent', () => {
     expect(component.textValidation()).toBeTruthy();
   }); 
  
+  /**
+   * Validates that the date function works 
+   */
   it('Date in the present Validation', () => {
     fixture = TestBed.createComponent(CreateChampionshipComponent);
     component = fixture.componentInstance;
@@ -79,6 +103,9 @@ describe('CreateChampionshipComponent', () => {
     expect(component.dateValidation()).toBeTruthy();
   }); 
 
+  /**
+   * Validates that the function addChampionship works correctly
+   */
   it('add championship runs', async() => {
     fixture = TestBed.createComponent(CreateChampionshipComponent);
     component = fixture.componentInstance;
