@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent },
   { path: 'register/data-user', component: DataUserComponent },
-  { path: 'register/create-team', component: CreateTeamComponent },
+  { path: 'register/create-team/:email_user', component: TeamsComponent },
+  { path: 'register/create-team/team1/:email_user', component: CreateTeamComponent },
   { path: 'main', loadChildren: () => import('./components/main/main.module').then(x => x.MainModule)},
   { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];

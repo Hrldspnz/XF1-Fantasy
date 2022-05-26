@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -21,7 +22,6 @@ export class CreateTeamComponent implements OnInit {
   dataSourceConstructors!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginatorDrivers!: MatPaginator;
-
   stepTeam = 0;
 
   //Indicators for team selection
@@ -34,10 +34,13 @@ export class CreateTeamComponent implements OnInit {
   spentBudget = 0;
   remainingBudget = 100;
 
+  emailUser: string | null;
   formTeam1: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private _teamsService: TeamsService) {
+              private _teamsService: TeamsService,
+              private router: Router,
+              private aRoute: ActivatedRoute) {
     this.formTeam1 = this.fb.group ({
       teamName: ['', Validators.required],
       driver1: ['', Validators.required],
@@ -48,7 +51,8 @@ export class CreateTeamComponent implements OnInit {
       constructor: ['', Validators.required],
       spentBudget: ['', Validators.required],
       remainingBudget: ['', Validators.required]
-      })
+      });
+    this.emailUser = this.aRoute.snapshot.paramMap.get("email_user");
 
   }
 
@@ -57,7 +61,6 @@ export class CreateTeamComponent implements OnInit {
     this.loadDrivers()
 
   }
-
 
   loadDrivers(){
     this._teamsService.getDrivers().subscribe(
@@ -98,7 +101,27 @@ export class CreateTeamComponent implements OnInit {
     if ( this.remainingBudget < 0){
       alert("Se ha excedido el presupuesto disponible para crear el Equipo")
     } else {
-      alert("Equipo creado con Exito")
+      alert("Se han guardado los datos correctamente")
+      const team: Object =
+      {
+        nameTeam: this.formTeam1.value.teamName,
+        email: this.emailUser,
+        budget: this.spentBudget,
+        nameDriver1: this.formTeam1.value.driver1,
+        nameDriver2: this.formTeam1.value.driver2,
+        nameDriver3: this.formTeam1.value.driver3,
+        nameDriver4: this.formTeam1.value.driver4,
+        nameDriver5: this.formTeam1.value.driver5,
+        car: this.formTeam1.value.constructor
+      }
+      console.log(team)
+      /*this._teamsService.addNewTeam(team).subscribe(data => {
+        console.log(data);
+      }, error => {
+        alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
+      }
+      );*/
+      this.router.navigate(['/register/create-team/' + this.emailUser]);
     }
   }
 

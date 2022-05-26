@@ -12,7 +12,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { DataUserComponent } from './components/register/data-user/data-user.component';
 import { TeamsComponent } from './components/register/teams/teams.component';
 import { CreateTeamComponent } from './components/register/teams/create-team/create-team.component';
-import { CreateTeam2Component } from './components/register/teams/create-team2/create-team2.component';
+
 
 
 
@@ -24,7 +24,6 @@ import { CreateTeam2Component } from './components/register/teams/create-team2/c
     DataUserComponent,
     TeamsComponent,
     CreateTeamComponent,
-    CreateTeam2Component
   ],
   imports: [
     BrowserModule,

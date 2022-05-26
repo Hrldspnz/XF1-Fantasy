@@ -1,32 +1,61 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface PeriodicElement {
-  name: string;
-  rol: string;
-  price: number;
-}
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {rol: 'Piloto', name: 'Lewis Hamilton', price: 1.0079},
-  {rol: 'Piloto', name: 'Charles Leclerc', price: 4.0026},
-  {rol: 'Piloto', name: 'Valtteri Bottas', price: 6.941},
-  {rol: 'Piloto', name: 'Sergio Perez', price: 9.0122},
-  {rol: 'Piloto', name: 'Fernando Alonso', price: 10.811},
-  {rol: 'Constructor', name: 'Ferrari', price: 12.0107},
-];
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
   selector: 'app-teams',
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.css']
 })
+
 export class TeamsComponent implements OnInit {
-  displayedColumns: string[] = ['rol', 'name', 'price'];
-  dataSource = ELEMENT_DATA;
-  constructor() { }
+
+
+  flagTeam1 = false;
+  flagTeam2 = false;
+  flagScuderia = true;
+  flagFinished = false;
+  emailUser: string | null;
+  formScuderia: FormGroup;
+  //counterTeam: string | null;
+
+  constructor(
+    private router: Router,
+    private aRoute: ActivatedRoute,
+    private fb: FormBuilder,
+    private _teamService: TeamsService
+  ) {
+    this.emailUser = this.aRoute.snapshot.paramMap.get("email_user");
+    this.formScuderia = this.fb.group({
+      nameScuderia: ['', Validators.required]
+    })
+   }
 
   ngOnInit(): void {
   }
+
+  stateProcess () {
+
+  }
+
+
+  createScuderia(){
+    const scuderia: Object =
+    {
+      nameScuderia: this.formScuderia.value.nameScuderia,
+      email: this.emailUser,
+    }
+    console.log(scuderia)
+    /*this._teamService.addNewScuderia(scuderia).subscribe(data => {
+      console.log(data);
+    }, error => {
+      alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
+    }
+    );*/
+    this.flagScuderia = false;
+    this.flagTeam1 = true;
+  }
+
 
 }

@@ -22,4 +22,16 @@ export class TeamsService {
     return this._http.get(this.url + 'api/team/cars');
   }
 
+  addNewTeam(dataTeam: Object): Observable<any>{
+    return this._http.post(this.url+'api/team/newteam', dataTeam);
+  }
+
+  addNewScuderia(dataScuderia: Object): Observable<any>{
+    return this._http.post(this.url+'api/team/newscuderia', dataScuderia);
+  }
+
+  getnumTeamsByUser(emailUser: string | null): Observable<any> {
+    return this._http.get(this.url + 'api/player/teamsxplayer ');
+  }
+
 }

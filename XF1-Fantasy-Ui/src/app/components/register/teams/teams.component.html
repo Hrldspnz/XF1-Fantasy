@@ -2,75 +2,43 @@
   <mat-toolbar class="mainTolbar">
     <span>Creación Escudería</span>
   </mat-toolbar>
-  <mat-grid-list  cols="2" rowHeight="510px">
 
-    <mat-grid-tile [colspan]="1">
-      <mat-card class="teamCard">
+  <mat-card class="teamCard">
+  <mat-grid-list  cols="2" rowHeight="100px">
+
+
+    <form [formGroup]="formScuderia" (ngSubmit)="createScuderia()">
+      <mat-grid-tile *ngIf="flagScuderia" [colspan]="2">
+        <mat-form-field class="ancho" appearance="fill">
+          <mat-label>Nombre de Escudería</mat-label>
+          <input matInput autocomplete="off" formControlName="nameScuderia">
+        </mat-form-field>
+        <button type="submit" [disabled]="formScuderia.invalid" mat-raised-button>Guardar</button>
+      </mat-grid-tile>
+    </form>
+
+    <mat-grid-tile *ngIf="flagTeam1" [colspan]="2">
         <mat-toolbar>
           <span>Equipo 1</span>
           <span class="example-spacer"></span>
-          <button mat-raised-button>Editar</button>
+          <button  [routerLink]="['/register/create-team/team1', emailUser]" mat-raised-button>Crear</button>
         </mat-toolbar>
-        <table mat-table [dataSource]="dataSource" class="teamTable">
-
-          <!-- Rol Column -->
-          <ng-container matColumnDef="rol">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-          </ng-container>
-
-          <!-- Price Column -->
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Precio</th>
-            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile [colspan]="1">
-      <mat-card class="teamCard">
+    <mat-grid-tile *ngIf="flagTeam2" [colspan]="2">
         <mat-toolbar>
           <span>Equipo 2</span>
           <span class="example-spacer"></span>
-          <button mat-raised-button>Editar</button>
+          <button [routerLink]="['/register/create-team/team1', emailUser]"  mat-raised-button>Crear</button>
         </mat-toolbar>
-        <table mat-table [dataSource]="dataSource" class="teamTable">
-
-          <!-- Rol Column -->
-          <ng-container matColumnDef="rol">
-            <th mat-header-cell *matHeaderCellDef>  </th>
-            <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-          </ng-container>
-
-          <!-- Price Column -->
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Precio</th>
-            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-
-      </mat-card>
     </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="2">
+        <button *ngIf="flagFinished" [routerLink]="['/login' ]"  mat-raised-button>Finalizar</button>
+    </mat-grid-tile>
+
   </mat-grid-list>
 
+
+</mat-card>
 </div>
