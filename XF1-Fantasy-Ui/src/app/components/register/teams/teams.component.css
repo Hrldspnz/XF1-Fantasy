@@ -6,9 +6,44 @@
   margin-top: 10px;
 }
 
+.minTolbar {
+  background-color: red;
+  color: aliceblue;
+  margin: auto;
+  margin-top: 10px;
+  width: 76%;
+  margin-bottom: 20px;
+}
+
+.teamTolbar {
+  background-color: royalblue;
+  color: aliceblue;
+  margin: auto;
+  margin-top: 10px;
+  width: 76%;
+  margin-bottom: 20px;
+}
+
+
+.ancho{
+  margin-top: 10px;
+}
+
 .teamCard {
   width: 500px;
-  height: 400px;
+  height: 100px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.teamCard2 {
+  width: 500px;
+  height: 800px;
   margin: auto;
   margin-top: 20px;
 }
@@ -17,7 +52,9 @@
   width: 100%;
 }
 
-
-.example-spacer {
-  flex: 1 1 auto;
+.mycard{
+  width: 60%;
+  height: 90%;
+  margin: auto;
 }
+

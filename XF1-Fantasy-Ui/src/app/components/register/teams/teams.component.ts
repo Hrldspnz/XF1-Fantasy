@@ -33,6 +33,7 @@ export class TeamsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getNumTeams();
   }
 
   stateProcess () {
@@ -56,6 +57,26 @@ export class TeamsComponent implements OnInit {
     this.flagScuderia = false;
     this.flagTeam1 = true;
   }
+
+  getNumTeams(){
+    const user: Object =
+    {
+        nameUser:"",
+        email:"marion@gmail.com",
+        country:"",
+        pass:"",
+        statePlayer:""
+    }
+    this._teamService.getnumTeamsByUser(user).subscribe(data => {
+      console.log(data);
+    }, error => {
+      alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
+    }
+    );
+    //this.flagScuderia = false;
+    //this.flagTeam1 = true;
+  }
+
 
 
 }
