@@ -37,6 +37,13 @@ export class CreateTeamComponent implements OnInit {
   emailUser: string | null;
   formTeam1: FormGroup;
 
+  /**
+   *
+   * @param fb
+   * @param _teamsService
+   * @param router
+   * @param aRoute
+   */
   constructor(private fb: FormBuilder,
               private _teamsService: TeamsService,
               private router: Router,
@@ -56,12 +63,18 @@ export class CreateTeamComponent implements OnInit {
 
   }
 
+  /**
+   *
+   */
   ngOnInit(): void {
     this.loadCars()
     this.loadDrivers()
 
   }
 
+  /**
+   *
+   */
   loadDrivers(){
     this._teamsService.getDrivers().subscribe(
       result => {
@@ -80,6 +93,9 @@ export class CreateTeamComponent implements OnInit {
       });
   }
 
+  /**
+   *
+   */
   loadCars(){
     this._teamsService.getCars().subscribe(
       result => {
@@ -97,6 +113,9 @@ export class CreateTeamComponent implements OnInit {
       });
   }
 
+  /**
+   *
+   */
   createTeam(){
     if ( this.remainingBudget < 0){
       alert("Se ha excedido el presupuesto disponible para crear el Equipo")
@@ -125,6 +144,11 @@ export class CreateTeamComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param name
+   * @param action
+   */
   changeStateDriver(name: string, action: string) {
     let i = 0;
     while( i < this.listDrivers.length){
@@ -140,6 +164,9 @@ export class CreateTeamComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   */
   updateForm(){
     this.formTeam1.patchValue({driver1: this.listDriverSelection[0],
                                driver2: this.listDriverSelection[1],
@@ -148,6 +175,11 @@ export class CreateTeamComponent implements OnInit {
                                driver5: this.listDriverSelection[4]})
   }
 
+  /**
+   *
+   * @param name
+   * @param price
+   */
   addDriver(name: string, price: string){
     let i = 0;
     while ( i < this.listDriverSelection.length){
@@ -170,6 +202,11 @@ export class CreateTeamComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param name
+   * @param price
+   */
   deleteDriver(name: string, price: string){
     let i = 0;
     while ( i < this.listDriverSelection.length){
@@ -186,6 +223,11 @@ export class CreateTeamComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param name
+   * @param action
+   */
   changeStateConstructor(name: string, action: string){
     let i = 0;
     while( i < this.listCars.length){
@@ -201,6 +243,12 @@ export class CreateTeamComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param name
+   * @param price
+   * @param action
+   */
   addDeleteConstructor(name: string, price: string, action: string){
     if ( action == 'add'){
       if ( this.flagConstructor == false){
@@ -219,6 +267,11 @@ export class CreateTeamComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param price
+   * @param action
+   */
   updateBudget(price: string, action: string){
     let value = Number(price);
     if ( action == "delete") {
@@ -234,14 +287,25 @@ export class CreateTeamComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param index
+   */
   setStep(index: number) {
     this.stepTeam = index;
   }
 
+
+  /**
+   *
+   */
   nextStep() {
     this.stepTeam++;
   }
 
+  /**
+   *
+   */
   prevStep() {
     this.stepTeam--;
   }
