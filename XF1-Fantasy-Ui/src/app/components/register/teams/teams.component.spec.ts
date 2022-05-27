@@ -55,16 +55,6 @@ describe('TeamsComponent', () => {
   });
 
   /**
-   * Validates that the method createScuderia runs correctly
-   */
-  it('Create scuderia runs', () => {
-    component.createScuderia();
-
-    expect(component.flagScuderia).toEqual(false);
-    expect(component.flagTeam1).toEqual(true);
-  });
-
-  /**
    * Validates that the method getNumTeams runs correctly
    */
   it('Get Num teams runs', () => {
