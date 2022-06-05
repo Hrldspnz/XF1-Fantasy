@@ -90,7 +90,7 @@ export class CreateRaceComponent implements OnInit {
           race_state: 'Pendiente',
           tournament_id: this.formRaces.value.champion
         }
-        //this._racesService.createRace(newRace);
+        this._racesService.createRace(newRace);
       }
     }
 
