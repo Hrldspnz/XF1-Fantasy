@@ -45,19 +45,28 @@ export class TeamsComponent implements OnInit {
     console.log(this.emailUser)
     this._teamService.getNumTeamsByUser(user).subscribe (
       result => {
-        if ( result.count == "0" ) {
-        this.flagTeam1 = true;
-        this.flagTeam2 = false;
-        } if ( result.count == "1" ) {
-        this.flagTeam1 = false;
-        this.flagTeam2 = true;
-        } if ( result.count == "2" ) {
-        this.flagTeam1 = false;
-        this.flagTeam2 = false;
-        this.flagFinished = true;
-        this.activeUser();
-        }
+        this.counterTeam = result.count;
+        console.log(result.count);
+        this.updateFlags();
     });
+  }
+
+  updateFlags(){
+    if ( this.counterTeam == "0" ) {
+      this.flagTeam1 = true;
+      this.flagTeam2 = false;
+      console.log("CONTADOR DE 0")
+      } if ( this.counterTeam == "1" ) {
+      this.flagTeam1 = false;
+      this.flagTeam2 = true;
+      console.log("CONTADOR DE 1")
+      } if ( this.counterTeam == "2" ) {
+      this.flagTeam1 = false;
+      this.flagTeam2 = false;
+      this.flagFinished = true;
+      console.log("CONTADOR DE 2")
+      this.activeUser();
+      }
   }
 
   activeUser(){
