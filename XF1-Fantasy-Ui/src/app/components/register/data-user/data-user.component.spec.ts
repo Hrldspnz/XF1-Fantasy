@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {MatSelectModule} from '@angular/material/select'
 import {MatInputModule} from '@angular/material/input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -21,9 +21,9 @@ describe('DataUserComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
-        NgSelectModule, 
+        NgSelectModule,
         MatSelectModule,
-        MatInputModule, 
+        MatInputModule,
         BrowserAnimationsModule,
         MatToolbarModule,
         RouterTestingModule
@@ -66,9 +66,17 @@ describe('DataUserComponent', () => {
     const passwordConfirm= component.formDataUser.controls['passwordConfirm']
     password.setValue('1234')
     passwordConfirm.setValue('1234')
-    
+
     expect(password.value).toEqual(passwordConfirm.value);
   })
 
-  
+    /**
+   * Validates that the method createScuderia runs correctly
+   */
+     it('Create scuderia runs', () => {
+      component.createScuderia();
+
+      expect(component.flagScuderia).toEqual(false);
+    });
+
 });

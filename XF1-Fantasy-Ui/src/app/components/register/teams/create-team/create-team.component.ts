@@ -39,7 +39,7 @@ export class CreateTeamComponent implements OnInit {
   formTeam1: FormGroup;
 
   /**
-   *
+   * Constructor de la clase
    * @param fb
    * @param _teamsService
    * @param router
@@ -65,7 +65,7 @@ export class CreateTeamComponent implements OnInit {
   }
 
   /**
-   *
+   *Metodo que se ejecuta al inicio del componente
    */
   ngOnInit(): void {
     this.loadCars()
