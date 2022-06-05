@@ -41,7 +41,16 @@ C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netc
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\APIXFIA.deps.json
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\APIXFIA.runtimeconfig.json
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\APIXFIA.pdb
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Practices.ServiceLocation.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\System.Web.Mvc.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\System.Web.Razor.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\System.Web.Helpers.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\System.Web.WebPages.Deployment.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\System.Web.WebPages.Razor.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\System.Web.WebPages.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Web.Infrastructure.dll
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\System.Data.SqlClient.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\XAct.Core.PCL.dll
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win-arm64\native\sni.dll
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win-x64\native\sni.dll
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win-x86\native\sni.dll
