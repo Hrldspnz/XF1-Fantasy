@@ -40,3 +40,12 @@ C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcor
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\Microsoft.Practices.ServiceLocation.dll
+C:\Users\hrlds\Documents\Github\Pruebas Prronas\APIXFIA\APIXFIA\bin\Debug\netcoreapp3.1\XAct.Core.PCL.dll

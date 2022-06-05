@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIXFIA", "APIXFIA\APIXFIA.csproj", "{89799C12-BAC9-4978-A236-C0CC7680AE79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIXFIATests", "APIXFIATests\APIXFIATests.csproj", "{6B29867C-BD38-4A2F-8EB2-16783F6B878C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{89799C12-BAC9-4978-A236-C0CC7680AE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89799C12-BAC9-4978-A236-C0CC7680AE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89799C12-BAC9-4978-A236-C0CC7680AE79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B29867C-BD38-4A2F-8EB2-16783F6B878C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B29867C-BD38-4A2F-8EB2-16783F6B878C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B29867C-BD38-4A2F-8EB2-16783F6B878C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B29867C-BD38-4A2F-8EB2-16783F6B878C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
