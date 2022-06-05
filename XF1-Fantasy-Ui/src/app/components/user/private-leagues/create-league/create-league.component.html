@@ -1,0 +1,32 @@
+<div class="container">
+  <mat-toolbar class="tolbar">
+    <span>Crear Liga Privada</span>
+  </mat-toolbar>
+
+  <mat-card style="margin-top: 10px;">
+    <form [formGroup]="formPrivateLeague" (ngSubmit)="addLeague()">
+      <mat-grid-list cols="4" rowHeight="70px">
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput formControlName="name" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Máximo de Integrantes</mat-label>
+            <input type="text" matInput formControlName="members" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
+          <button type="submit" [disabled]="formPrivateLeague.invalid" class="myButton" mat-raised-button>Guardar</button>
+          <button class="myButton" routerLink="/user" mat-raised-button>VOLVER</button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </form>
+  </mat-card>
+</div>

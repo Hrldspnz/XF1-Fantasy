@@ -14,6 +14,7 @@ import { TeamsComponent } from './components/register/teams/teams.component';
 import { CreateTeamComponent } from './components/register/teams/create-team/create-team.component';
 import { UserComponent } from './components/user/user.component';
 import { PrivateLeaguesComponent } from './components/user/private-leagues/private-leagues.component';
+import { CreateLeagueComponent } from './components/user/private-leagues/create-league/create-league.component';
 
 
 
@@ -28,6 +29,7 @@ import { PrivateLeaguesComponent } from './components/user/private-leagues/priva
     CreateTeamComponent,
     UserComponent,
     PrivateLeaguesComponent,
+    CreateLeagueComponent,
   ],
   imports: [
     BrowserModule,

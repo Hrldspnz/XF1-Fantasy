@@ -5,6 +5,7 @@ import { DataUserComponent } from './components/register/data-user/data-user.com
 import { RegisterComponent } from './components/register/register.component';
 import { CreateTeamComponent } from './components/register/teams/create-team/create-team.component';
 import { TeamsComponent } from './components/register/teams/teams.component';
+import { CreateLeagueComponent } from './components/user/private-leagues/create-league/create-league.component';
 import { PrivateLeaguesComponent } from './components/user/private-leagues/private-leagues.component';
 import { UserComponent } from './components/user/user.component';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'register/create-team/team1/:email_user', component: CreateTeamComponent },
   { path: 'user', component: UserComponent },
   { path: 'user/private-leagues', component: PrivateLeaguesComponent },
+  { path: 'user/private-leagues/create', component: CreateLeagueComponent },
   { path: 'main', loadChildren: () => import('./components/main/main.module').then(x => x.MainModule)},
   { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];
