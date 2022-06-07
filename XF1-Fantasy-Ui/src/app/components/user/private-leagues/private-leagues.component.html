@@ -1,0 +1,16 @@
+<mat-toolbar class="mainTolbar">
+  <span>XF1 Fantasy</span>
+  <span class="example-spacer"></span>
+  <button *ngFor="let item of menu" class="buttonMy" [routerLink]="item.redirect" mat-raised-button> {{item.nombre}} </button>
+  <button routerLink="/main/start" class="myIcon" rou mat-icon-button>
+    <mat-icon class="myIcon">home</mat-icon>
+  </button>
+  <button  routerLink="/login" class="myIcon"  mat-icon-button>
+    <mat-icon class="myIcon">logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-card>
+  <button mat-raised-button [routerLink]="['/user/private-leagues/create' ]"> Crear Liga Privada </button>
+  <button mat-raised-button [routerLink]="['/user/private-leagues/join' ]"> Unirse a Liga Privada </button>
+</mat-card>
