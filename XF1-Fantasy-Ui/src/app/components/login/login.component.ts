@@ -13,6 +13,12 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   loading = false;
 
+  /**
+   * Constructor of the class
+   * @param fb Form Builder instance
+   * @param _snackBar Snack Bar instance
+   * @param router Router Instance
+   */
   constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router) {
     this.formLogin = this.fb.group({
       user : ['', Validators.required],
@@ -23,7 +29,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
+  /**
+   * Validates the credentials for the login
+   */
   login(){
     const user = this.formLogin.value.user;
     const password = this.formLogin.value.password;
@@ -36,6 +44,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * It shows a message when the credentials are wrong
+   */
   wrongCredentialMsj(){
     this._snackBar.open('Credenciales ingresadas son incorrectas', '',
     {duration: 5000,
@@ -43,6 +54,9 @@ export class LoginComponent implements OnInit {
     verticalPosition: 'bottom'})
   }
 
+  /**
+   * Simulates a loading for 1.5 seconds
+   */
   fakeLoading(){
     this.loading = true;
     setTimeout (() => {
