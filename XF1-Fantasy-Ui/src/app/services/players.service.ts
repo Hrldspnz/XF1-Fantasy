@@ -2,12 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+interface User {
+  email:string;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class PlayersService {
 
   public url: string;
+  public user: User={
+    email: ''
+  };
+  public infoUser:any;
 
   constructor( public _http: HttpClient ) {
     this.url = "https://apixfia.azurewebsites.net/"
@@ -20,6 +29,20 @@ export class PlayersService {
    */
   addNewUser(dataUser: Object): Observable<any>{
     return this._http.post(this.url+'api/player/createAcc', dataUser);
+  }
+
+  /**
+   * Gets the user from the db
+   * @param userEmail 
+   * @returns 
+   */
+  getUser(userEmail:string): Observable<any>{
+    this.infoUser=this._http.get(this.url+'api/player/info/'+userEmail);
+    return this.infoUser;
+  }
+
+  setCurrentlyUser(email:string){
+    this.user.email=email;
   }
 
   /**

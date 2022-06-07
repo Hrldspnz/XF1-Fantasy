@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { PlayersService } from 'src/app/services/players.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
    * @param _snackBar Snack Bar instance
    * @param router Router Instance
    */
-  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router) {
+  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router,
+    private _playerService: PlayersService) {
     this.formLogin = this.fb.group({
       user : ['', Validators.required],
       password: ['', Validators.required]
@@ -63,6 +65,19 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['main'])
     }, 1500)
 
+  }
+  /**
+   * Saves the actual user in the service
+   */
+  save(){
+    this._playerService.getUser(this.formLogin.value.user).subscribe(
+      result=>{
+        this._playerService.setCurrentlyUser(this.formLogin.value.user);
+      },
+      error=>{
+        alert("Usuario incorecto");
+      }
+    )
   }
 
 }
