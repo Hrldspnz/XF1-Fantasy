@@ -4,30 +4,24 @@ import { Menu } from 'src/app/interfaces/menu';
 import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
-  selector: 'app-create-league',
-  templateUrl: './create-league.component.html',
-  styleUrls: ['./create-league.component.css']
+  selector: 'app-add-league',
+  templateUrl: './add-league.component.html',
+  styleUrls: ['./add-league.component.css']
 })
-export class CreateLeagueComponent implements OnInit {
+export class AddLeagueComponent implements OnInit {
 
-  formPrivateLeague: FormGroup;
   menu: Menu[] = [];
+  formJoinLeague: FormGroup;
 
   constructor(private fb: FormBuilder, private _menuService: MenuService) {
-    this.formPrivateLeague = this.fb.group ({
-      name: ['', Validators.required],
-      members: ['', Validators.required]
+    this.formJoinLeague = this.fb.group ({
+      code: ['', Validators.required]
       })
    }
 
   ngOnInit(): void {
     this.loadMenu();
   }
-
-  addLeague(){
-    console.log("Se creo liga privada")
-  }
-
 
   loadMenu (){
     this._menuService.getMenu2().subscribe(data => {
@@ -37,5 +31,8 @@ export class CreateLeagueComponent implements OnInit {
     )
   }
 
+  JoinLeague(){
+    console.log("Join League")
+  }
 
 }

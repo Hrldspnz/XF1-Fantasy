@@ -31,4 +31,8 @@ export class PlayersService {
     return this._http.put(this.url+'api/player/userstate', dataUser);
   }
 
+
+
+
+
 }
