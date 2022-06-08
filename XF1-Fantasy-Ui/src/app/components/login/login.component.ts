@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
    * Saves the actual user in the service
    */
   save(){
+    localStorage.setItem("email", this.formLogin.value.user);
     this._playerService.getUser(this.formLogin.value.user).subscribe(
       result=>{
         this._playerService.setCurrentlyUser(this.formLogin.value.user);

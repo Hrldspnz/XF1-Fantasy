@@ -16,3 +16,18 @@
 .myIcon{
   color: #2C3D6E;
 }
+
+table {
+
+  width: 100%;
+
+}
+
+.example-container {
+  height: 450px;
+  max-width: 80%;
+  margin-left: 10%;
+  margin-top: 2%;
+  overflow: auto;
+
+}
