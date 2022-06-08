@@ -33,7 +33,7 @@
           <mat-form-field class="ancho" appearance="fill">
             <mat-label> Máximo de Integrantes </mat-label>
             <mat-select matInput formControlName="members">
-              <mat-option *ngFor="let country of countries" [value]="country.value">
+              <mat-option *ngFor="let country of countries" [value]="country.viewValue">
                 {{country.viewValue}}
               </mat-option>
             </mat-select>

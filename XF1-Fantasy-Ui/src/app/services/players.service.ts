@@ -62,7 +62,22 @@ export class PlayersService {
   }
 
 
+  /**
+  *
+  * @param dataLeague
+  * @returns
+  */
+   addNewLeague(dataLeague: Object): Observable<any>{
+    return this._http.post(this.url+'api/league/newprivateleague', dataLeague);
+  }
 
-
+  /**
+  *
+  * @param dataLeague
+  * @returns
+  */
+   joinLeague(dataLeague: Object): Observable<any>{
+    return this._http.post(this.url+'api/league/insertinprivleague', dataLeague);
+  }
 
 }
