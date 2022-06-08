@@ -1,0 +1,64 @@
+.mainTolbar{
+  background-color: #2C3D6E;
+  color: aliceblue;
+  width: 86%;
+  margin: auto;
+  margin-top: 10px;
+  background-image: url('https://img.freepik.com/free-vector/abstract-banner-background-with-red-shapes_1361-3348.jpg?t=st=1653580018~exp=1653580618~hmac=10dd07c1099e121eef2f05e360a966ddefdae1f23b8a1f9e09ceee49b705786d&w=1380');
+}
+
+.minTolbar {
+  background-color: red;
+  color: aliceblue;
+  margin: auto;
+  margin-top: 10px;
+  width: 76%;
+  margin-bottom: 20px;
+}
+
+.teamTolbar {
+  background-color: royalblue;
+  color: aliceblue;
+  margin: auto;
+  margin-top: 10px;
+  width: 76%;
+  margin-bottom: 20px;
+}
+
+
+
+.ancho{
+  margin-top: 10px;
+}
+
+.teamCard {
+  width: 500px;
+  height: 100px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.teamCard2 {
+  width: 500px;
+  height: 800px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.teamTable{
+  width: 100%;
+}
+
+.mycard{
+  width: 60%;
+  height: 90%;
+  margin: auto;
+  background-color: azure;
+
+}
+

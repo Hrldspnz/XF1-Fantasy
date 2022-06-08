@@ -1,0 +1,42 @@
+.container{
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 5px;
+}
+
+.tolbar{
+  background-color: #2C3D6E;
+  color: aliceblue;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.ancho{
+  width: 80%;
+}
+
+.myButton {
+  width: 80%;
+  background-color: #2C3D6E;
+  color: aliceblue;
+}
+
+.mainTolbar{
+  background-color: red;
+  color: aliceblue;
+}
+
+
+.buttonMy{
+  background-color: #2C3D6E;
+  color: aliceblue;
+  margin-left: 5px;
+}
+
+.myIcon{
+  color: #2C3D6E;
+}
+
+

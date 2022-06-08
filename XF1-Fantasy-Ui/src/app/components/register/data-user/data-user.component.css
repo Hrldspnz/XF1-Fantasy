@@ -1,0 +1,24 @@
+.mainTolbar{
+  background-color: #2C3D6E;
+  color: aliceblue;
+  width: 50%;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+.cardDataUser{
+  background-color: whitesmoke;
+  width: 49%;
+  margin: auto;
+  height: 400px;
+  margin-top: 10px;
+}
+
+.tile{
+  width: 400px;
+}

@@ -1,25 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginComponent } from './login.component';
+import { PrivateLeaguesComponent } from './private-leagues.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('PrivateLeaguesComponent', () => {
+  let component: PrivateLeaguesComponent;
+  let fixture: ComponentFixture<PrivateLeaguesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+      declarations: [ PrivateLeaguesComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(PrivateLeaguesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  /** 
+
   it('should create', () => {
     expect(component).toBeTruthy();
-  }); */
+  });
 });

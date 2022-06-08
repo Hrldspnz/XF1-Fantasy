@@ -1,0 +1,30 @@
+.mainTolbar{
+  background-color: #2C3D6E;
+  color: aliceblue;
+  width: 86%;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.teamCard {
+  width: 500px;
+  height: 800px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.teamTable{
+  width: 100%;
+}
+
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mycard{
+  width: 60%;
+  height: 90%;
+  margin: auto;
+}
+
