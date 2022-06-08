@@ -110,7 +110,7 @@ namespace APIXFIA.Repository
         }
 
 
-        // Inicio de los metodos para la gestion de las carreras dentro de la base de datos 
+        // Inicio de los metodos para la gestion de los torneos dentro de la base de datos 
 
         /**
          * Metodo que se encarga de obtener una lista de todos los torneos existentes
@@ -162,7 +162,7 @@ namespace APIXFIA.Repository
          * @param tournament obtjeto de tipo Tournament con los datos del torneo
          * @return resultado de la operacion
          */
-        public async Task<int> createNewTournament(Tournament tournament)
+        public async Task<int> createNewTournament(Tournament tournament,string newTournamentId)
         {
             SqlDataReader reader = null;
 
@@ -171,30 +171,6 @@ namespace APIXFIA.Repository
             myConnection.ConnectionString = conectionString;
 
             SqlCommand sqlCmd = new SqlCommand();
-
-            List<string> tournamentsId = new List<string>();
-
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.CommandText = "idTournament3YearsAgo";
-            sqlCmd.Connection = myConnection;
-            myConnection.Open();
-            reader = sqlCmd.ExecuteReader(); 
-
-            while (reader.Read())
-            {
-                string tnmtId;
-
-                tnmtId = reader.GetValue(0).ToString();
-     
-
-
-                tournamentsId.Add(tnmtId);
-
-            }
-            myConnection.Close();
-
-            string newTournamentId = KeyGen.validateNewKey(tournamentsId);
-
 
             sqlCmd.CommandType = CommandType.StoredProcedure;
             sqlCmd.CommandText = "InsertTournament";
@@ -215,8 +191,9 @@ namespace APIXFIA.Repository
         }
 
 
-        //-------------------------------------------------------------
-        public async Task<string> createNewTournamentAUX()
+
+        //------
+        public async Task<List<string>> get3YTournament()
         {
             SqlDataReader reader = null;
 
@@ -247,12 +224,38 @@ namespace APIXFIA.Repository
             }
             myConnection.Close();
 
-            string newTournamentId = KeyGen.validateNewKey(tournamentsId);
-
-            return newTournamentId;
+            return tournamentsId;
         }
 
-        //----------------------------------------------------------------
+
+        public async Task<int> getActualBudget() 
+        {
+            SqlDataReader reader = null;
+
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "budgetTournament";
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            int budget = 0;
+
+            while (reader.Read())
+            {
+                budget = reader.GetInt32(0);
+            }
+            myConnection.Close();
+
+            return budget;
+        }
 
         //  Inicio de los metodos para la gestion de los datos de jugadores dentro de la base de datos 
 
@@ -275,7 +278,7 @@ namespace APIXFIA.Repository
             sqlCmd.Parameters.AddWithValue("@nameUser", player.nameUser);
             sqlCmd.Parameters.AddWithValue("@email", player.email);
             sqlCmd.Parameters.AddWithValue("@country", player.country);
-            sqlCmd.Parameters.AddWithValue("@pass", encript.codecMd5(player.pass));
+            sqlCmd.Parameters.AddWithValue("@pass", player.pass);
             sqlCmd.Parameters.AddWithValue("@statePlayer", player.statePlayer);
             
             sqlCmd.Connection = myConnection;
@@ -314,6 +317,73 @@ namespace APIXFIA.Repository
         }
 
 
+        public async Task<string> getPlayerState(string email) 
+        {
+            SqlDataReader reader = null;
+
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getStateAccount";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            string state = "";
+
+            while (reader.Read())
+            {
+                state = reader.GetValue(0).ToString();
+
+            }
+            myConnection.Close();
+
+            return state;
+        }
+
+
+        public async Task<PlayerInfo> getPlayerInfo(string email) 
+        {
+            SqlDataReader reader = null;
+
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getDataUser";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            PlayerInfo playerInfo = new PlayerInfo();
+
+            while (reader.Read())
+            {
+                playerInfo.nameUser = reader.GetValue(0).ToString();
+                playerInfo.country = reader.GetValue(1).ToString();
+                playerInfo.nameScuderia = reader.GetValue(2).ToString();
+                playerInfo.Year_T = reader.GetValue(3).ToString();
+
+            }
+            myConnection.Close();
+
+            return playerInfo;
+        }
+
+
         /**
          * Metodo que se encarga de actualizar el estado de un jugador
          * @param userName nombre del jugador a editar
@@ -330,7 +400,7 @@ namespace APIXFIA.Repository
 
             sqlCmd.CommandType = CommandType.StoredProcedure;
             sqlCmd.CommandText = "updateUserState";
-            sqlCmd.Parameters.AddWithValue("@nameUser", userName);
+            sqlCmd.Parameters.AddWithValue("@email", userName);
             sqlCmd.Parameters.AddWithValue("@statePlayer", userState);
 
             sqlCmd.Connection = myConnection;
@@ -346,8 +416,7 @@ namespace APIXFIA.Repository
          * @param email email del jugador a buscar
          * @return teamsXPlayer resultado con la cantidad de equipos
          */
-
-        public async Task<int> getTeamsXPlayer(string email)
+        public async Task<TeamCount> getTeamsXPlayer(string email)
         {
             SqlDataReader reader = null;
 
@@ -366,11 +435,11 @@ namespace APIXFIA.Repository
 
             reader = sqlCmd.ExecuteReader();
 
-            int teamsXPlayer = 0;
+            TeamCount teamsXPlayer = new TeamCount();
 
             while (reader.Read())
             {
-                teamsXPlayer = (int)reader.GetValue(0);
+                teamsXPlayer.count = reader.GetValue(0).ToString();
 
             }
             myConnection.Close();
@@ -378,7 +447,41 @@ namespace APIXFIA.Repository
             return teamsXPlayer;
         }
 
-        //  Inicio de los metodos para la gestion de los datos de jugadores dentro de la base de datos 
+
+        public async Task<PlayerAcc> getPassUser(string email) 
+        {
+            SqlDataReader reader = null;
+
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getPassUser";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+            
+            PlayerAcc playerAcc = new PlayerAcc();
+
+            while (reader.Read())
+            {
+                playerAcc.pass = reader.GetValue(0).ToString();
+                //playerAcc.email = encript.deCodecMd5(reader.GetValue(1).ToString());
+                playerAcc.email = reader.GetValue(1).ToString();
+            }
+            myConnection.Close();
+
+            return playerAcc;
+        }
+
+
+        //  Inicio de los metodos para la gestion de los datos de juego dentro de la base de datos 
 
 
         /**
@@ -412,6 +515,47 @@ namespace APIXFIA.Repository
 
             return created;
         }
+
+
+        public async Task<IEnumerable<Team>> getTeamInfo(string email)
+        {
+            SqlDataReader reader = null;
+
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getInfoTeam";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            List<Team> teams = new List<Team>();
+
+            while (reader.Read())
+            {
+                Team team = new Team();
+                team.nameTeam = reader.GetValue(0).ToString();
+                team.budget = (int)reader.GetValue(1);
+                team.nameDriver1 = reader.GetValue(2).ToString();
+                team.nameDriver2 = reader.GetValue(3).ToString();
+                team.nameDriver3 = reader.GetValue(4).ToString();
+                team.nameDriver4 = reader.GetValue(5).ToString();
+                team.nameDriver5 = reader.GetValue(6).ToString();
+                team.car = reader.GetValue(7).ToString();
+                teams.Add(team);
+            }
+            myConnection.Close();
+
+            return teams;
+        }
+
 
         /**
          * Metodo que se encarga de obtener los pilotos existentes dentro de la base
@@ -493,6 +637,255 @@ namespace APIXFIA.Repository
             return cars;
 
         }
+
+
+        public async Task<string> haveScuderia(string email) 
+        {
+            SqlDataReader reader = null;
+
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getExistScuderia";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            string exist = "";
+
+            while (reader.Read())
+            {
+                exist = reader.GetValue(0).ToString();
+
+            }
+            myConnection.Close();
+
+            return exist;
+        }
+
+
+        // Inicio de los metodos para la gestion de los datos de las ligas dentro de la base de datos 
+
+
+        public async Task<int> newPrivateLeague(PrivateLeague privateLeague) 
+        {
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "insertPrivateLeague"; 
+            sqlCmd.Parameters.AddWithValue("@id", KeyGen.keyGen());
+            sqlCmd.Parameters.AddWithValue("@nameLeague", privateLeague.nameLeague);
+            sqlCmd.Parameters.AddWithValue("@emailCreator", privateLeague.emailCreator);
+            sqlCmd.Parameters.AddWithValue("@userLimit", privateLeague.userLimit);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+            var created = sqlCmd.ExecuteNonQuery();
+            myConnection.Close();
+
+            return created;
+        }
+
+
+        public async Task<int> isInPrivateLeague(string email) 
+        {
+            SqlDataReader reader = null;
+
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getExistInPrivateLeague";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            int exist = 0;
+
+            while (reader.Read())
+            {
+                exist = reader.GetInt32(0);
+
+            }
+            myConnection.Close();
+
+            return exist;
+        }
+
+
+        public async Task<int> updateUserPrivateLeague(string email, string idLeague)
+        {
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "updateUserPrivateLeague";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+            sqlCmd.Parameters.AddWithValue("@idLeague", idLeague);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+            var updated = sqlCmd.ExecuteNonQuery();
+            myConnection.Close();
+
+            return updated;
+        }
+
+
+        public async Task<int> insertInPrivateLeague(AddPrivLeague addPrivLeague) 
+        {
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "insertInPrivateLeague";
+            sqlCmd.Parameters.AddWithValue("@idLeague", addPrivLeague.idLeague);
+            sqlCmd.Parameters.AddWithValue("@email", addPrivLeague.email);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+            var created = sqlCmd.ExecuteNonQuery();
+            myConnection.Close();
+
+            return created;
+        }
+
+
+        public async Task<IEnumerable<LeagueParticipants>> getPrivateParticipants(string email)
+        {
+            SqlDataReader reader = null;
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getPrivateParticipants";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            List<LeagueParticipants> participants = new List<LeagueParticipants>();
+
+            while (reader.Read())
+            {
+                LeagueParticipants participant = new LeagueParticipants();
+
+                participant.nameTeam = reader.GetValue(0).ToString();
+                participant.nameUser = reader.GetValue(1).ToString();
+                participant.email = reader.GetValue(2).ToString();
+                participant.Score = (int)reader.GetValue(3);
+                participant.country = reader.GetValue(4).ToString();
+
+
+                participants.Add(participant);
+
+            }
+            myConnection.Close();
+
+            return participants;
+        }
+
+
+        public async Task<PrivateLeague> getUserPrivLeagueInfo(string email) 
+        {
+            SqlDataReader reader = null;
+
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getInfoPrivateLeague";
+            sqlCmd.Parameters.AddWithValue("@email", email);
+
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            PrivateLeague privateLeague = new PrivateLeague();
+
+            while (reader.Read())
+            {
+                privateLeague.id = reader.GetValue(0).ToString();
+                privateLeague.nameLeague = reader.GetValue(1).ToString();
+                privateLeague.emailCreator = reader.GetValue(2).ToString();
+                privateLeague.userLimit = (int)reader.GetValue(3);
+
+            }
+            myConnection.Close();
+
+            return privateLeague;
+        }
+
+
+        public async Task<IEnumerable<LeagueParticipants>> getPublicParticipants() 
+        {
+            SqlDataReader reader = null;
+            SqlConnection myConnection = new SqlConnection();
+
+            myConnection.ConnectionString = conectionString;
+
+            SqlCommand sqlCmd = new SqlCommand();
+
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.CommandText = "getPublicParticipants";
+            sqlCmd.Connection = myConnection;
+            myConnection.Open();
+
+            reader = sqlCmd.ExecuteReader();
+
+            List<LeagueParticipants> participants = new List<LeagueParticipants>();
+
+            while (reader.Read())
+            {
+                LeagueParticipants participant = new LeagueParticipants();
+
+                participant.nameTeam = reader.GetValue(0).ToString();
+                participant.nameUser = reader.GetValue(1).ToString();
+                participant.email = reader.GetValue(2).ToString();
+                participant.Score = (int)reader.GetValue(3);
+                participant.country = reader.GetValue(4).ToString();
+
+
+                participants.Add(participant);
+
+            }
+            myConnection.Close();
+
+            return participants;
+        }
+
+
 
 
     }

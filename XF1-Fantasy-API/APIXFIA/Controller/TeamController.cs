@@ -11,7 +11,8 @@ namespace APIXFIA.Controller
     [ApiController]
     public class TeamController : ControllerBase
     {
-        DataRepository dataRepository = new DataRepository();
+
+        ManagementRepository managementRepository = new ManagementRepository();
 
 
         /**
@@ -23,7 +24,7 @@ namespace APIXFIA.Controller
         public async Task<IEnumerable<Driver>> APIGetDrivers()
         {
 
-            return await dataRepository.getDrivers();
+            return await managementRepository.getDrivers();
         }
 
 
@@ -36,7 +37,7 @@ namespace APIXFIA.Controller
         public async Task<IEnumerable<Car>> APIGetCars()
         {
 
-            return await dataRepository.getCars();
+            return await managementRepository.getCars();
         }
 
 
@@ -54,7 +55,7 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await dataRepository.newPlayerScuderia(scuderia);
+            var created = await managementRepository.newPlayerScuderia(scuderia);
 
             return Created("created", created);
         }
@@ -74,11 +75,26 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await dataRepository.newPlayerTeam(team);
+            var created = await managementRepository.newPlayerTeam(team);
 
             return Created("created", created);
         }
 
+
+        [HttpGet("teaminfo/{email}")]
+        public async Task<IEnumerable<Team>> APIGetTeamInfo(string email)
+        {
+
+            return await managementRepository.getTeamInfo(email);
+        }
+
+
+        [HttpGet("havescuderia/{email}")]
+        public async Task<string> APIhaveScuderia(string email)
+        {
+
+            return await managementRepository.haveScuderia(email);
+        }
 
     }
 }

@@ -16,7 +16,9 @@ namespace APIXFIA.Controller
     [ApiController]
     public class RaceController : ControllerBase
     {
-        DataRepository dataRepository = new DataRepository();
+
+        ManagementRepository managementRepository = new ManagementRepository();
+
         public RaceController()
         {
             
@@ -31,7 +33,7 @@ namespace APIXFIA.Controller
         [HttpGet]
         public async Task<IEnumerable<Race>> APIGetRaces()
         {
-            return await dataRepository.getRaces();
+            return await managementRepository.getRaces();
         }
 
         /*
@@ -58,7 +60,7 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await dataRepository.createNewRace(race);
+            var created = await managementRepository.createNewRace(race);
 
             return Created("created", created);
         }

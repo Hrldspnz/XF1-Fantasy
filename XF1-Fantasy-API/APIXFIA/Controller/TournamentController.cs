@@ -16,7 +16,7 @@ namespace APIXFIA.Controller
     [ApiController]
     public class TournamentController : ControllerBase
     {
-        DataRepository dataRepository = new DataRepository();
+        ManagementRepository managementRepository = new ManagementRepository();
         public TournamentController() 
         {
             
@@ -31,8 +31,9 @@ namespace APIXFIA.Controller
         public async  Task<IEnumerable<Tournament>> APIGetTournaments()
         {
             
-            return await dataRepository.getTournaments();
+            return await managementRepository.getTournaments();
         }
+
 
         [HttpGet("key")]
         public async Task<string> APIKeyGen()
@@ -41,13 +42,13 @@ namespace APIXFIA.Controller
             return KeyGen.keyGen();
         }
 
+
         [HttpGet("valkey")]
-        public async Task<string> APIKeyGenAUX()
+        public async Task<List<string>> APIKeyGenAUX()
         {
 
-            return await dataRepository.createNewTournamentAUX();
+            return await managementRepository.get3YTournament();
         }
-
 
 
         /**
@@ -65,12 +66,16 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await dataRepository.createNewTournament(tournament);
+            var created = await managementRepository.createNewTournament(tournament);
             return Created("created", created);
         }
 
 
-
+        [HttpGet("actbudget")]
+        public async Task<int> APIGetAtualBudget() 
+        {
+            return await managementRepository.getActualBudget();
+        }
 
     }
 }

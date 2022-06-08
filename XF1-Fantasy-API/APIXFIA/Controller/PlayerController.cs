@@ -1,6 +1,7 @@
 ﻿using APIXFIA.Model;
 using APIXFIA.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace APIXFIA.Controller
@@ -9,7 +10,7 @@ namespace APIXFIA.Controller
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        DataRepository dataRepository = new DataRepository();
+        ManagementRepository managementRepository = new ManagementRepository();
 
 
         /**
@@ -17,11 +18,11 @@ namespace APIXFIA.Controller
          * Metodo de tipo Get que retorna los automoviles almacenados
          * @return lista de automoviles existentes 
          */
-        [HttpGet("teamsxplayer")]
-        public async Task<int> APIGetTeamsXPlayer([FromBody] PlayerAcc player)
+        [HttpPost("teamsxplayer")]
+        public async Task<TeamCount> APIGetTeamsXPlayer([FromBody] PlayerAcc player)
         {
 
-            return await dataRepository.getTeamsXPlayer(player.email);
+            return await managementRepository.getTeamsXPlayer(player.email);
         }
 
         /**
@@ -38,9 +39,23 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await dataRepository.createNewPlayerAccount(player);
+            var created = await managementRepository.createNewPlayerAccount(player);
 
             return Created("created", created);
+        }
+
+
+        [HttpGet("state/{email}")]
+        public async Task<string> APIGetPlayerState(string email) 
+        {
+            return await managementRepository.getPlayerState(email);
+        }
+
+
+        [HttpGet("info/{email}")]
+        public async Task<PlayerInfo> APIGetPlayerInfo(string email)
+        {
+            return await managementRepository.getPlayerInfo(email);
         }
 
 
@@ -58,12 +73,25 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await dataRepository.updatePlayerState(player.userName, player.statePlayer);
+            var created = await managementRepository.updatePlayerState(player.userName, player.statePlayer);
 
             return Created("created", created);
         }
 
-        
+
+        /**
+         * api/player/pass/{email}
+         * Metodo de tipo Get que retorna el password de un jugador
+         * @param email correo del jugador a encontrar
+         * @return Player objeto tipo jugador con el email y la password
+         */
+        [HttpGet("pass/{email}")]
+        public async Task<PlayerAcc> APIGetUserPass(string email) 
+        {
+
+            return await managementRepository.getPassUser(email);
+        }
+
 
     }
 }
