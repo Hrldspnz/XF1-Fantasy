@@ -20,7 +20,7 @@ export class PrivateLeaguesComponent implements OnInit {
   menu: Menu[] = [];
   code:string="123"; /** Saves the code of the league of the user */
   leagueFlag=true; /** Indicates wether the user is in a private league or not */
-  user=localStorage.getItem("email"); /** Saves the email of the current user that is logged */
+  user:any=localStorage.getItem("email"); /** Saves the email of the current user that is logged */
   data = [];
 
   displayedColumns = ['pos','nameUser','select','nameTeam','country', 'score'];
@@ -34,6 +34,10 @@ export class PrivateLeaguesComponent implements OnInit {
     private _privateLeagueService:PrivateLeagueService,
     private _dialog: MatDialog) { }
 
+  /**
+   * It runs when the component initialize
+   * Load all the information in the GUI
+   */
   ngOnInit(): void {
     this.loadMenu();
     this.userInLeague();
@@ -54,8 +58,7 @@ export class PrivateLeaguesComponent implements OnInit {
    * Validates if the user is in a private league already and sets the leagueFlag
    */
   userInLeague(){
-    //Have to pass user
-    this._privateLeagueService.isInLeague("h.wolf@gmail.com").subscribe(
+    this._privateLeagueService.isInLeague(this.user).subscribe(
       result=>{
         if(result==0){
           this.leagueFlag=false;
@@ -72,7 +75,7 @@ export class PrivateLeaguesComponent implements OnInit {
    * If the user is in a private league it loads the league id on GUI
    */
   loadLeagueId(){
-    this._privateLeagueService.getUserLeagueInfo("h.wolf@gmail.com").subscribe(
+    this._privateLeagueService.getUserLeagueInfo(this.user).subscribe(
       result=>{
         this.code=result.id;
       }
@@ -82,7 +85,7 @@ export class PrivateLeaguesComponent implements OnInit {
    * It loads all teams of a private league in a table on GUI
    */
   loadLeagues(){
-    this._privateLeagueService.getLeaguesOfUser("h.wolf@gmail.com").subscribe(
+    this._privateLeagueService.getLeaguesOfUser(this.user).subscribe(
       result=> {
         this.data=result;
       }
@@ -90,8 +93,8 @@ export class PrivateLeaguesComponent implements OnInit {
   }
 
   /**
-   *
-   * @param userEmail
+   * Calls the function that open popup with an user information and saves the email
+   * @param userEmail is the email of the user to show the info
    */
   loadUserInfo(userEmail:string){
     localStorage.setItem('newUserEmail',userEmail)
@@ -99,7 +102,7 @@ export class PrivateLeaguesComponent implements OnInit {
   }
 
   /**
-   *
+   * Opens the popup
    */
   openDialog(){
     this._dialog.open(PopupComponent);
