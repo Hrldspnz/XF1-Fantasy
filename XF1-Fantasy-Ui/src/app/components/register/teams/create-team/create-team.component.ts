@@ -115,10 +115,14 @@ export class CreateTeamComponent implements OnInit {
       });
   }
 
+  /**
+   *
+   */
   loadCurrentlyBudget(){
     this._champService.getCurrentlyBudget().subscribe(
       result => {
-        console.log(result)
+        this.budget = result.value;
+        this.remainingBudget = result.value;
       }
     )
   }
@@ -179,7 +183,7 @@ export class CreateTeamComponent implements OnInit {
   }
 
   /**
-   *
+   * Updates the fields of the drivers form
    */
   updateForm(){
     this.formTeam1.patchValue({driver1: this.listDriverSelection[0],

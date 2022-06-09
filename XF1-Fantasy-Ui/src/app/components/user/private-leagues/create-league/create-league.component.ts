@@ -40,7 +40,7 @@ export class CreateLeagueComponent implements OnInit {
   ];
 
   /**
-   *
+   * Constructor of the class
    * @param fb
    * @param _menuService
    * @param _playerService
@@ -54,15 +54,12 @@ export class CreateLeagueComponent implements OnInit {
    }
 
 
-  /**
-   *
-   */
   ngOnInit(): void {
     this.loadMenu();
   }
 
   /**
-   *
+   * Creates a League Object and calls the Player Service
    */
   addLeague(){
     const leaguePrivate : Object =
@@ -81,7 +78,7 @@ export class CreateLeagueComponent implements OnInit {
   }
 
   /**
-   *
+   * Loads the navbar menu from the data base
    */
   loadMenu (){
     this._menuService.getMenu2().subscribe(data => {
