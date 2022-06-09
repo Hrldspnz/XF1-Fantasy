@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -62,23 +63,38 @@ export class TeamsComponent implements OnInit {
     console.log(this.emailUser)
     this._teamService.getNumTeamsByUser(user).subscribe (
       result => {
-        if ( result.count == "0" ) {
-        this.flagTeam1 = true;
-        this.flagTeam2 = false;
-        } if ( result.count == "1" ) {
-        this.flagTeam1 = false;
-        this.flagTeam2 = true;
-        } if ( result.count == "2" ) {
-        this.flagTeam1 = false;
-        this.flagTeam2 = false;
-        this.flagFinished = true;
-        this.activeUser();
-        }
+        this.counterTeam = result.count;
+        console.log(result)
+        console.log(result.count);
+        this.updateFlags();
+
     });
+
   }
 
   /**
-   * Método que activa la cuenta de usuario una vez que se crearon los dos equipos
+   *
+   */
+  updateFlags(){
+    if ( this.counterTeam == "0" ) {
+      this.flagTeam1 = true;
+      this.flagTeam2 = false;
+      this.counterTeam = "";
+      } if ( this.counterTeam == "1" ) {
+      this.flagTeam1 = false;
+      this.flagTeam2 = true;
+      this.counterTeam = "";
+      } if ( this.counterTeam == "2" ) {
+      this.flagTeam1 = false;
+      this.flagTeam2 = false;
+      this.flagFinished = true;
+      this.counterTeam = "";
+      this.activeUser();
+      }
+  }
+
+  /**
+   * Active
    */
   activeUser(){
     const user: Object =

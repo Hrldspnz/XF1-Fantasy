@@ -17,8 +17,8 @@ export class AddLeagueComponent implements OnInit {
   user:any=localStorage.getItem("email");
 
   /**
-   *
-   * @param fb Constructor of the class
+   * Constructor of the class
+   * @param fb
    * @param _menuService
    * @param _playerService
    * @param router
@@ -36,8 +36,9 @@ export class AddLeagueComponent implements OnInit {
     this.loadMenu();
   }
 
+
   /**
-   * Loads the menu from data base
+   * Loads the navbar menu from Menu Service
    */
   loadMenu (){
     this._menuService.getMenu2().subscribe(data => {
@@ -48,7 +49,7 @@ export class AddLeagueComponent implements OnInit {
   }
 
   /**
-   * Join into a new league
+   * Joins into a League with a code
    */
   JoinLeague(){
     const leaguePrivate : Object =

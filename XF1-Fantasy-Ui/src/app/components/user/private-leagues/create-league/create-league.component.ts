@@ -55,9 +55,6 @@ export class CreateLeagueComponent implements OnInit {
    }
 
 
-  /**
-   *
-   */
   ngOnInit(): void {
     this.loadMenu();
   }
@@ -82,7 +79,7 @@ export class CreateLeagueComponent implements OnInit {
   }
 
   /**
-   *
+   * Loads the navbar menu from the data base
    */
   loadMenu (){
     this._menuService.getMenu2().subscribe(data => {

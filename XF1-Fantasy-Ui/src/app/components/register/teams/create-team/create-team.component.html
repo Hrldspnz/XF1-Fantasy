@@ -1,9 +1,15 @@
 <div>
+
+
+
   <mat-toolbar class="mainTolbar">
-    <span>Creación Escudería</span>
+    <span>Creación de Equipos</span>
   </mat-toolbar>
 
+  <mat-spinner *ngIf="loading" class="spinner" diameter="50" ></mat-spinner>
+
   <mat-grid-list  cols="2" rowHeight="820px">
+
 
 <!-- -----------------------------------------------Tile para seleccionar equipo--------------------------------------------------- -->
 <mat-grid-tile [colspan]="1">
@@ -200,7 +206,6 @@
 
           <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'ligthblue'">
             <button type="submit" [disabled]="formTeam1.invalid" class="myButton" mat-raised-button>Guardar</button>
-            <button class="myButton" [routerLink]="['/register/create-team', emailUser]" mat-raised-button>Siguiente</button>
           </mat-grid-tile>
 
         </mat-grid-list>

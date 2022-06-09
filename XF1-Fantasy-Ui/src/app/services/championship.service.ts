@@ -39,4 +39,8 @@ getChampionships(): Observable<any>{
   return this._http.get(this.url + 'api/tournament');
 }
 
+getCurrentlyBudget(): Observable<any>{
+  return this._http.get(this.url + 'api/tournament/actbudget');
+}
+
 }

@@ -94,7 +94,7 @@ export class PrivateLeaguesComponent implements OnInit {
 
   /**
    * Calls the function that open popup with an user information and saves the email
-   * @param userEmail is the email of the user to show the info 
+   * @param userEmail is the email of the user to show the info
    */
   loadUserInfo(userEmail:string){
     localStorage.setItem('newUserEmail',userEmail)
