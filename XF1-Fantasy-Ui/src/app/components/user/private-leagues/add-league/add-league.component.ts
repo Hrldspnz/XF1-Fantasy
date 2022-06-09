@@ -45,7 +45,9 @@ export class AddLeagueComponent implements OnInit {
     console.log(leaguePrivate)
     this._playerService.joinLeague(leaguePrivate).subscribe(
       data => {
-        console.log(data);
+        alert("Ha sido correctamente ingresado a la liga");
+      } , error => {
+        alert("Liga no existente o ha excedido el número de participantes")
       });
     this.router.navigate(['user/private-leagues']);
   }
