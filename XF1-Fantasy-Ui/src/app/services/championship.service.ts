@@ -11,8 +11,8 @@ export class ChampionshipService {
 
 
   /**
-   *
-   * @param _http
+   * Constructor of the class
+   * @param _http Http Client instance
    */
   constructor(
     public _http: HttpClient
@@ -21,8 +21,8 @@ export class ChampionshipService {
     }
 
 /**
- *
- * @param championship
+ * Add a new championship into the data base
+ * @param championship Data of the new championship
  */
 addChampionship(championship: Object){
   console.log(this.url+'api/tournament/newtnmt');
@@ -32,7 +32,7 @@ addChampionship(championship: Object){
 }
 
 /**
- *
+ * Get all the championships of the data base
  * @returns
  */
 getChampionships(): Observable<any>{
