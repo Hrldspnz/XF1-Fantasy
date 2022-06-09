@@ -31,3 +31,8 @@ table {
   overflow: auto;
 
 }
+
+#codigo-title {
+  margin-left: 10%;
+  color: rgb(10, 10, 130);
+}

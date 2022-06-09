@@ -61,6 +61,14 @@ export class PlayersService {
     return this._http.put(this.url+'api/player/userstate', dataUser);
   }
 
+  getUserTeamInfo(userEmail:string): Observable<any>{
+    return this._http.get(this.url+'api/team/teaminfo/'+userEmail);
+  }
+
+  getUserInLeagueInfo(userEmail:string): Observable<any> {
+    return this._http.get(this.url+'api/player/info/'+userEmail);
+  }
+
 
 
 

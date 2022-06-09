@@ -1,1 +1,81 @@
-<p>public-leagues works!</p>
+<mat-toolbar class="mainTolbar">
+    <span>XF1 Fantasy</span>
+    <span class="example-spacer"></span>
+    <button *ngFor="let item of menu" class="buttonMy" [routerLink]="item.redirect" mat-raised-button> {{item.nombre}} </button>
+    <button routerLink="/main/start" class="myIcon" rou mat-icon-button>
+      <mat-icon class="myIcon">home</mat-icon>
+    </button>
+    <button  routerLink="/login" class="myIcon"  mat-icon-button>
+      <mat-icon class="myIcon">logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- =====================================================-->
+  
+  <div >
+    
+    <div class="example-container mat-elevation-z8">
+    
+      <table mat-table [dataSource]="data" class="mat-elevation-z8">
+        
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="pos">
+          <th mat-header-cell *matHeaderCellDef> Posicion </th>
+          <td mat-cell *matCellDef="let element"> {{element.pos}} </td>
+        </ng-container>
+        
+        <!-- User Column -->
+
+        <ng-container matColumnDef="nameUser">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.nameUser}} </td>
+        </ng-container>
+
+        <!-- Select Column -->
+  
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+
+        <!-- <td mat-cell *matCellDef="let element"> {{element.score}} </td> -->
+        <td mat-cell *matCellDef="let element"> 
+          <button mat-mini-fab color="warn" aria-label="Example icon button with a plus one icon" (click)="loadUserInfo(element.email)" >
+            <mat-icon>search</mat-icon>
+          </button>  
+        </td> 
+        
+      </ng-container>
+    
+        <!-- Team Column -->
+    
+        <ng-container matColumnDef="nameTeam">
+          <th mat-header-cell *matHeaderCellDef> Equipo </th>
+          <td mat-cell *matCellDef="let element"> {{element.nameTeam}} </td>
+        </ng-container>
+
+        <!-- Country Column -->
+    
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef> Pais </th>
+          <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        </ng-container>
+    
+    
+        <!-- Score Column -->
+    
+        <ng-container matColumnDef="score">
+          <th mat-header-cell *matHeaderCellDef> Score </th>
+          <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+        </ng-container>
+    
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+      </table>
+    
+    </div>
+  </div>
+  
+  

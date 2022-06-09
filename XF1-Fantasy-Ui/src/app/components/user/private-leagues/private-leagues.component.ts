@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from 'src/app/services/menu.service';
 import { Menu } from 'src/app/interfaces/menu';
-import { PlayersService } from 'src/app/services/players.service';
 import { PrivateLeagueService } from 'src/app/services/private-league.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent} from '../popup/popup.component';
 
 
 @Component({
@@ -20,25 +21,9 @@ export class PrivateLeaguesComponent implements OnInit {
   code:string="123"; /** Saves the code of the league of the user */
   leagueFlag=true; /** Indicates wether the user is in a private league or not */
   user=localStorage.getItem("email"); /** Saves the email of the current user that is logged */
-  data = [
+  data = [];
 
-    {id: 1, name: 'Rajesh', email: 'rajesh@gmail.com'},
-    {id:2, name: 'Paresh', email: 'paresh@gmail.com'},
-    {id:3, name: 'Naresh', email: 'naresh@gmail.com'},
-    {id:4, name: 'Suresh', email: 'suresh@gmail.com'},
-    {id:5, name: 'Karan', email: 'karan@gmail.com'},
-    {id:6, name: 'dummy', email: 'dummy@gmail.com'},
-    {id:7, name: 'dummy1', email: 'dummy@gmail.com'},
-    {id:8, name: 'dummy2', email: 'dummy@gmail.com'},
-    {id:9, name: 'dummy3', email: 'dummy@gmail.com'},
-    {id:10, name: 'dummy4', email: 'dummy@gmail.com'},
-    {id:11, name: 'dummy5', email: 'dummy@gmail.com'},
-    {id:12, name: 'dummy6', email: 'dummy@gmail.com'},
-    {id:13, name: 'dummy7', email: 'dummy@gmail.com'},
-    {id:14, name: 'dummy8', email: 'dummy@gmail.com'}
-  ];
-
-  displayedColumns = ['id', 'name', 'email'];
+  displayedColumns = ['pos','nameUser','select','nameTeam','country', 'score'];
   
   /**
    * Is the constructor of the class
@@ -46,7 +31,8 @@ export class PrivateLeaguesComponent implements OnInit {
    * @param _privateLeagueService contains the methods to get info from the DB
    */
   constructor(private _menuService: MenuService,
-    private _privateLeagueService:PrivateLeagueService) { }
+    private _privateLeagueService:PrivateLeagueService,
+    private _dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadMenu();
@@ -76,6 +62,7 @@ export class PrivateLeaguesComponent implements OnInit {
         }else if(result==1){
           this.leagueFlag=true;
           this.loadLeagueId();
+          this.loadLeagues();
         }
       }
     )
@@ -95,7 +82,20 @@ export class PrivateLeaguesComponent implements OnInit {
    * It loads all teams of a private league in a table on GUI
    */
   loadLeagues(){
-    
+    this._privateLeagueService.getLeaguesOfUser("h.wolf@gmail.com").subscribe(
+      result=> {
+        this.data=result;
+      }
+    )
+  }
+
+  loadUserInfo(userEmail:string){
+    localStorage.setItem('newUserEmail',userEmail)
+    this.openDialog();
+  }
+
+  openDialog(){
+    this._dialog.open(PopupComponent);
   }
 
 }
