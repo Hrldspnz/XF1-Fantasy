@@ -14,7 +14,15 @@ export class AddLeagueComponent implements OnInit {
 
   menu: Menu[] = [];
   formJoinLeague: FormGroup;
+  user:any=localStorage.getItem("email");
 
+  /**
+   *
+   * @param fb Constructor of the class
+   * @param _menuService
+   * @param _playerService
+   * @param router
+   */
   constructor(private fb: FormBuilder, private _menuService: MenuService,
               private _playerService: PlayersService,
               private router: Router) {
@@ -28,6 +36,9 @@ export class AddLeagueComponent implements OnInit {
     this.loadMenu();
   }
 
+  /**
+   * Loads the menu from data base
+   */
   loadMenu (){
     this._menuService.getMenu2().subscribe(data => {
       console.log(data);
@@ -36,11 +47,14 @@ export class AddLeagueComponent implements OnInit {
     )
   }
 
+  /**
+   * Join into a new league
+   */
   JoinLeague(){
     const leaguePrivate : Object =
     {
       idLeague: this.formJoinLeague.value.code,
-      email: this._playerService.user.email,
+      email: this.user,
     }
     console.log(leaguePrivate)
     this._playerService.joinLeague(leaguePrivate).subscribe(
