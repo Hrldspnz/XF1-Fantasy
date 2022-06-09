@@ -19,6 +19,7 @@ export class CreateLeagueComponent implements OnInit {
 
   formPrivateLeague: FormGroup;
   menu: Menu[] = [];
+  user:any=localStorage.getItem("email");
 
   countries: Datos[] = [
     {value: '5-0', viewValue: '5'},
@@ -59,14 +60,14 @@ export class CreateLeagueComponent implements OnInit {
   }
 
   /**
-   * Creates a League Object and calls the Player Service
+   * Creates a new League
    */
   addLeague(){
     const leaguePrivate : Object =
     {
       id: "",
       nameLeague: this.formPrivateLeague.value.name,
-      emailCreator: this._playerService.user.email,
+      emailCreator: this.user,
       userLimit: Number(this.formPrivateLeague.value.members)
     }
     console.log(leaguePrivate)

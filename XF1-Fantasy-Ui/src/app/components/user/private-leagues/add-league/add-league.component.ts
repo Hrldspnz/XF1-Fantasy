@@ -14,6 +14,7 @@ export class AddLeagueComponent implements OnInit {
 
   menu: Menu[] = [];
   formJoinLeague: FormGroup;
+  user:any=localStorage.getItem("email");
 
   /**
    * Constructor of the class
@@ -54,14 +55,17 @@ export class AddLeagueComponent implements OnInit {
     const leaguePrivate : Object =
     {
       idLeague: this.formJoinLeague.value.code,
-      email: this._playerService.user.email,
+      email: this.user,
     }
     console.log(leaguePrivate)
     this._playerService.joinLeague(leaguePrivate).subscribe(
       data => {
-        console.log(data);
+        alert("Ha sido correctamente ingresado a la liga");
+        this.router.navigate(['user']);
+      } , error => {
+        alert("Liga no existente o ha excedido el número de participantes")
       });
-    this.router.navigate(['user/private-leagues']);
+
   }
 
 }
