@@ -36,7 +36,7 @@ export class CreateTeamComponent implements OnInit {
   budget = 100;
   spentBudget = 0;
   remainingBudget = 100;
-
+  loading = false;
   emailUser: string | null;
   formTeam1: FormGroup;
 
@@ -151,14 +151,25 @@ export class CreateTeamComponent implements OnInit {
       }
       console.log(team)
       this._teamsService.addNewTeam(team).subscribe(data => {
-        console.log(data);
+        data;
       }, error => {
         alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
       }
       );
-      this.router.navigate(['/register/create-team/' + this.emailUser]);
+      this.fakeLoadingUser();
     }
   }
+
+
+    /**
+   * Simulates a loading for 1.5 seconds
+   */
+     fakeLoadingUser(){
+      this.loading = true;
+      setTimeout (() => {
+        this.router.navigate(['/register/create-team/' + this.emailUser])
+      }, 1500)
+    }
 
   /**
    *
@@ -208,7 +219,6 @@ export class CreateTeamComponent implements OnInit {
           this.changeStateDriver(name, 'add');
           this.updateBudget(price, 'add');
           this.counterDrivers += 1;
-          console.log(this.counterDrivers)
           break
         }
       }
@@ -234,7 +244,6 @@ export class CreateTeamComponent implements OnInit {
         this.changeStateDriver(name, 'delete');
         this.updateBudget(price, 'delete');
         this.counterDrivers -= 1;
-        console.log(this.counterDrivers)
         break
       }
       i++;

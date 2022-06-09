@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -63,29 +64,38 @@ export class TeamsComponent implements OnInit {
     this._teamService.getNumTeamsByUser(user).subscribe (
       result => {
         this.counterTeam = result.count;
+        console.log(result)
         console.log(result.count);
         this.updateFlags();
+
     });
+
   }
 
+  /**
+   *
+   */
   updateFlags(){
     if ( this.counterTeam == "0" ) {
       this.flagTeam1 = true;
       this.flagTeam2 = false;
-      console.log("CONTADOR DE 0")
+      this.counterTeam = "";
       } if ( this.counterTeam == "1" ) {
       this.flagTeam1 = false;
       this.flagTeam2 = true;
-      console.log("CONTADOR DE 1")
+      this.counterTeam = "";
       } if ( this.counterTeam == "2" ) {
       this.flagTeam1 = false;
       this.flagTeam2 = false;
       this.flagFinished = true;
-      console.log("CONTADOR DE 2")
+      this.counterTeam = "";
       this.activeUser();
       }
   }
 
+  /**
+   * Active
+   */
   activeUser(){
     const user: Object =
     {
