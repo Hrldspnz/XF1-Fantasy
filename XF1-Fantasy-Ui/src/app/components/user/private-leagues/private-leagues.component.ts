@@ -24,7 +24,7 @@ export class PrivateLeaguesComponent implements OnInit {
   data = [];
 
   displayedColumns = ['pos','nameUser','select','nameTeam','country', 'score'];
-  
+
   /**
    * Is the constructor of the class
    * @param _menuService saves the manu to display in the GUI
