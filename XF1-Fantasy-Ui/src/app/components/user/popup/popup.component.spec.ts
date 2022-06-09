@@ -6,18 +6,16 @@ import {MatSelectModule} from '@angular/material/select'
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { RouterTestingModule } from '@angular/router/testing';
 
-import { LoginComponent } from './login.component';
+import { PopupComponent } from './popup.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('PopupComponent', () => {
+  let component: PopupComponent;
+  let fixture: ComponentFixture<PopupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [ PopupComponent ],
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -26,27 +24,19 @@ describe('LoginComponent', () => {
         MatSelectModule,
         MatInputModule, 
         BrowserAnimationsModule,
-        MatToolbarModule,
-        MatSnackBarModule,
-        RouterTestingModule
+        MatToolbarModule
       ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(PopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  
+
   it('should create', () => {
     expect(component).toBeTruthy();
-  }); 
-
-  it('Login valid', () => {
-    component.formLogin.value.user='Usuario'
-    //component.formLogin.value.password='pas123'
-    expect(component.formLogin.invalid).toBeTrue();
-  }); 
+  });
 });

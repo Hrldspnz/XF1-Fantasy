@@ -8,6 +8,7 @@ import { TeamsComponent } from './components/register/teams/teams.component';
 import { AddLeagueComponent } from './components/user/private-leagues/add-league/add-league.component';
 import { CreateLeagueComponent } from './components/user/private-leagues/create-league/create-league.component';
 import { PrivateLeaguesComponent } from './components/user/private-leagues/private-leagues.component';
+import { PublicLeaguesComponent } from './components/user/public-leagues/public-leagues.component';
 import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'user/private-leagues', component: PrivateLeaguesComponent },
   { path: 'user/private-leagues/join', component: AddLeagueComponent },
   { path: 'user/private-leagues/create', component: CreateLeagueComponent },
+  { path: 'user/public-league', component: PublicLeaguesComponent },
   { path: 'main', loadChildren: () => import('./components/main/main.module').then(x => x.MainModule)},
   { path: '**', redirectTo: 'login', pathMatch: 'full'}
 ];

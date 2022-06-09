@@ -40,6 +40,10 @@ export class RegisterComponent implements OnInit {
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
+  /**
+   *
+   * @param _formBuilder
+   */
   constructor(private _formBuilder: FormBuilder) {
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],

@@ -10,7 +10,82 @@
   </button>
 </mat-toolbar>
 
-<mat-card>
-  <button mat-raised-button [routerLink]="['/user/private-leagues/create' ]"> Crear Liga Privada </button>
-  <button mat-raised-button [routerLink]="['/user/private-leagues/join' ]"> Unirse a Liga Privada </button>
+<mat-card class="cardButtons" *ngIf="leagueFlag==false">
+  <button class="buttonMy" mat-stroked-button [routerLink]="['/user/private-leagues/create' ]"> Crear Liga Privada </button>
+  <button class="buttonMy" mat-stroked-button [routerLink]="['/user/private-leagues/join' ]"> Unirse a Liga Privada </button>
 </mat-card>
+<!-- =====================================================-->
+
+<div *ngIf="leagueFlag==true">
+  <div class="title-class">
+    <h3 id="codigo-title">Codigo de liga: {{code}}</h3>
+  </div>
+
+  <div class="example-container mat-elevation-z8">
+
+    <table mat-table [dataSource]="data" class="mat-elevation-z8">
+
+
+      <!-- Position Column -->
+
+      <ng-container matColumnDef="pos">
+        <th mat-header-cell *matHeaderCellDef> Posición </th>
+        <td mat-cell *matCellDef="let element"> {{element.pos}} </td>
+      </ng-container>
+
+
+      <!-- User Column -->
+
+      <ng-container matColumnDef="nameUser">
+        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+        <td mat-cell *matCellDef="let element"> {{element.nameUser}} </td>
+      </ng-container>
+
+      <!-- Select Column -->
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>  </th>
+
+        <!-- <td mat-cell *matCellDef="let element"> {{element.score}} </td> -->
+        <td mat-cell *matCellDef="let element">
+          <button mat-mini-fab color="warn" aria-label="Example icon button with a plus one icon" (click)="loadUserInfo(element.email)" >
+            <mat-icon>search</mat-icon>
+          </button>
+        </td>
+
+      </ng-container>
+
+
+      <!-- Team Column -->
+
+      <ng-container matColumnDef="nameTeam">
+        <th mat-header-cell *matHeaderCellDef> Equipo </th>
+        <td mat-cell *matCellDef="let element"> {{element.nameTeam}} </td>
+      </ng-container>
+
+      <!-- Country Column -->
+
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef> País </th>
+        <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+      </ng-container>
+
+
+      <!-- Score Column -->
+
+      <ng-container matColumnDef="score">
+        <th mat-header-cell *matHeaderCellDef> Puntaje </th>
+        <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+  </div>
+</div>
+

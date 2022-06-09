@@ -10,8 +10,8 @@ export class RacesService {
   public url: string;
 
   /**
-   * Metodo constructor de la clase
-   * @param _http
+   * Constructor of the class
+   * @param _http Http Client instance
    */
   constructor(
     public _http: HttpClient
@@ -20,15 +20,15 @@ export class RacesService {
     }
 
   /**
-  *
-  * @returns
+  * Get the all the championships from the data base
+  * @returns JSON with all championships
   */
   public getChampions(): Observable<any>{
     return this._http.get(this.url + 'api/tournament');
   }
 
   /**
-   *
+   * Add a new race into a championship in the data base
    * @param raceData
    */
   public createRace(raceData:Object) {
@@ -40,8 +40,8 @@ export class RacesService {
   }
 
   /**
-   *
-   * @returns
+   * Get the all the championships from the data base
+   * @returns JSON with all races
    */
   public getRaces(): Observable<any>{
     return this._http.get(this.url + 'api/race');

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChampionshipComponent } from 'src/app/components/main/championship/championship.component';
+import { ChampionshipService } from 'src/app/services/championship.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -34,7 +36,7 @@ export class CreateTeamComponent implements OnInit {
   budget = 100;
   spentBudget = 0;
   remainingBudget = 100;
-
+  loading = false;
   emailUser: string | null;
   formTeam1: FormGroup;
 
@@ -47,6 +49,7 @@ export class CreateTeamComponent implements OnInit {
    */
   constructor(private fb: FormBuilder,
               private _teamsService: TeamsService,
+              private _champService: ChampionshipService,
               private router: Router,
               private aRoute: ActivatedRoute) {
     this.formTeam1 = this.fb.group ({
@@ -64,17 +67,15 @@ export class CreateTeamComponent implements OnInit {
 
   }
 
-  /**
-   *Metodo que se ejecuta al inicio del componente
-   */
   ngOnInit(): void {
     this.loadCars()
     this.loadDrivers()
+    this.loadCurrentlyBudget()
 
   }
 
   /**
-   *
+   * Get all the drivers from data base
    */
   loadDrivers(){
     this._teamsService.getDrivers().subscribe(
@@ -95,7 +96,7 @@ export class CreateTeamComponent implements OnInit {
   }
 
   /**
-   *
+   * Get all the cars from data base
    */
   loadCars(){
     this._teamsService.getCars().subscribe(
@@ -116,6 +117,18 @@ export class CreateTeamComponent implements OnInit {
 
   /**
    *
+   */
+  loadCurrentlyBudget(){
+    this._champService.getCurrentlyBudget().subscribe(
+      result => {
+        this.budget = result.value;
+        this.remainingBudget = result.value;
+      }
+    )
+  }
+
+  /**
+   * Creates the object with a new team and calls the service
    */
   createTeam(){
     console.log(this.remainingBudget)
@@ -138,14 +151,25 @@ export class CreateTeamComponent implements OnInit {
       }
       console.log(team)
       this._teamsService.addNewTeam(team).subscribe(data => {
-        console.log(data);
+        data;
       }, error => {
         alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
       }
       );
-      this.router.navigate(['/register/create-team/' + this.emailUser]);
+      this.fakeLoadingUser();
     }
   }
+
+
+    /**
+   * Simulates a loading for 1.5 seconds
+   */
+     fakeLoadingUser(){
+      this.loading = true;
+      setTimeout (() => {
+        this.router.navigate(['/register/create-team/' + this.emailUser])
+      }, 1500)
+    }
 
   /**
    *
@@ -170,7 +194,7 @@ export class CreateTeamComponent implements OnInit {
   }
 
   /**
-   *
+   * Updates the fields of the drivers form
    */
   updateForm(){
     this.formTeam1.patchValue({driver1: this.listDriverSelection[0],
@@ -195,7 +219,6 @@ export class CreateTeamComponent implements OnInit {
           this.changeStateDriver(name, 'add');
           this.updateBudget(price, 'add');
           this.counterDrivers += 1;
-          console.log(this.counterDrivers)
           break
         }
       }
@@ -221,7 +244,6 @@ export class CreateTeamComponent implements OnInit {
         this.changeStateDriver(name, 'delete');
         this.updateBudget(price, 'delete');
         this.counterDrivers -= 1;
-        console.log(this.counterDrivers)
         break
       }
       i++;

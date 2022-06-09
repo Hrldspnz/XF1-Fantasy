@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -6,18 +6,17 @@ import {MatSelectModule} from '@angular/material/select'
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { RouterTestingModule } from '@angular/router/testing';
+import {MatDialogModule} from '@angular/material/dialog';
 
-import { LoginComponent } from './login.component';
+import { PublicLeaguesComponent } from './public-leagues.component';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('PublicLeaguesComponent', () => {
+  let component: PublicLeaguesComponent;
+  let fixture: ComponentFixture<PublicLeaguesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [ PublicLeaguesComponent ],
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -27,26 +26,19 @@ describe('LoginComponent', () => {
         MatInputModule, 
         BrowserAnimationsModule,
         MatToolbarModule,
-        MatSnackBarModule,
-        RouterTestingModule
+        MatDialogModule,
       ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(PublicLeaguesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  
+
   it('should create', () => {
     expect(component).toBeTruthy();
-  }); 
-
-  it('Login valid', () => {
-    component.formLogin.value.user='Usuario'
-    //component.formLogin.value.password='pas123'
-    expect(component.formLogin.invalid).toBeTrue();
-  }); 
+  });
 });
