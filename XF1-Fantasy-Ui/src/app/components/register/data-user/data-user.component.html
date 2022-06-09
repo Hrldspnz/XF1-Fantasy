@@ -47,7 +47,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile *ngIf="flagData"  [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
-        <button type="submit" [disabled]="formDataUser.invalid" class="myButton" mat-raised-button>Guardar</button>
+        <button type="submit" [disabled]="formDataUser.invalid" class="myButton" mat-raised-button>Siguiente</button>
       </mat-grid-tile>
     </form>
 
@@ -57,7 +57,7 @@
             <mat-label>Nombre de Escudería</mat-label>
             <input matInput autocomplete="off" formControlName="nameScuderia">
           </mat-form-field>
-          <button type="submit" [disabled]="formScuderia.invalid" mat-raised-button>Guardar</button>
+          <button type="submit" [disabled]="formScuderia.invalid" mat-raised-button>Siguiente</button>
         </mat-grid-tile>
       </form>
 

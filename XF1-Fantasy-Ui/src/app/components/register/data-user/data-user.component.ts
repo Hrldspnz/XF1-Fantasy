@@ -56,7 +56,6 @@ export class DataUserComponent implements OnInit {
     if (this.formDataUser.value.password != this.formDataUser.value.passwordConfirm){
       alert ("Las constraseñas no coinciden")
     } else {
-      alert("Se han guardado los datos correctamente")
       const newUser: Object =
       {
         nameUser: this.formDataUser.value.name,
@@ -69,8 +68,9 @@ export class DataUserComponent implements OnInit {
         console.log(data);
         this.flagData = false;
         this.flagScuderia = true;
+        alert("Se han guardado los datos correctamente")
       }, error => {
-        alert("Error al crear Cuenta de Usuario, revise dirección de Correo Electrónico ingresada")
+        alert("Error al crear Cuenta de Usuario, dirección de Correo Electrónico ya registrada o contraseña menor a 8 caracteres")
       }
       );
     }
@@ -88,7 +88,7 @@ export class DataUserComponent implements OnInit {
         console.log(data);
         this.router.navigate(['/register/create-team/' + this.formDataUser.value.email]);
       }, error => {
-        alert("Error al crear la escudería")
+        alert("Error al crear la escudería, seleccione otro nombre")
       }
       );
     }

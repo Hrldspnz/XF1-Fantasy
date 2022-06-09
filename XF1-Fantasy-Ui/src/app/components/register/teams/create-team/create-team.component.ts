@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChampionshipComponent } from 'src/app/components/main/championship/championship.component';
+import { ChampionshipService } from 'src/app/services/championship.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -47,6 +49,7 @@ export class CreateTeamComponent implements OnInit {
    */
   constructor(private fb: FormBuilder,
               private _teamsService: TeamsService,
+              private _champService: ChampionshipService,
               private router: Router,
               private aRoute: ActivatedRoute) {
     this.formTeam1 = this.fb.group ({
@@ -64,17 +67,16 @@ export class CreateTeamComponent implements OnInit {
 
   }
 
-  /**
-   *
-   */
+
   ngOnInit(): void {
     this.loadCars()
     this.loadDrivers()
+    this.loadCurrentlyBudget()
 
   }
 
   /**
-   *
+   * Get all the drivers from data base
    */
   loadDrivers(){
     this._teamsService.getDrivers().subscribe(
@@ -95,7 +97,7 @@ export class CreateTeamComponent implements OnInit {
   }
 
   /**
-   *
+   * Get all the cars from data base
    */
   loadCars(){
     this._teamsService.getCars().subscribe(
@@ -114,8 +116,16 @@ export class CreateTeamComponent implements OnInit {
       });
   }
 
+  loadCurrentlyBudget(){
+    this._champService.getCurrentlyBudget().subscribe(
+      result => {
+        console.log(result)
+      }
+    )
+  }
+
   /**
-   *
+   * Creates the object with a new team and calls the service
    */
   createTeam(){
     console.log(this.remainingBudget)
