@@ -9,7 +9,8 @@ interface Positions {
   nameUser: string;
   country: string;
   score:number;
-  position:number;
+  pos:string;
+  email:string;
 }
 
 @Component({
@@ -22,6 +23,11 @@ export class PublicLeaguesComponent implements OnInit {
   user=localStorage.getItem("email"); /** Saves the email of the current user that is logged */
   data: Positions[] = [];
   flag=false;
+  userDisplay= {
+    nameUser:'',
+    pos:'0',
+    score:0
+  }
 
   displayedColumns = ['pos','nameUser','select','nameTeam', 'country', 'score'];
 
@@ -45,8 +51,26 @@ export class PublicLeaguesComponent implements OnInit {
     this._publicLeagueService.getParticipants().subscribe(
       result=>{
         this.data=result;
+        this.loadUserFirst();
       }
     )
+  }
+
+  loadUserFirst(){
+    //for (var current in this.data) {
+    //  if(current.email==)
+    //}
+    let counter=0;
+    while(this.data[counter]!= undefined) {
+      if(this.data[counter].email==this.user){
+        this.userDisplay.nameUser= this.data[counter].nameUser;
+        this.userDisplay.pos= this.data[counter].pos;
+        this.userDisplay.score= this.data[counter].score;
+        break;
+      }
+      counter++
+    }
+
   }
 
   loadUserInfo(userEmail:string){

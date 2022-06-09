@@ -79,6 +79,7 @@ export class LoginComponent implements OnInit {
         console.log(result)
         if ( result.pass == this.formLogin.value.password ){
           this._playerService.setCurrentlyUser(this.formLogin.value.user, this.formLogin.value.password);
+          localStorage.setItem('email',this.formLogin.value.user)
           this.fakeLoadingUser()
         } else {
           alert ( "Constraseña incorrecta" )
