@@ -77,7 +77,7 @@ export class CreateLeagueComponent implements OnInit {
       data => {
         console.log(data);
       });
-      this.router.navigate(['user/private-leagues']);
+      this.router.navigate(['user']);
   }
 
   /**
