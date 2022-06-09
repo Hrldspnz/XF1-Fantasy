@@ -20,11 +20,11 @@ export class PrivateLeaguesComponent implements OnInit {
   menu: Menu[] = [];
   code:string="123"; /** Saves the code of the league of the user */
   leagueFlag=true; /** Indicates wether the user is in a private league or not */
-  user=localStorage.getItem("email"); /** Saves the email of the current user that is logged */
+  user:any=localStorage.getItem("email"); /** Saves the email of the current user that is logged */
   data = [];
 
   displayedColumns = ['pos','nameUser','select','nameTeam','country', 'score'];
-  
+
   /**
    * Is the constructor of the class
    * @param _menuService saves the manu to display in the GUI
@@ -72,7 +72,7 @@ export class PrivateLeaguesComponent implements OnInit {
    * If the user is in a private league it loads the league id on GUI
    */
   loadLeagueId(){
-    this._privateLeagueService.getUserLeagueInfo("h.wolf@gmail.com").subscribe(
+    this._privateLeagueService.getUserLeagueInfo(this.user).subscribe(
       result=>{
         this.code=result.id;
       }
@@ -82,7 +82,7 @@ export class PrivateLeaguesComponent implements OnInit {
    * It loads all teams of a private league in a table on GUI
    */
   loadLeagues(){
-    this._privateLeagueService.getLeaguesOfUser("h.wolf@gmail.com").subscribe(
+    this._privateLeagueService.getLeaguesOfUser(this.user).subscribe(
       result=> {
         this.data=result;
       }
