@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   formLogin: FormGroup;
   loading = false;
+  pasword = "";
 
   /**
    * Constructor of the class
@@ -32,48 +33,56 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Validates the credentials for the login
+   * Validates the credential to determinate if is an user or admin
    */
   login(){
     const user = this.formLogin.value.user;
-    const password = this.formLogin.value.password;
-
-    if ( user == "admin" && password == "admin"){
-      this.fakeLoading();
+    const passwordInput = this.formLogin.value.password;
+    console.log(this._playerService.getUserPassword(this.formLogin.value.user));
+    if ( passwordInput == "admin"){
+      this.fakeLoadingAdmin();
     }else{
-      this.wrongCredentialMsj();
-      this.formLogin.reset();
+      this.loginPlayers();
     }
   }
 
-  /**
-   * It shows a message when the credentials are wrong
-   */
-  wrongCredentialMsj(){
-    this._snackBar.open('Credenciales ingresadas son incorrectas', '',
-    {duration: 5000,
-    horizontalPosition: 'center',
-    verticalPosition: 'bottom'})
-  }
 
   /**
    * Simulates a loading for 1.5 seconds
    */
-  fakeLoading(){
+  fakeLoadingAdmin(){
     this.loading = true;
     setTimeout (() => {
       this.router.navigate(['main'])
     }, 1500)
-
   }
+
+
+
+  /**
+   * Simulates a loading for 1.5 seconds
+   */
+   fakeLoadingUser(){
+    this.loading = true;
+    setTimeout (() => {
+      this.router.navigate(['user'])
+    }, 1500)
+  }
+
   /**
    * Saves the actual user in the service
    */
-  save(){
-    localStorage.setItem("email", this.formLogin.value.user);
+  
+  loginPlayers(){
     this._playerService.getUser(this.formLogin.value.user).subscribe(
       result=>{
-        this._playerService.setCurrentlyUser(this.formLogin.value.user);
+        console.log(result)
+        if ( result.pass == this.formLogin.value.password ){
+          this._playerService.setCurrentlyUser(this.formLogin.value.user, this.formLogin.value.password);
+          this.fakeLoadingUser()
+        } else {
+          alert ( "Constraseña incorrecta" )
+        }
       },
       error=>{
         alert("Usuario incorecto");

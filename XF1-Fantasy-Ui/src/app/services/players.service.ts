@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 interface User {
   email:string;
+  password: string;
 }
 
 
@@ -14,7 +15,8 @@ export class PlayersService {
 
   public url: string;
   public user: User={
-    email: ''
+    email: '',
+    password:''
   };
   public infoUser:any;
 
@@ -33,16 +35,21 @@ export class PlayersService {
 
   /**
    * Gets the user from the db
-   * @param userEmail 
-   * @returns 
+   * @param userEmail
+   * @returns
    */
   getUser(userEmail:string): Observable<any>{
-    this.infoUser=this._http.get(this.url+'api/player/info/'+userEmail);
+    this.infoUser = this._http.get(this.url+'api/player/pass/'+ userEmail);
     return this.infoUser;
   }
 
-  setCurrentlyUser(email:string){
-    this.user.email=email;
+  getUserPassword(userEmail:string): Observable<any>{
+    return this._http.get(this.url+'api/player/pass/'+ userEmail);
+  }
+
+  setCurrentlyUser(email:string, password:string){
+    this.user.email = email;
+    this.user.password = password;
   }
 
   /**
