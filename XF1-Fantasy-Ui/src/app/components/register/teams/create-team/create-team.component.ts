@@ -41,7 +41,7 @@ export class CreateTeamComponent implements OnInit {
   formTeam1: FormGroup;
 
   /**
-   *
+   * Constructor de la clase
    * @param fb
    * @param _teamsService
    * @param router
@@ -66,7 +66,6 @@ export class CreateTeamComponent implements OnInit {
     this.emailUser = this.aRoute.snapshot.paramMap.get("email_user");
 
   }
-
 
   ngOnInit(): void {
     this.loadCars()

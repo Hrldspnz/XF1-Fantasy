@@ -12,13 +12,23 @@ import { TeamsService } from 'src/app/services/teams.service';
 
 export class TeamsComponent implements OnInit {
 
-
+  /**
+   * Banderas para los pasos der crear una escuderia
+   */
   flagTeam1 = false;
   flagTeam2 = false;
   flagFinished = false;
   emailUser: string | null;
   counterTeam = "";
 
+  /**
+   * Método constructor de la clase
+   * @param router Instancia de Router
+   * @param aRoute Instancia de ActivedRouter
+   * @param fb Instancia FormBuilder
+   * @param _teamService Servicio para los equipos
+   * @param _userService Servicio para el usuario
+   */
   constructor(
     private router: Router,
     private aRoute: ActivatedRoute,
@@ -29,10 +39,17 @@ export class TeamsComponent implements OnInit {
     this.emailUser = this.aRoute.snapshot.paramMap.get("email_user");
    }
 
+
+   /**
+    * Metodo que se ejecuta al iniciar el componente
+    */
   ngOnInit(): void {
     this.getNumTeams();
   }
 
+  /**
+   * Método que obtiene el número de equipos de un usuario y activa las flags para los eventos según esto
+   */
   getNumTeams(){
     const user: Object =
     {

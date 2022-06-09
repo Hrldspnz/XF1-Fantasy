@@ -31,6 +31,14 @@ export class DataUserComponent implements OnInit {
   flagScuderia = false;
   flagData = true;
 
+
+  /**
+   *Método constructor de la clase
+   * @param fb Instancia FormBuilder
+   * @param router Instancia Router
+   * @param _userService Servicio para los usuarios
+   * @param _teamsService Servicio para los equipos
+   */
   constructor(private fb: FormBuilder,
               private router: Router,
               private _userService: PlayersService,
@@ -48,10 +56,17 @@ export class DataUserComponent implements OnInit {
     })
   }
 
+
+  /**
+   * Método que se ejecuta al inicio del componente
+   */
   ngOnInit(): void {
   }
 
 
+  /**
+   * Método que crea una nueva cuenta de usuario
+   */
   addUser(){
     if (this.formDataUser.value.password != this.formDataUser.value.passwordConfirm){
       alert ("Las constraseñas no coinciden")
@@ -77,6 +92,9 @@ export class DataUserComponent implements OnInit {
   }
 
 
+  /**
+   * Método que crea una escuderia
+   */
   createScuderia(){
     const scuderia: Object =
       {

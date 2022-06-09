@@ -20,6 +20,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -44,6 +45,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCheckboxModule,
     MatExpansionModule,
     MatPaginatorModule,
+    MatDialogModule
   ],
   exports:[
     CommonModule,
@@ -66,6 +68,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCheckboxModule,
     MatExpansionModule,
     MatPaginatorModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

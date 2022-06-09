@@ -1,0 +1,12 @@
+[
+  {"nombre": "Ligas Privadas",
+   "redirect": "/user/private-leagues"
+  },
+  { "nombre": "Liga Pública",
+    "redirect": "/user/public-league"
+  },
+  {
+    "nombre": "Mi Perfil",
+    "redirect": "/user/my-profile"
+  }
+]

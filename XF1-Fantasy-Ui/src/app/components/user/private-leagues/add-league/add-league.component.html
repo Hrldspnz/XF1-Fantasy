@@ -1,0 +1,39 @@
+<mat-toolbar class="mainTolbar">
+  <span>XF1 Fantasy</span>
+  <span class="example-spacer"></span>
+  <button *ngFor="let item of menu" class="buttonMy" [routerLink]="item.redirect" mat-raised-button> {{item.nombre}} </button>
+  <button routerLink="/main/start" class="myIcon" rou mat-icon-button>
+    <mat-icon class="myIcon">home</mat-icon>
+  </button>
+  <button  routerLink="/login" class="myIcon"  mat-icon-button>
+    <mat-icon class="myIcon">logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container">
+
+  <mat-toolbar class="tolbar">
+    <span>Unirse a Liga Privada</span>
+  </mat-toolbar>
+
+  <mat-card style="margin-top: 10px;">
+    <form [formGroup]="formJoinLeague" (ngSubmit)="JoinLeague()">
+      <mat-grid-list cols="4" rowHeight="70px">
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" >
+          <mat-form-field class="ancho" appearance="fill">
+            <mat-label>Código de Liga</mat-label>
+            <input type="text" matInput formControlName="code" autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+
+        <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'ligthblue'">
+          <button type="submit" [disabled]="formJoinLeague.invalid" class="myButton" mat-raised-button>Guardar</button>
+          <button class="myButton" routerLink="/user" mat-raised-button>VOLVER</button>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </form>
+  </mat-card>
+</div>

@@ -4,7 +4,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {MatSelectModule} from '@angular/material/select'
 import {MatInputModule} from '@angular/material/input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -27,9 +27,9 @@ describe('TeamsComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
-        NgSelectModule, 
+        NgSelectModule,
         MatSelectModule,
-        MatInputModule, 
+        MatInputModule,
         BrowserAnimationsModule,
         MatToolbarModule,
         RouterTestingModule
@@ -38,7 +38,7 @@ describe('TeamsComponent', () => {
     .compileComponents();
   });
 
-  /** 
+  /**
    * Is executed each time a test method is to be executed.
    */
   beforeEach(() => {
@@ -53,6 +53,8 @@ describe('TeamsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 
   /**
    * Validates that the method getNumTeams runs correctly
