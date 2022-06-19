@@ -1,0 +1,37 @@
+.mainTolbar{
+    background-color: red;
+    color: aliceblue;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .buttonMy{
+    background-color: #2C3D6E;
+    color: aliceblue;
+    margin-left: 5px;
+  }
+  
+  .myIcon{
+    color: #2C3D6E;
+  }
+  
+  table {
+  
+    width: 100%;
+  
+  }
+  
+  .example-container {
+    height: 500px;
+    max-width: 80%;
+    margin-left: 10%;
+    margin-top: 2%;
+    overflow: auto;
+  
+  }
+
+  .data-user {
+    margin-left: 5%;
+  }
