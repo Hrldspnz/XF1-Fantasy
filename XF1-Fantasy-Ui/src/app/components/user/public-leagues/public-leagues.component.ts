@@ -37,10 +37,10 @@ export class PublicLeaguesComponent implements OnInit {
   displayedColumns = ['pos','nameUser','select','nameTeam', 'country', 'score'];
 
   /**
-   * 
+   *
    * @param _menuService loads the menu bar in GUI
    * @param _publicLeagueService loads all necesarly requests from api
-   * @param _dialog lets open popups 
+   * @param _dialog lets open popups
    */
   constructor(private _menuService: MenuService,
     private _publicLeagueService:PublicLeagueService,
@@ -49,7 +49,7 @@ export class PublicLeaguesComponent implements OnInit {
   /**
    * Is initialize when the component start
    */
-  ngOnInit() { 
+  ngOnInit() {
     this.loadMenu();
     this.getPositionsUsers();
   }
@@ -94,7 +94,7 @@ export class PublicLeaguesComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * @param userEmail loads the user to see in local storage
    */
   loadUserInfo(userEmail:string){
