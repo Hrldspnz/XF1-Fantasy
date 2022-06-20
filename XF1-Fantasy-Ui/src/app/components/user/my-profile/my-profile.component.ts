@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 import { MenuService } from 'src/app/services/menu.service';
 import { PlayersService } from 'src/app/services/players.service';
@@ -23,13 +24,13 @@ export class MyProfileComponent implements OnInit {
         "nameDriver5": "Esteban Ocon",
         "car": "Haas"
     }];
-  displayedColumns = ['nameTeam','nameDriver1','nameDriver2','nameDriver3', 'nameDriver4', 'nameDriver5','car','budget'];
+  displayedColumns = ['nameTeam','nameDriver1','nameDriver2','nameDriver3', 'nameDriver4', 'nameDriver5','car','budget', 'actions'];
 
   /**
    * Constructor of the class
    * @param _menuService
    */
-  constructor(private _menuService: MenuService,  private _playerService:PlayersService) { }
+  constructor(private _menuService: MenuService,  private _playerService:PlayersService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadMenu();
@@ -55,5 +56,10 @@ export class MyProfileComponent implements OnInit {
       this.menu = data;
       }
     )
+  }
+
+  editTeam(index: number){
+    console.log(this.team[index])
+    this.router.navigate(['user/edit-team']);
   }
 }
