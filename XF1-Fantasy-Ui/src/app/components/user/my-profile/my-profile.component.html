@@ -71,8 +71,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element; let i = index" style="text-align: right;">
-          <a class="pointer"
-              (click)="editTeam(i)" style="color: deepskyblue;" matTooltip="Editar Equipo">
+          <a class="pointer" (click)="editTeam(i)" style="color: deepskyblue;" matTooltip="Editar Equipo">
               <mat-icon>edit</mat-icon>
           </a>
       </td>

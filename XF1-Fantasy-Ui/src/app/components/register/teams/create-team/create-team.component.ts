@@ -4,7 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChampionshipComponent } from 'src/app/components/main/championship/championship.component';
+import { Menu } from 'src/app/interfaces/menu';
 import { ChampionshipService } from 'src/app/services/championship.service';
+import { MenuService } from 'src/app/services/menu.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -39,6 +41,10 @@ export class CreateTeamComponent implements OnInit {
   loading = false;
   emailUser: string | null;
   formTeam1: FormGroup;
+  flagEdit = false;
+
+  menu: Menu[] = [];
+  user:any = localStorage.getItem("email");
 
   /**
    * Constructor de la clase
@@ -51,7 +57,8 @@ export class CreateTeamComponent implements OnInit {
               private _teamsService: TeamsService,
               private _champService: ChampionshipService,
               private router: Router,
-              private aRoute: ActivatedRoute) {
+              private aRoute: ActivatedRoute,
+              private _menuService: MenuService,) {
     this.formTeam1 = this.fb.group ({
       teamName: ['', Validators.required],
       driver1: ['', Validators.required],
@@ -71,8 +78,33 @@ export class CreateTeamComponent implements OnInit {
     this.loadCars()
     this.loadDrivers()
     this.loadCurrentlyBudget()
+    this.editCreate()
+    this.loadMenu()
 
   }
+
+  editCreate(){
+    if (this.emailUser == null){
+      this.flagEdit = true;
+      console.log(this.user)
+    } else {
+      console.log('es crear')
+    }
+  }
+
+
+
+    /**
+   * Loads the menu from the data base
+   */
+     loadMenu (){
+      this._menuService.getMenu2().subscribe(data => {
+        console.log(data);
+        this.menu = data;
+        }
+      )
+    }
+
 
   /**
    * Get all the drivers from data base
