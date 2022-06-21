@@ -102,4 +102,5 @@ export class PlayersService {
     return this._http.post(this.url+'api/league/insertinprivleague', dataLeague);
   }
 
+
 }
