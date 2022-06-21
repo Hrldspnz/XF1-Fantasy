@@ -35,3 +35,20 @@
   .data-user {
     margin-left: 5%;
   }
+
+  .file-input {
+    display: none;
+  }
+  .slide-title {
+    margin-left: 3%;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    letter-spacing: -0.4px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: rgb(68, 68, 68);
+    font-style: italic;
+    font-variant: small-caps;
+    text-transform: capitalize;
+  }

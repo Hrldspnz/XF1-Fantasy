@@ -20,9 +20,15 @@ export class CreateRaceComponent implements OnInit {
   formRaces: FormGroup;
 
   countries: Datos[] = [
-    {value: 'Costa Rica-0', viewValue: 'Costa Rica'},
-    {value: 'Panama-1', viewValue: 'Panama'},
-    {value: 'Colombia-2', viewValue: 'Colombia'},
+    {value: 'Costa Rica', viewValue: 'Costa Rica'},
+    {value: 'Panama', viewValue: 'Panama'},
+    {value: 'Colombia', viewValue: 'Colombia'},
+    {value: 'Nicaragua', viewValue: 'Nicaragua'},
+    {value: 'Peru', viewValue: 'Peru'},
+    {value: 'Chile', viewValue: 'Chile'},
+    {value: 'Estados Unidos', viewValue: 'Estados Unidos'},
+    {value: 'Argentina', viewValue: 'Argentina'},
+    {value: 'Guatemala', viewValue: 'Guatemala'},
   ];
 
   champions: Datos[] = [];

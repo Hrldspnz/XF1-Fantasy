@@ -1,13 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RacesService } from 'src/app/services/races.service';
+import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
 
+
+export class CSVRecord {  
+  public id: any;  
+  public firstName: any;  
+  public lastName: any;  
+  public age: any;  
+  public position: any;  
+  public mobile: any;     
+} 
 
 interface Positions {
-  nameUser: string;
-  country: string;
-  score:number;
-  pos:string;
-  email:string;
+  iD_Race:string,
+  race_name: string;
+  race_track: string;
+  country:number;
+  race_state:string;
+  tournament_id:string;
 }
 
 @Component({
@@ -18,33 +29,88 @@ interface Positions {
 export class UploadRaceResultsComponent implements OnInit {
 
   // Atributes
-  displayedColumns = ['pos','nameUser','nameTeam', 'country', 'score','select'];
-  data: Positions[] = [{
-  nameUser: 'Hola',
-  country: 'Alajuela',
-  score:12,
-  pos:'1',
-  email:'jasas'
-},
-{
-  nameUser: 'jesus',
-  country: 'nicaragua',
-  score:10,
-  pos:'2',
-  email:'jasrses'
-}];
+  displayedColumns = ['race_name','race_track','country', 'race_state', 'select'];
+  data: Positions[] = [];
+  fileName = '';
+  records:any[]=[]
+  csvRecords: any;
+  header: boolean = false;
+  @ViewChild('fileImportInput') fileImportInput: any;
+  resultJSON:any[]=[];
 
-  constructor(private _racesService: RacesService) { }
+  constructor(private _racesService: RacesService,
+              private ngxCsvParser: NgxCsvParser) { }
 
   ngOnInit(): void {
+    this.getRaces();
   }
 
-  uploadRaces(){
+  getRaces(){
     this._racesService.getRaces().subscribe(
       result=>{
-
+        this.data=result
       }
     )
   }
+
+
+  onFileSelected($event:any, idRace:string) {
+    const files = $event.srcElement.files;
+    this.header = (this.header as unknown as string) === 'true' || this.header === true;
+
+    this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ';' })
+      .pipe().subscribe({
+        next: (result): void => {
+          //console.log('Result', result);
+          this.csvRecords = result;
+          this.loadJSON(result, idRace)
+        },
+        error: (error: NgxCSVParserError): void => {
+          console.log('Error', error);
+        }
+      });
+    }
+  
+  loadJSON(result:any,idRace:string){
+    this.resultJSON=[]
+    var counter=1;
+    try {
+      if(result[counter][14]!=undefined && result[counter][17]==undefined){
+        while (result[counter]!=undefined) {
+          this.resultJSON.push(
+            {"CodigoXFIA":result[counter][0], 
+            "Constructor":result[counter][1], 
+            "Nombre":result[counter][2],
+            "Tipo":result[counter][3],
+            "Precio":parseInt(result[counter][4]),
+            "PosicionCalificacion":parseInt(result[counter][5]),
+            "Q1":result[counter][6],
+            "Q2":result[counter][7],
+            "Q3":result[counter][8],
+            "SinCalificarCalificacion":result[counter][9],
+            "DescalificadoCalificacion":result[counter][10],
+            "PosicionCarrera":parseInt(result[counter][11]),
+            "VueltaMasRapida":result[counter][12],
+            "CompanerodeEquipo":result[counter][13],
+            "SinCalificarCarrera":result[counter][14],
+            "DescalificadodeCarrera":result[counter][15],
+            "iD_Race": idRace
+          })
+          counter++;
+      }
+      // ---------------HACER POST AQUI-----------------------------
+      alert("Se subió correctamente los resultados")
+      //console.log(this.resultJSON)
+      }
+      else {
+        alert("Hubo un error con el archivo subido\nVuelva a subir un archivo valido")
+      }
+    } catch (error) {
+      alert("Hubo un error con el archivo subido\nVuelva a subir un archivo valido")
+    }
+    
+    
+  }
+
 
 }

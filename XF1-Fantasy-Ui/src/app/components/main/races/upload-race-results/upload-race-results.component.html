@@ -1,57 +1,59 @@
-<h4>Carreras disponibles</h4>
+<h4 class="slide-title">Carreras disponibles</h4>
+
 
 <div class="example-container mat-elevation-z8">
     
     <table mat-table [dataSource]="data" class="mat-elevation-z8">
       
-      <!-- Position Column -->
+      <!-- Race Name Column -->
 
-      <ng-container matColumnDef="pos">
-        <th mat-header-cell *matHeaderCellDef> Posicion </th>
-        <td mat-cell *matCellDef="let element"> {{element.pos}} </td>
+      <ng-container matColumnDef="race_name">
+        <th mat-header-cell *matHeaderCellDef> Nombre Carrera </th>
+        <td mat-cell *matCellDef="let element"> {{element.race_name}} </td>
       </ng-container>
       
-      <!-- User Column -->
+      <!-- Track Name Column -->
 
-      <ng-container matColumnDef="nameUser">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
-        <td mat-cell *matCellDef="let element"> {{element.nameUser}} </td>
+      <ng-container matColumnDef="race_track">
+        <th mat-header-cell *matHeaderCellDef> Nombre Campeonato</th>
+        <td mat-cell *matCellDef="let element"> {{element.race_track}} </td>
       </ng-container>
 
       <!-- Select Column -->
 
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>Subir Resultado  </th>
+      
 
       <!-- <td mat-cell *matCellDef="let element"> {{element.score}} </td> -->
       <td mat-cell *matCellDef="let element"> 
-        <button mat-mini-fab color="warn" aria-label="Example icon button with a plus one icon" >
-          <mat-icon> upload</mat-icon>
-        </button>  
+        
+        <input type="file" class="file-input"
+              (change)="onFileSelected($event, element.iD_Race)" #fileUpload>
+
+        <div class="file-upload">
+
+            <button mat-mini-fab color="warn" aria-label="Example icon button with a plus one icon" (click)="fileUpload.click()">
+              <mat-icon> upload</mat-icon>
+            </button> 
+        </div>
+
       </td> 
       
     </ng-container>
   
-      <!-- Team Column -->
-  
-      <ng-container matColumnDef="nameTeam">
-        <th mat-header-cell *matHeaderCellDef> Equipo </th>
-        <td mat-cell *matCellDef="let element"> {{element.nameTeam}} </td>
-      </ng-container>
-
       <!-- Country Column -->
   
       <ng-container matColumnDef="country">
-        <th mat-header-cell *matHeaderCellDef> Pais </th>
+        <th mat-header-cell *matHeaderCellDef> País </th>
         <td mat-cell *matCellDef="let element"> {{element.country}} </td>
       </ng-container>
+
+      <!-- Race State Column -->
   
-  
-      <!-- Score Column -->
-  
-      <ng-container matColumnDef="score">
-        <th mat-header-cell *matHeaderCellDef> Score </th>
-        <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+      <ng-container matColumnDef="race_state">
+        <th mat-header-cell *matHeaderCellDef> Estado de Carrera </th>
+        <td mat-cell *matCellDef="let element"> {{element.race_state}} </td>
       </ng-container>
   
     
@@ -60,5 +62,8 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
     </table>
+
+    
   
   </div>
+
