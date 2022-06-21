@@ -425,8 +425,6 @@ export class CreateTeamComponent implements OnInit {
     this.stepTeam--;
   }
 
-
-
   updateTeam1(){
     if ( this.remainingBudget < 0){
       alert("Se ha excedido el presupuesto disponible para crear el Equipo")
@@ -444,31 +442,16 @@ export class CreateTeamComponent implements OnInit {
         nameDriver5: this.formTeam1.value.driver5,
         car: this.formTeam1.value.constructor
       }
-      console.log(team)
       this._teamsService.updateTeam(team).subscribe(data => {
         data;
       }, error => {
         alert("Error al actualizar el equipo")
       }
       );
-      console.log("team")
     }
+    this.router.navigate(['/user/my-profile/'])
   }
 
-  updateTeam(){
-    const team: Object =
-      {
-        nameTeam: this.formTeam1.value.teamName,
-        email: this.user,
-        budget: this.spentBudget,
-        nameDriver1: this.formTeam1.value.driver1,
-        nameDriver2: this.formTeam1.value.driver2,
-        nameDriver3: this.formTeam1.value.driver3,
-        nameDriver4: this.formTeam1.value.driver4,
-        nameDriver5: this.formTeam1.value.driver5,
-        car: this.formTeam1.value.constructor
-      }
-      console.log(team)
-  }
+
 }
 
