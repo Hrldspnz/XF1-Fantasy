@@ -1,0 +1,25 @@
+<mat-toolbar class="mainTolbar">
+    <span>XF1 Fantasy</span>
+    <span class="example-spacer"></span>
+    <button *ngFor="let item of menu" class="buttonMy" [routerLink]="item.redirect" mat-raised-button> {{item.nombre}} </button>
+    <button routerLink="/user/profile" class="myIcon" rou mat-icon-button>
+      <mat-icon class="myIcon">home</mat-icon>
+    </button>
+    <button  routerLink="/login" class="myIcon"  mat-icon-button>
+      <mat-icon class="myIcon">logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+
+<div class="user-info">
+    <div>
+        <h1 class="user-name">Nombre de Usuario: {{userInfo.nameUser}}</h1>
+        <div class="user-text">
+            <p>País: {{userInfo.country}}</p>
+            <p>Liga a la que perteneces: {{userInfo.leagueName}}</p>
+            <p>Nombre de escudería: {{userInfo.scuderia}}</p>
+            <p>Nombre de Equipo 1: {{userInfo.nameTeam1}}</p>
+            <p>Nombre de Equipo 2: {{userInfo.nameTeam2}}</p>
+        </div>
+    </div>
+</div>

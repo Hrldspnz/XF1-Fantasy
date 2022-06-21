@@ -22,6 +22,7 @@ export class PrivateLeaguesComponent implements OnInit {
   leagueFlag=true; /** Indicates wether the user is in a private league or not */
   user:any=localStorage.getItem("email"); /** Saves the email of the current user that is logged */
   data = [];
+  leagueStatus='';
 
   displayedColumns = ['pos','nameUser','select','nameTeam','country', 'score'];
 
@@ -78,6 +79,7 @@ export class PrivateLeaguesComponent implements OnInit {
     this._privateLeagueService.getUserLeagueInfo(this.user).subscribe(
       result=>{
         this.code=result.id;
+        this.leagueStatus=result.stateLeague;
       }
     )
   }

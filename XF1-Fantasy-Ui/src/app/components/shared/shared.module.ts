@@ -21,6 +21,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
 
 @NgModule({
   declarations: [],
@@ -45,7 +46,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCheckboxModule,
     MatExpansionModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxCsvParserModule
   ],
   exports:[
     CommonModule,
@@ -68,7 +70,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCheckboxModule,
     MatExpansionModule,
     MatPaginatorModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxCsvParserModule
   ]
 })
 export class SharedModule { }

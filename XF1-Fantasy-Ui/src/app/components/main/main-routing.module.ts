@@ -7,6 +7,7 @@ import { MainComponent } from './main.component';
 import { StartComponent } from './start/start.component';
 import { RacesComponent } from './races/races.component';
 import { CreateRaceComponent } from './races/create-race/create-race.component';
+import { UploadRaceResultsComponent } from './races/upload-race-results/upload-race-results.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent, children: [
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'start', component: StartComponent },
     { path: 'create-championship', component: CreateChampionshipComponent },
     { path: 'races', component: RacesComponent},
-    { path: 'create-races', component: CreateRaceComponent}
+    { path: 'create-races', component: CreateRaceComponent},
+    { path: 'upload-result', component: UploadRaceResultsComponent}
   ] }
 ];
 

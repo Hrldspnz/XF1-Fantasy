@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CreateChampionshipComponent } from './championship/create-championship/create-championship.component';
 import { RacesComponent } from './races/races.component';
 import { CreateRaceComponent } from './races/create-race/create-race.component';
+import { UploadRaceResultsComponent } from './races/upload-race-results/upload-race-results.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CreateRaceComponent } from './races/create-race/create-race.component';
     ChampionshipComponent,
     CreateChampionshipComponent,
     RacesComponent,
-    CreateRaceComponent
+    CreateRaceComponent,
+    UploadRaceResultsComponent
   ],
   imports: [
     CommonModule,

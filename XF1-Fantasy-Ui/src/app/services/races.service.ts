@@ -46,4 +46,8 @@ export class RacesService {
   public getRaces(): Observable<any>{
     return this._http.get(this.url + 'api/race');
   }
+
+  public sendResults(body:Object): Observable<any>{
+    return this._http.post(this.url+'api/race/results',body);
+  }
 }
