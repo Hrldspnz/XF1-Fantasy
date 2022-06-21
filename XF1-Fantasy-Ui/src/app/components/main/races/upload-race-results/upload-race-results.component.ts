@@ -67,6 +67,7 @@ export class UploadRaceResultsComponent implements OnInit {
         },
         error: (error: NgxCSVParserError): void => {
           console.log('Error', error);
+          alert("Debe seleccionar un archivo CSV")
         }
       });
     }

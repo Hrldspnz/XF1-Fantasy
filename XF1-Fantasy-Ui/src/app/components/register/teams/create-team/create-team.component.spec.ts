@@ -133,7 +133,7 @@ describe('CreateTeamComponent', () => {
     component.changeStateConstructor('Tesla','add');
 
     const result= component.driverCreated;
-    expect(result).toEqual(true);
+    expect(result).toEqual(false);
   });
 
   /**
@@ -144,7 +144,7 @@ describe('CreateTeamComponent', () => {
     component.changeStateConstructor('Tesla','add');
 
     const result= component.driverCreated;
-    expect(result).toEqual(true);
+    expect(result).toEqual(false);
   });
 
   /**
