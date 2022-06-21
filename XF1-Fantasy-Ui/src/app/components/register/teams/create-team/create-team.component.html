@@ -219,7 +219,7 @@
 
           <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'ligthblue'">
             <button *ngIf="!flagEdit"  (click)="createTeam()" [disabled]="formTeam1.invalid" class="myButton" mat-raised-button>Crear</button>
-            <button *ngIf="flagEdit" (click)="updateTeam1()" [disabled]="formTeam1.invalid" class="myButton" mat-raised-button>Actualizar</button>
+            <button *ngIf="flagEdit" (click)="updateTeam()" [disabled]="formTeam1.invalid" class="myButton" mat-raised-button>Actualizar</button>
           </mat-grid-tile>
 
         </mat-grid-list>
