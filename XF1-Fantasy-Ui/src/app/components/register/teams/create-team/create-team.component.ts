@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatGridTileHeaderCssMatStyler } from '@angular/material/grid-list';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -42,10 +43,12 @@ export class CreateTeamComponent implements OnInit {
   emailUser: string | null;
   formTeam1: FormGroup;
   flagEdit = false;
+  nameTeam = '';
+  nameCar = '';
 
   menu: Menu[] = [];
   user:any = localStorage.getItem("email");
-  indexTeam: Number | null;
+  indexTeam: number;
   public team: any = [
     {
         "nameTeam": "Equipo 1",
@@ -101,66 +104,49 @@ export class CreateTeamComponent implements OnInit {
   editCreate(){
     if (this.emailUser == null){
       this.flagEdit = true;
-      this.loadCurrentTeam()
+      this.loadEditTeam()
     } else {
       console.log('es crear')
     }
   }
 
-  loadCurrentTeam(){
+  loadEditTeam() {
     this._playerService.getUserTeamInfo(this.user).subscribe(
       result=>{
-        console.log(this.indexTeam)
-        if (this.indexTeam == 0){
-          this.team = result[0];
-          this.listDriverSelection[0] = result[0].nameDriver1;
-          this.changeStateDriver(result[0].nameDriver1, 'add');
-          this.listDriverSelection[1] = result[0].nameDriver2;
-          this.changeStateDriver(result[0].nameDriver2, 'add');
-          this.listDriverSelection[2] = result[0].nameDriver3;
-          this.changeStateDriver(result[0].nameDriver3, 'add');
-          this.listDriverSelection[3] = result[0].nameDriver4;
-          this.changeStateDriver(result[0].nameDriver4, 'add');
-          this.listDriverSelection[4] = result[0].nameDriver5;
-          this.changeStateDriver(result[0].nameDriver5, 'add');
-          this.updateForm();
-          this.updateBudgetEdit(result[0].budget, result[0].car, result[0].teamName);
-        }else {
-          this.team = result[1];
-          this.team = result[0];
-          this.listDriverSelection[0] = result[1].nameDriver1;
-          this.changeStateDriver(result[1].nameDriver1, 'add');
-          this.listDriverSelection[1] = result[1].nameDriver2;
-          this.changeStateDriver(result[1].nameDriver2, 'add');
-          this.listDriverSelection[2] = result[1].nameDriver3;
-          this.changeStateDriver(result[1].nameDriver3, 'add');
-          this.listDriverSelection[3] = result[1].nameDriver4;
-          this.changeStateDriver(result[1].nameDriver4, 'add');
-          this.listDriverSelection[4] = result[1].nameDriver5;
-          this.changeStateDriver(result[1].nameDriver5, 'add');
-          this.updateForm();
-          this.updateBudgetEdit(result[1].budget, result[1].car, result[1].teamName);
-        }
-      })
+          this.listDriverSelection[0] = result[this.indexTeam].nameDriver1;
+          this.listDriverSelection[1] = result[this.indexTeam].nameDriver2;
+          this.listDriverSelection[2] = result[this.indexTeam].nameDriver3;
+          this.listDriverSelection[3] = result[this.indexTeam].nameDriver4;
+          this.listDriverSelection[4] = result[this.indexTeam].nameDriver5;
+          this.spentBudget = result[this.indexTeam].budget;
+          this.remainingBudget -= result[this.indexTeam].budget;
+          this.nameCar = result[this.indexTeam].car;
+          this.nameTeam = result[this.indexTeam].nameTeam;
+          this.updateScreen();
 
-    this.editFormUpdate();
+  })
   }
 
-  updateBudgetEdit(budget: number, nameCar: string, nameTeam: string){
-    this.spentBudget = budget;
-    this.remainingBudget -= budget;
-
-    this.formTeam1.patchValue({remainingBudget: this.remainingBudget,
-      spentBudget: this.spentBudget});
+  updateScreen(){
+    let i = 0;
     this.counterDrivers = 5;
-    this.formTeam1.patchValue({constructor: nameCar});
-    //this.formTeam1.patchValue({teamName: nameTeam});
-    //this.changeStateConstructor(nameCar, 'add');
-  }
+    while( i < this.listDrivers.length){
+      if (this.listDrivers[i].name == this.listDriverSelection[i]){
+          this.listDrivers[i].state = "choosed";
+        }
+      i++;
+      }
+      this.formTeam1.setValue({ teamName: this.nameTeam,
+                                constructor: this.nameCar,
+                                driver1: this.listDriverSelection[0],
+                                driver2: this.listDriverSelection[1],
+                                driver3: this.listDriverSelection[2],
+                                driver4: this.listDriverSelection[3],
+                                driver5: this.listDriverSelection[4],
+                                spentBudget: this.spentBudget,
+                                remainingBudget: this.remainingBudget});
+      }
 
-  editFormUpdate() {
-    console.log(this.team.nameDriver1)
-  }
 
 
 
@@ -259,6 +245,7 @@ export class CreateTeamComponent implements OnInit {
       this.fakeLoadingUser();
     }
   }
+
 
 
    /**
@@ -362,10 +349,8 @@ export class CreateTeamComponent implements OnInit {
       if (this.listCars[i].name == name){
         if (action == 'delete'){
           this.listCars[i].state = "notChoosed"
-          this.driverCreated=false
         } if ( action == 'add') {
           this.listCars[i].state = "choosed"
-          this.driverCreated=true
         }
       break;
       }
@@ -440,5 +425,50 @@ export class CreateTeamComponent implements OnInit {
     this.stepTeam--;
   }
 
+
+
+  updateTeam1(){
+    if ( this.remainingBudget < 0){
+      alert("Se ha excedido el presupuesto disponible para crear el Equipo")
+    } else {
+      alert("Se han guardado los datos correctamente")
+      const team: Object =
+      {
+        nameTeam: this.formTeam1.value.teamName,
+        email: this.user,
+        budget: this.spentBudget,
+        nameDriver1: this.formTeam1.value.driver1,
+        nameDriver2: this.formTeam1.value.driver2,
+        nameDriver3: this.formTeam1.value.driver3,
+        nameDriver4: this.formTeam1.value.driver4,
+        nameDriver5: this.formTeam1.value.driver5,
+        car: this.formTeam1.value.constructor
+      }
+      console.log(team)
+      this._teamsService.updateTeam(team).subscribe(data => {
+        data;
+      }, error => {
+        alert("Error al actualizar el equipo")
+      }
+      );
+      console.log("team")
+    }
+  }
+
+  updateTeam(){
+    const team: Object =
+      {
+        nameTeam: this.formTeam1.value.teamName,
+        email: this.user,
+        budget: this.spentBudget,
+        nameDriver1: this.formTeam1.value.driver1,
+        nameDriver2: this.formTeam1.value.driver2,
+        nameDriver3: this.formTeam1.value.driver3,
+        nameDriver4: this.formTeam1.value.driver4,
+        nameDriver5: this.formTeam1.value.driver5,
+        car: this.formTeam1.value.constructor
+      }
+      console.log(team)
+  }
 }
 
