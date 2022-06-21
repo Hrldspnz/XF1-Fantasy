@@ -1,5 +1,6 @@
 ﻿using APIXFIA.Model;
 using APIXFIA.Repository;
+using APIXFIA.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace APIXFIA.Controller
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        ManagementRepository managementRepository = new ManagementRepository();
+        ManagementLogic managementLogic = new ManagementLogic();
 
 
         /**
@@ -22,7 +23,7 @@ namespace APIXFIA.Controller
         public async Task<TeamCount> APIGetTeamsXPlayer([FromBody] PlayerAcc player)
         {
 
-            return await managementRepository.getTeamsXPlayer(player.email);
+            return await managementLogic.getTeamsXPlayer(player.email);
         }
 
         /**
@@ -39,23 +40,44 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await managementRepository.createNewPlayerAccount(player);
+            var created = await managementLogic.createNewPlayerAccount(player);
 
-            return Created("created", created);
+            if (created != -1)
+            {
+                return Created("created", created);
+            }
+            else 
+            {
+                return BadRequest("Problema en la validacion");
+            }
+
+            
         }
 
 
+        /**
+         * api/player/state/(email)
+         * Metodo de tipo Get que devuelve el estado de actividad en el que se encuentra un jugador
+         * @param email del jugador solicitado
+         * @return state con el estado del jugador
+         */
         [HttpGet("state/{email}")]
         public async Task<string> APIGetPlayerState(string email) 
         {
-            return await managementRepository.getPlayerState(email);
+            return await managementLogic.getPlayerState(email);
         }
 
 
+        /**
+         * api/player/info/email
+         * Metodo de tipo Get que devuelve la informacion de un jugador
+         * @param email del jugador solicitado
+         * @return player objeto con la informacion del jugador
+         */
         [HttpGet("info/{email}")]
         public async Task<PlayerInfo> APIGetPlayerInfo(string email)
         {
-            return await managementRepository.getPlayerInfo(email);
+            return await managementLogic.getPlayerInfo(email);
         }
 
 
@@ -73,7 +95,7 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await managementRepository.updatePlayerState(player.userName, player.statePlayer);
+            var created = await managementLogic.updatePlayerState(player.userName, player.statePlayer);
 
             return Created("created", created);
         }
@@ -86,10 +108,10 @@ namespace APIXFIA.Controller
          * @return Player objeto tipo jugador con el email y la password
          */
         [HttpGet("pass/{email}")]
-        public async Task<PlayerAcc> APIGetUserPass(string email) 
+        public async Task<UserAcces> APIGetUserPass(string email) 
         {
 
-            return await managementRepository.getPassUser(email);
+            return await managementLogic.getPassUser(email);
         }
 
 

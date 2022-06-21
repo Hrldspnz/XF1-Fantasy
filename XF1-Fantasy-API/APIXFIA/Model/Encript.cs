@@ -74,29 +74,7 @@ namespace APIXFIA.Model
             return UTF8Encoding.UTF8.GetString(resultArray);
         }
 
-        public bool validatePassword(string password)
-        {
-            bool letter;
-            bool number;
-            letter = false;
-            number = false;
-            for (int i = 0; i < password.Length; i++)
-            {
-                if (Char.IsLetter(password, i))
-                {
-                    letter = true;
-                }
-                else if (Char.IsDigit(password, i))
-                {
-                    number = true;
-                }
-            }
-            if (letter && number && password.Length >= 8)
-            {
-                return true;
-            }
-            return false;
-        }
+        
 
 
     }

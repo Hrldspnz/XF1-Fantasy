@@ -1,5 +1,6 @@
 ﻿using APIXFIA.Model;
 using APIXFIA.Repository;
+using APIXFIA.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,11 +18,11 @@ namespace APIXFIA.Controller
     public class RaceController : ControllerBase
     {
 
-        ManagementRepository managementRepository = new ManagementRepository();
+        ManagementLogic managementRepository = new ManagementLogic();
 
         public RaceController()
         {
-            
+
         }
 
 
@@ -64,6 +65,30 @@ namespace APIXFIA.Controller
 
             return Created("created", created);
         }
+
+
+        /**
+        * api/race/results
+        * Metodo de tipo Post que ingresa una nueva carrera
+        * @param json de la peticion con los atributos de la carrera
+        * @return resultado de la operacion
+        */
+        [HttpPost("results")]
+        public async Task<IActionResult> APIRaceResults([FromBody] List<RaceResults> results)
+        {
+            if (results == null)
+                return BadRequest("null input");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var created = await managementRepository.LoadRaceResults(results);
+            //var created = 0;
+
+            return Created("created", created);
+        }
+
+
 
         /*
         // PUT api/<CarreraController>/5

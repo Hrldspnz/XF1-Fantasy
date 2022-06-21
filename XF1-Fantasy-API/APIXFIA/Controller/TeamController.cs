@@ -1,5 +1,6 @@
 ﻿using APIXFIA.Model;
 using APIXFIA.Repository;
+using APIXFIA.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace APIXFIA.Controller
     public class TeamController : ControllerBase
     {
 
-        ManagementRepository managementRepository = new ManagementRepository();
+        ManagementLogic managementLogic = new ManagementLogic();
 
 
         /**
@@ -24,7 +25,7 @@ namespace APIXFIA.Controller
         public async Task<IEnumerable<Driver>> APIGetDrivers()
         {
 
-            return await managementRepository.getDrivers();
+            return await managementLogic.getDrivers();
         }
 
 
@@ -37,7 +38,7 @@ namespace APIXFIA.Controller
         public async Task<IEnumerable<Car>> APIGetCars()
         {
 
-            return await managementRepository.getCars();
+            return await managementLogic.getCars();
         }
 
 
@@ -55,9 +56,17 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await managementRepository.newPlayerScuderia(scuderia);
+            var created = await managementLogic.newPlayerScuderia(scuderia);
 
-            return Created("created", created);
+            if (created != -1)
+            {
+                return Created("created", created);
+            }
+            else
+            {
+                return BadRequest("Problema en la validacion");
+            }
+
         }
 
 
@@ -75,25 +84,73 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await managementRepository.newPlayerTeam(team);
+            var created = await managementLogic.newPlayerTeam(team);
+
+            if (created != -1)
+            {
+                return Created("created", created);
+            }
+            else
+            {
+                return BadRequest("Problema en la validacion");
+            }
+        }
+
+
+        /**
+         * api/team/teaminfo/(email)
+         * Metodo de tipo Get que devuelve los equipos de un juador con los datos de los mismos
+         * @param email del jugador solicitado
+         * @return teams listado de los equipos con su respectiva informacion
+         */
+        [HttpGet("teaminfo/{email}")]
+        public async Task<IEnumerable<Team>> APIGetTeamInfo(string email)
+        {
+
+            return await managementLogic.getTeamInfo(email);
+        }
+
+
+        [HttpGet("getteam/{email}/{nameTeam}")]
+        public async Task<Team> APIGetTeam(string nameTeam,string email)
+        {
+
+            return await managementLogic.getTeamPlayer(nameTeam,email);
+        }
+
+
+        /**
+         * api/team/teamupdate
+         * Metodo de tipo Put que cambia el estado de actividad de la cuenta del jugador
+         * @return resultado de la operacion
+         */
+        [HttpPut("teamupdate")]
+        public async Task<IActionResult> APIUpdatePlayerTeam([FromBody] Team team)
+        {
+            if (team == null)
+                return BadRequest("null input");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var created = await managementLogic.updatePlayerTeam(team);
 
             return Created("created", created);
         }
 
 
-        [HttpGet("teaminfo/{email}")]
-        public async Task<IEnumerable<Team>> APIGetTeamInfo(string email)
-        {
 
-            return await managementRepository.getTeamInfo(email);
-        }
-
-
+        /**
+         * api/team/havescuderia/(email)
+         * Metodo de tipo Get que informa si un jugador ya cuenta con una escuderia
+         * @param email del jugador solicitado
+         * @return exist con "Si" en caso de tener y "no" en caso de no tener
+         */
         [HttpGet("havescuderia/{email}")]
         public async Task<string> APIhaveScuderia(string email)
         {
 
-            return await managementRepository.haveScuderia(email);
+            return await managementLogic.haveScuderia(email);
         }
 
     }

@@ -2,6 +2,7 @@
 {
     public class LeagueParticipants
     {
+        public string pos { get; set; }
         public string idLeague { get; set; }
         public string nameTeam { get; set; }
         public string nameUser { get; set; }

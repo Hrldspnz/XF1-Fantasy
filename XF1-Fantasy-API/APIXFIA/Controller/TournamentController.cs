@@ -1,5 +1,6 @@
 ﻿using APIXFIA.Model;
 using APIXFIA.Repository;
+using APIXFIA.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace APIXFIA.Controller
     [ApiController]
     public class TournamentController : ControllerBase
     {
-        ManagementRepository managementRepository = new ManagementRepository();
+        ManagementLogic managementLogic = new ManagementLogic();
         public TournamentController() 
         {
             
@@ -31,10 +32,13 @@ namespace APIXFIA.Controller
         public async  Task<IEnumerable<Tournament>> APIGetTournaments()
         {
             
-            return await managementRepository.getTournaments();
+            return await managementLogic.getTournaments();
         }
 
 
+        /**
+         * Metodo en desuso
+         */
         [HttpGet("key")]
         public async Task<string> APIKeyGen()
         {
@@ -43,11 +47,14 @@ namespace APIXFIA.Controller
         }
 
 
+        /**
+         * Metodo en desuso
+         */
         [HttpGet("valkey")]
         public async Task<List<string>> APIKeyGenAUX()
         {
 
-            return await managementRepository.get3YTournament();
+            return await managementLogic.get3YTournament();
         }
 
 
@@ -66,15 +73,20 @@ namespace APIXFIA.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var created = await managementRepository.createNewTournament(tournament);
+            var created = await managementLogic.createNewTournament(tournament);
             return Created("created", created);
         }
 
 
+        /**
+         * api/team/actbudget
+         * Metodo de tipo Get que devuelve el presupuesto del torneo actual
+         * @return budget presupuesto del torneo actual
+         */
         [HttpGet("actbudget")]
-        public async Task<int> APIGetAtualBudget() 
+        public async Task<Number> APIGetAtualBudget() 
         {
-            return await managementRepository.getActualBudget();
+            return await managementLogic.getActualBudget();
         }
 
     }
