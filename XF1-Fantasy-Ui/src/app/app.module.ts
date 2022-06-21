@@ -18,6 +18,7 @@ import { CreateLeagueComponent } from './components/user/private-leagues/create-
 import { AddLeagueComponent } from './components/user/private-leagues/add-league/add-league.component';
 import { PublicLeaguesComponent } from './components/user/public-leagues/public-leagues.component';
 import { PopupComponent } from './components/user/popup/popup.component';
+import { UserInfoComponent } from './components/user/user-info/user-info.component';
 
 
 
@@ -36,6 +37,7 @@ import { PopupComponent } from './components/user/popup/popup.component';
     AddLeagueComponent,
     PublicLeaguesComponent,
     PopupComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,
