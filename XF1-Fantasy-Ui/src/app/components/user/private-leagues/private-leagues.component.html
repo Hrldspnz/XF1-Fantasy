@@ -2,7 +2,7 @@
   <span>XF1 Fantasy</span>
   <span class="example-spacer"></span>
   <button *ngFor="let item of menu" class="buttonMy" [routerLink]="item.redirect" mat-raised-button> {{item.nombre}} </button>
-  <button routerLink="/main/start" class="myIcon" rou mat-icon-button>
+  <button routerLink="/user/profile" class="myIcon" rou mat-icon-button>
     <mat-icon class="myIcon">home</mat-icon>
   </button>
   <button  routerLink="/login" class="myIcon"  mat-icon-button>
@@ -19,6 +19,7 @@
 <div *ngIf="leagueFlag==true">
   <div class="title-class">
     <h3 id="codigo-title">Codigo de liga: {{code}}</h3>
+    <h4 id="codigo-title">Estatus de liga: {{leagueStatus}}</h4>
   </div>
 
   <div class="example-container mat-elevation-z8">

@@ -62,4 +62,14 @@ export class TeamsService {
     return this._http.post(this.url+'api/player/teamsxplayer', user);
   }
 
+
+  /**
+   * Add a new team into the data base
+   * @param dataTeam JSON with data of the team
+   * @returns Observable with the result
+   */
+   updateTeam(dataTeam: Object): Observable<any>{
+    return this._http.put(this.url+'api/team/teamupdate', dataTeam);
+  }
+
 }

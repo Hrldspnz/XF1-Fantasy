@@ -1,0 +1,69 @@
+<h4 class="slide-title">Carreras disponibles</h4>
+
+
+<div class="example-container mat-elevation-z8">
+    
+    <table mat-table [dataSource]="data" class="mat-elevation-z8">
+      
+      <!-- Race Name Column -->
+
+      <ng-container matColumnDef="race_name">
+        <th mat-header-cell *matHeaderCellDef> Nombre Carrera </th>
+        <td mat-cell *matCellDef="let element"> {{element.race_name}} </td>
+      </ng-container>
+      
+      <!-- Track Name Column -->
+
+      <ng-container matColumnDef="race_track">
+        <th mat-header-cell *matHeaderCellDef> Nombre Campeonato</th>
+        <td mat-cell *matCellDef="let element"> {{element.race_track}} </td>
+      </ng-container>
+
+      <!-- Select Column -->
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>Subir Resultado  </th>
+      
+
+      <!-- <td mat-cell *matCellDef="let element"> {{element.score}} </td> -->
+      <td mat-cell *matCellDef="let element"> 
+        
+        <input type="file" class="file-input"
+              (change)="onFileSelected($event, element.iD_Race)" #fileUpload>
+
+        <div class="file-upload">
+
+            <button mat-mini-fab color="warn" aria-label="Example icon button with a plus one icon" (click)="fileUpload.click()">
+              <mat-icon> upload</mat-icon>
+            </button> 
+        </div>
+
+      </td> 
+      
+    </ng-container>
+  
+      <!-- Country Column -->
+  
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef> País </th>
+        <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+      </ng-container>
+
+      <!-- Race State Column -->
+  
+      <ng-container matColumnDef="race_state">
+        <th mat-header-cell *matHeaderCellDef> Estado de Carrera </th>
+        <td mat-cell *matCellDef="let element"> {{element.race_state}} </td>
+      </ng-container>
+  
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+
+    
+  
+  </div>
+

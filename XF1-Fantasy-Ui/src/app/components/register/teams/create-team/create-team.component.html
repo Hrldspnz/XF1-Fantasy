@@ -1,8 +1,19 @@
 <div>
 
 
+  <mat-toolbar *ngIf="flagEdit" class="mainTolbar2">
+    <span>XF1 Fantasy</span>
+    <span class="example-spacer"></span>
+    <button *ngFor="let item of menu" class="buttonMy" [routerLink]="item.redirect" mat-raised-button> {{item.nombre}} </button>
+    <button routerLink="/main/start" class="myIcon" rou mat-icon-button>
+      <mat-icon class="myIcon">home</mat-icon>
+    </button>
+    <button  routerLink="/login" class="myIcon"  mat-icon-button>
+      <mat-icon class="myIcon">logout</mat-icon>
+    </button>
+  </mat-toolbar>
 
-  <mat-toolbar class="mainTolbar">
+  <mat-toolbar *ngIf="!flagEdit" class="mainTolbar">
     <span>Creación de Equipos</span>
   </mat-toolbar>
 
@@ -137,12 +148,14 @@
   <!-- -----------------------------------------------------Tile para visualizar-------------------------------------------------------- -->
   <mat-grid-tile [colspan]="1">
     <mat-card class="mycard">
-      <form [formGroup]="formTeam1" (ngSubmit)="createTeam()">
+      <form [formGroup]="formTeam1" >
         <mat-grid-list cols="2" rowHeight="70px">
 
 
-          <mat-grid-tile [colspan]="2" [rowspan]="1" >
-            <mat-form-field class="ancho" appearance="fill">
+
+          <mat-grid-tile  [colspan]="2" [rowspan]="1" >
+            <h1>{{nameTeam}}</h1>
+            <mat-form-field *ngIf="!flagEdit" class="ancho" appearance="fill">
               <mat-label>Nombre del Equipo</mat-label>
               <input type="text" matInput formControlName="teamName" autocomplete="off">
             </mat-form-field>
@@ -205,7 +218,8 @@
           </mat-grid-tile>
 
           <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="'ligthblue'">
-            <button type="submit" [disabled]="formTeam1.invalid" class="myButton" mat-raised-button>Guardar</button>
+            <button *ngIf="!flagEdit"  (click)="createTeam()" [disabled]="formTeam1.invalid" class="myButton" mat-raised-button>Crear</button>
+            <button *ngIf="flagEdit" (click)="updateTeam()" [disabled]="formTeam1.invalid" class="myButton" mat-raised-button>Actualizar</button>
           </mat-grid-tile>
 
         </mat-grid-list>

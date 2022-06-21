@@ -13,6 +13,7 @@ interface Positions {
   score:number;
   pos:string;
   email:string;
+  nameTeam:string;
 }
 
 /**
@@ -30,17 +31,21 @@ export class PublicLeaguesComponent implements OnInit {
   flag=false;
   userDisplay= {
     nameUser:'',
-    pos:'0',
-    score:0
+    team1:'',
+    pos1:'0',
+    score1:0,
+    team2:'',
+    pos2:'0',
+    score2:0
   }
 
   displayedColumns = ['pos','nameUser','select','nameTeam', 'country', 'score'];
 
   /**
-   * 
+   *
    * @param _menuService loads the menu bar in GUI
    * @param _publicLeagueService loads all necesarly requests from api
-   * @param _dialog lets open popups 
+   * @param _dialog lets open popups
    */
   constructor(private _menuService: MenuService,
     private _publicLeagueService:PublicLeagueService,
@@ -49,7 +54,7 @@ export class PublicLeaguesComponent implements OnInit {
   /**
    * Is initialize when the component start
    */
-  ngOnInit() { 
+  ngOnInit() {
     this.loadMenu();
     this.getPositionsUsers();
   }
@@ -81,12 +86,22 @@ export class PublicLeaguesComponent implements OnInit {
    */
   loadUserFirst(){
     let counter=0;
+    let posUser=0;
     while(this.data[counter]!= undefined) {
       if(this.data[counter].email==this.user){
-        this.userDisplay.nameUser= this.data[counter].nameUser;
-        this.userDisplay.pos= this.data[counter].pos;
-        this.userDisplay.score= this.data[counter].score;
-        break;
+        
+        console.log(this.data[counter])
+        if(posUser==0){
+          this.userDisplay.nameUser= this.data[counter].nameUser;
+          this.userDisplay.pos1= this.data[counter].pos;
+          this.userDisplay.score1= this.data[counter].score;
+          this.userDisplay.team1= this.data[counter].nameTeam;
+        }else {
+          this.userDisplay.team2= this.data[counter].nameTeam;
+          this.userDisplay.pos2= this.data[counter].pos;
+          this.userDisplay.score2= this.data[counter].score;
+        }
+        posUser++;
       }
       counter++
     }
@@ -94,7 +109,7 @@ export class PublicLeaguesComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * @param userEmail loads the user to see in local storage
    */
   loadUserInfo(userEmail:string){
