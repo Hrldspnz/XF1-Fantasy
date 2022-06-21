@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChampionshipComponent } from 'src/app/components/main/championship/championship.component';
 import { Menu } from 'src/app/interfaces/menu';
 import { ChampionshipService } from 'src/app/services/championship.service';
 import { MenuService } from 'src/app/services/menu.service';
+import { PlayersService } from 'src/app/services/players.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -32,7 +32,7 @@ export class CreateTeamComponent implements OnInit {
   counterDrivers = 0;
   flagConstructor = false;
   listDriverSelection: string[] = ['', '', '', '', ''];
-  driverCreated=false;
+  driverCreated = false;
 
   //Indicators for budget
   budget = 100;
@@ -45,6 +45,19 @@ export class CreateTeamComponent implements OnInit {
 
   menu: Menu[] = [];
   user:any = localStorage.getItem("email");
+  indexTeam: Number | null;
+  public team: any = [
+    {
+        "nameTeam": "Equipo 1",
+        "email": null,
+        "budget": 77,
+        "nameDriver1": "Alexander Albon",
+        "nameDriver2": "Carlos Sainz",
+        "nameDriver3": "Charles Leclerc",
+        "nameDriver4": "Daniel Ricciardo",
+        "nameDriver5": "Esteban Ocon",
+        "car": "Haas"
+    }];
 
   /**
    * Constructor de la clase
@@ -58,7 +71,8 @@ export class CreateTeamComponent implements OnInit {
               private _champService: ChampionshipService,
               private router: Router,
               private aRoute: ActivatedRoute,
-              private _menuService: MenuService,) {
+              private _menuService: MenuService,
+              private _playerService: PlayersService) {
     this.formTeam1 = this.fb.group ({
       teamName: ['', Validators.required],
       driver1: ['', Validators.required],
@@ -71,6 +85,7 @@ export class CreateTeamComponent implements OnInit {
       remainingBudget: ['', Validators.required]
       });
     this.emailUser = this.aRoute.snapshot.paramMap.get("email_user");
+    this.indexTeam = Number(this.aRoute.snapshot.paramMap.get("indexTeam"));
 
   }
 
@@ -86,23 +101,76 @@ export class CreateTeamComponent implements OnInit {
   editCreate(){
     if (this.emailUser == null){
       this.flagEdit = true;
-      console.log(this.user)
+      this.loadCurrentTeam()
     } else {
       console.log('es crear')
     }
   }
 
+  loadCurrentTeam(){
+    this._playerService.getUserTeamInfo(this.user).subscribe(
+      result=>{
+        console.log(this.indexTeam)
+        if (this.indexTeam == 0){
+          this.team = result[0];
+          this.listDriverSelection[0] = result[0].nameDriver1;
+          this.changeStateDriver(result[0].nameDriver1, 'add');
+          this.listDriverSelection[1] = result[0].nameDriver2;
+          this.changeStateDriver(result[0].nameDriver2, 'add');
+          this.listDriverSelection[2] = result[0].nameDriver3;
+          this.changeStateDriver(result[0].nameDriver3, 'add');
+          this.listDriverSelection[3] = result[0].nameDriver4;
+          this.changeStateDriver(result[0].nameDriver4, 'add');
+          this.listDriverSelection[4] = result[0].nameDriver5;
+          this.changeStateDriver(result[0].nameDriver5, 'add');
+          this.updateForm();
+          this.updateBudgetEdit(result[0].budget, result[0].car, result[0].teamName);
+        }else {
+          this.team = result[1];
+          this.team = result[0];
+          this.listDriverSelection[0] = result[1].nameDriver1;
+          this.changeStateDriver(result[1].nameDriver1, 'add');
+          this.listDriverSelection[1] = result[1].nameDriver2;
+          this.changeStateDriver(result[1].nameDriver2, 'add');
+          this.listDriverSelection[2] = result[1].nameDriver3;
+          this.changeStateDriver(result[1].nameDriver3, 'add');
+          this.listDriverSelection[3] = result[1].nameDriver4;
+          this.changeStateDriver(result[1].nameDriver4, 'add');
+          this.listDriverSelection[4] = result[1].nameDriver5;
+          this.changeStateDriver(result[1].nameDriver5, 'add');
+          this.updateForm();
+          this.updateBudgetEdit(result[1].budget, result[1].car, result[1].teamName);
+        }
+      })
+
+    this.editFormUpdate();
+  }
+
+  updateBudgetEdit(budget: number, nameCar: string, nameTeam: string){
+    this.spentBudget = budget;
+    this.remainingBudget -= budget;
+
+    this.formTeam1.patchValue({remainingBudget: this.remainingBudget,
+      spentBudget: this.spentBudget});
+    this.counterDrivers = 5;
+    this.formTeam1.patchValue({constructor: nameCar});
+    //this.formTeam1.patchValue({teamName: nameTeam});
+    //this.changeStateConstructor(nameCar, 'add');
+  }
+
+  editFormUpdate() {
+    console.log(this.team.nameDriver1)
+  }
 
 
-    /**
+
+  /**
    * Loads the menu from the data base
-   */
+    */
      loadMenu (){
       this._menuService.getMenu2().subscribe(data => {
-        console.log(data);
         this.menu = data;
-        }
-      )
+        });
     }
 
 
@@ -193,15 +261,15 @@ export class CreateTeamComponent implements OnInit {
   }
 
 
-    /**
+   /**
    * Simulates a loading for 1.5 seconds
    */
-     fakeLoadingUser(){
-      this.loading = true;
-      setTimeout (() => {
-        this.router.navigate(['/register/create-team/' + this.emailUser])
-      }, 1500)
-    }
+  fakeLoadingUser(){
+     this.loading = true;
+     setTimeout (() => {
+       this.router.navigate(['/register/create-team/' + this.emailUser])
+     }, 1500)
+  }
 
   /**
    *
@@ -210,6 +278,7 @@ export class CreateTeamComponent implements OnInit {
    */
   changeStateDriver(name: string, action: string) {
     let i = 0;
+    console.log(name)
     while( i < this.listDrivers.length){
       if (this.listDrivers[i].name == name){
         if (action == 'delete'){

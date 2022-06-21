@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'register/create-team/:email_user', component: TeamsComponent },
   { path: 'register/create-team/:email_user', component: TeamsComponent },
   { path: 'register/create-team/team1/:email_user', component: CreateTeamComponent },
-  { path: 'user/edit-team', component: CreateTeamComponent },
+  { path: 'user/edit-team/:indexTeam', component: CreateTeamComponent },
   { path: 'user', component: UserComponent },
   { path: 'user/private-leagues', component: PrivateLeaguesComponent },
   { path: 'user/private-leagues/join', component: AddLeagueComponent },

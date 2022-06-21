@@ -34,15 +34,13 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMenu();
-    console.log(this.user)
     this.loadUserInfo();
   }
 
   loadUserInfo(){
     this._playerService.getUserTeamInfo(this.user).subscribe(
-      result=>{
-        this.team=result;
-        console.log(result)
+      result => {
+        this.team = result;
       }
     )
   }
@@ -52,14 +50,12 @@ export class MyProfileComponent implements OnInit {
    */
   loadMenu (){
     this._menuService.getMenu2().subscribe(data => {
-      console.log(data);
       this.menu = data;
       }
     )
   }
 
   editTeam(index: number){
-    console.log(this.team[index])
-    this.router.navigate(['user/edit-team']);
+    this.router.navigate(['user/edit-team/' + index]);
   }
 }
