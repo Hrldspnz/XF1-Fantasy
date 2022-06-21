@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatGridTileHeaderCssMatStyler } from '@angular/material/grid-list';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChampionshipComponent } from 'src/app/components/main/championship/championship.component';
+import { Menu } from 'src/app/interfaces/menu';
 import { ChampionshipService } from 'src/app/services/championship.service';
+import { MenuService } from 'src/app/services/menu.service';
+import { PlayersService } from 'src/app/services/players.service';
 import { TeamsService } from 'src/app/services/teams.service';
 
 @Component({
@@ -30,7 +33,7 @@ export class CreateTeamComponent implements OnInit {
   counterDrivers = 0;
   flagConstructor = false;
   listDriverSelection: string[] = ['', '', '', '', ''];
-  driverCreated=false;
+  driverCreated = false;
 
   //Indicators for budget
   budget = 100;
@@ -39,6 +42,25 @@ export class CreateTeamComponent implements OnInit {
   loading = false;
   emailUser: string | null;
   formTeam1: FormGroup;
+  flagEdit = false;
+  nameTeam = '';
+  nameCar = '';
+
+  menu: Menu[] = [];
+  user:any = localStorage.getItem("email");
+  indexTeam: number;
+  public team: any = [
+    {
+        "nameTeam": "Equipo 1",
+        "email": null,
+        "budget": 77,
+        "nameDriver1": "Alexander Albon",
+        "nameDriver2": "Carlos Sainz",
+        "nameDriver3": "Charles Leclerc",
+        "nameDriver4": "Daniel Ricciardo",
+        "nameDriver5": "Esteban Ocon",
+        "car": "Haas"
+    }];
 
   /**
    * Constructor de la clase
@@ -51,7 +73,9 @@ export class CreateTeamComponent implements OnInit {
               private _teamsService: TeamsService,
               private _champService: ChampionshipService,
               private router: Router,
-              private aRoute: ActivatedRoute) {
+              private aRoute: ActivatedRoute,
+              private _menuService: MenuService,
+              private _playerService: PlayersService) {
     this.formTeam1 = this.fb.group ({
       teamName: ['', Validators.required],
       driver1: ['', Validators.required],
@@ -64,6 +88,7 @@ export class CreateTeamComponent implements OnInit {
       remainingBudget: ['', Validators.required]
       });
     this.emailUser = this.aRoute.snapshot.paramMap.get("email_user");
+    this.indexTeam = Number(this.aRoute.snapshot.paramMap.get("indexTeam"));
 
   }
 
@@ -71,8 +96,69 @@ export class CreateTeamComponent implements OnInit {
     this.loadCars()
     this.loadDrivers()
     this.loadCurrentlyBudget()
+    this.editCreate()
+    this.loadMenu()
 
   }
+
+  editCreate(){
+    if (this.emailUser == null){
+      this.flagEdit = true;
+      this.loadEditTeam()
+    } else {
+      console.log('es crear')
+    }
+  }
+
+  loadEditTeam() {
+    this._playerService.getUserTeamInfo(this.user).subscribe(
+      result=>{
+          this.listDriverSelection[0] = result[this.indexTeam].nameDriver1;
+          this.listDriverSelection[1] = result[this.indexTeam].nameDriver2;
+          this.listDriverSelection[2] = result[this.indexTeam].nameDriver3;
+          this.listDriverSelection[3] = result[this.indexTeam].nameDriver4;
+          this.listDriverSelection[4] = result[this.indexTeam].nameDriver5;
+          this.spentBudget = result[this.indexTeam].budget;
+          this.remainingBudget -= result[this.indexTeam].budget;
+          this.nameCar = result[this.indexTeam].car;
+          this.nameTeam = result[this.indexTeam].nameTeam;
+          this.updateScreen();
+
+  })
+  }
+
+  updateScreen(){
+    let i = 0;
+    this.counterDrivers = 5;
+    while( i < this.listDrivers.length){
+      if (this.listDrivers[i].name == this.listDriverSelection[i]){
+          this.listDrivers[i].state = "choosed";
+        }
+      i++;
+      }
+      this.formTeam1.setValue({ teamName: this.nameTeam,
+                                constructor: this.nameCar,
+                                driver1: this.listDriverSelection[0],
+                                driver2: this.listDriverSelection[1],
+                                driver3: this.listDriverSelection[2],
+                                driver4: this.listDriverSelection[3],
+                                driver5: this.listDriverSelection[4],
+                                spentBudget: this.spentBudget,
+                                remainingBudget: this.remainingBudget});
+      }
+
+
+
+
+  /**
+   * Loads the menu from the data base
+    */
+     loadMenu (){
+      this._menuService.getMenu2().subscribe(data => {
+        this.menu = data;
+        });
+    }
+
 
   /**
    * Get all the drivers from data base
@@ -161,15 +247,16 @@ export class CreateTeamComponent implements OnInit {
   }
 
 
-    /**
+
+   /**
    * Simulates a loading for 1.5 seconds
    */
-     fakeLoadingUser(){
-      this.loading = true;
-      setTimeout (() => {
-        this.router.navigate(['/register/create-team/' + this.emailUser])
-      }, 1500)
-    }
+  fakeLoadingUser(){
+     this.loading = true;
+     setTimeout (() => {
+       this.router.navigate(['/register/create-team/' + this.emailUser])
+     }, 1500)
+  }
 
   /**
    *
@@ -178,6 +265,7 @@ export class CreateTeamComponent implements OnInit {
    */
   changeStateDriver(name: string, action: string) {
     let i = 0;
+    console.log(name)
     while( i < this.listDrivers.length){
       if (this.listDrivers[i].name == name){
         if (action == 'delete'){
@@ -261,10 +349,8 @@ export class CreateTeamComponent implements OnInit {
       if (this.listCars[i].name == name){
         if (action == 'delete'){
           this.listCars[i].state = "notChoosed"
-          this.driverCreated=false
         } if ( action == 'add') {
           this.listCars[i].state = "choosed"
-          this.driverCreated=true
         }
       break;
       }
@@ -339,5 +425,50 @@ export class CreateTeamComponent implements OnInit {
     this.stepTeam--;
   }
 
+
+
+  updateTeam1(){
+    if ( this.remainingBudget < 0){
+      alert("Se ha excedido el presupuesto disponible para crear el Equipo")
+    } else {
+      alert("Se han guardado los datos correctamente")
+      const team: Object =
+      {
+        nameTeam: this.formTeam1.value.teamName,
+        email: this.user,
+        budget: this.spentBudget,
+        nameDriver1: this.formTeam1.value.driver1,
+        nameDriver2: this.formTeam1.value.driver2,
+        nameDriver3: this.formTeam1.value.driver3,
+        nameDriver4: this.formTeam1.value.driver4,
+        nameDriver5: this.formTeam1.value.driver5,
+        car: this.formTeam1.value.constructor
+      }
+      console.log(team)
+      this._teamsService.updateTeam(team).subscribe(data => {
+        data;
+      }, error => {
+        alert("Error al actualizar el equipo")
+      }
+      );
+      console.log("team")
+    }
+  }
+
+  updateTeam(){
+    const team: Object =
+      {
+        nameTeam: this.formTeam1.value.teamName,
+        email: this.user,
+        budget: this.spentBudget,
+        nameDriver1: this.formTeam1.value.driver1,
+        nameDriver2: this.formTeam1.value.driver2,
+        nameDriver3: this.formTeam1.value.driver3,
+        nameDriver4: this.formTeam1.value.driver4,
+        nameDriver5: this.formTeam1.value.driver5,
+        car: this.formTeam1.value.constructor
+      }
+      console.log(team)
+  }
 }
 

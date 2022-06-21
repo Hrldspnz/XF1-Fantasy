@@ -31,3 +31,30 @@
 .spinner {
   margin: 0 auto;
 }
+
+.mainTolbar2{
+  background-color: red;
+  color: aliceblue;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.buttonMy{
+  background-color: #2C3D6E;
+  color: aliceblue;
+  margin-left: 5px;
+}
+
+.myIcon{
+  color: #2C3D6E;
+}
+
+
+table {
+
+  width: 80%;
+  margin: auto;
+  margin-top: 10px;
+}
