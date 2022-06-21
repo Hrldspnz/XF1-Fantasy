@@ -7,6 +7,6 @@
   },
   {
     "nombre": "Mi Perfil",
-    "redirect": ""
+    "redirect": "/user/my-profile"
   }
 ]
