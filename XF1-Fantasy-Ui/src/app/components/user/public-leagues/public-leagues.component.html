@@ -12,9 +12,21 @@
 
   <!-- =====================================================-->
   <div class="data-user">
-    <p>Tu usuario:{{this.userDisplay.nameUser}}</p>
-    <p>Tu posición en la liga:{{this.userDisplay.pos}}</p>
-    <p>Tu puntaje total: {{this.userDisplay.score}}</p>
+    <h3>Tu usuario:{{this.userDisplay.nameUser}}</h3>
+    <div class="user-info">
+      <div class="info-1">
+        <p>Equipo: {{this.userDisplay.team1}} </p>
+        <p>Posición en liga:{{this.userDisplay.pos1}}</p>
+        <p>Puntaje total: {{this.userDisplay.score1}}</p>
+      </div>
+  
+      <div class="info-2">
+        <p>Equipo: {{this.userDisplay.team2}} </p>
+        <p>Posición en liga:{{this.userDisplay.pos2}}</p>
+        <p>Puntaje total: {{this.userDisplay.score2}}</p>
+      </div>
+    </div>
+    
   </div>
 
   <div >

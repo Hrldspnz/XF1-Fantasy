@@ -13,6 +13,7 @@ interface Positions {
   score:number;
   pos:string;
   email:string;
+  nameTeam:string;
 }
 
 /**
@@ -30,8 +31,12 @@ export class PublicLeaguesComponent implements OnInit {
   flag=false;
   userDisplay= {
     nameUser:'',
-    pos:'0',
-    score:0
+    team1:'',
+    pos1:'0',
+    score1:0,
+    team2:'',
+    pos2:'0',
+    score2:0
   }
 
   displayedColumns = ['pos','nameUser','select','nameTeam', 'country', 'score'];
@@ -81,12 +86,22 @@ export class PublicLeaguesComponent implements OnInit {
    */
   loadUserFirst(){
     let counter=0;
+    let posUser=0;
     while(this.data[counter]!= undefined) {
       if(this.data[counter].email==this.user){
-        this.userDisplay.nameUser= this.data[counter].nameUser;
-        this.userDisplay.pos= this.data[counter].pos;
-        this.userDisplay.score= this.data[counter].score;
-        break;
+        
+        console.log(this.data[counter])
+        if(posUser==0){
+          this.userDisplay.nameUser= this.data[counter].nameUser;
+          this.userDisplay.pos1= this.data[counter].pos;
+          this.userDisplay.score1= this.data[counter].score;
+          this.userDisplay.team1= this.data[counter].nameTeam;
+        }else {
+          this.userDisplay.team2= this.data[counter].nameTeam;
+          this.userDisplay.pos2= this.data[counter].pos;
+          this.userDisplay.score2= this.data[counter].score;
+        }
+        posUser++;
       }
       counter++
     }
